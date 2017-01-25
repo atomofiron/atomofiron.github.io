@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title></title>
+</head>
+<style type="text/css">
+
+@font-face {
+	font-family: PragmaticaLightC;
+	src: url(PragmaticaLightC.otf);
+}
+body, html {
+	user-select: none;
+	font-size: 24px;
+	font-family: PragmaticaLightC;
+	margin: 0px;
+	padding: 0px;
+	background-color: #111111;
+	overflow-x: hidden;
+	color: #ffffff;
+}
+::-webkit-scrollbar { 
+	display: none;
+}
+.unhoverable {
+	cursor: default;
+}
+
+/* Сам параллакс */
+.parallax {
+	height: 100vh;
+	overflow-x: hidden;
+	-webkit-perspective: 300px;
+	perspective: 300px;
+}
+.parallax__group {
+	position: relative;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+.parallax__layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+.parallax__layer--back {
+	z-index: 1;
+	-webkit-transform: translateZ(-300px) scale(2);
+	transform: translateZ(-300px) scale(2);
+	height: 100vh;
+	background: rgba(255,0,0,0.0);
+	margin-top: -30vh;
+	overflow: hidden;
+	text-align: right;
+}
+.parallax__layer--base {
+	z-index: 2;
+	height: 100vh;
+	-webkit-transform: translateZ(0px);
+	transform: translateZ(0px);
+	background-color: #111111;
+	box-shadow: 0px 0px 100px 0px #000;
+	margin-top: 30vh;
+	text-align: center;
+}
+.parallax__layer--front {
+	z-index: 3;
+	-webkit-transform: translateZ(200px) scale(.33333);
+	transform: translateZ(200px) scale(.33333);
+	height: 100vh;
+	background: rgba(0,0,255,0.0);
+	margin-top: -40vh;
+}
+
+/* Цветные листы */
+.layer { /* 100vh */
+	z-index: 1;
+	background-color: #056905;
+	width: 80%;
+	height: 80%;
+	position: absolute;
+	left: 0%;
+	top: -40%;
+	transform-origin: 50% 100%;
+	box-shadow: 0px 0px 100px 0px #000;
+}
+.layer_secondary {
+	background-color: #050569;
+	display: block;
+	z-index: 3;
+	width: 80%;
+	height: 50%;
+	position: absolute;
+	left: 20%;
+	top: 80%;
+	transform-origin: 50% 150%;
+	box-shadow: 0px 0px 100px 0px #000;
+}
+.layer_secondary1 {
+	background-color: #050569;
+	display: block;
+	z-index: 3;
+	width: 80%;
+	height: 50%;
+	position: absolute;
+	left: 30%;
+	top: 80%;
+	transform-origin: 50% 150%;
+	box-shadow: 0px 0px 100px 0px #000;
+}
+#layer_main {
+	display: none;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 256px;
+	background-color: #111111;
+	/*box-shadow: 0px 0px 100px 0px #000;*/
+}
+
+
+/* Синие кнопки вверху */
+.button_shadow {
+	z-index: 1;
+	width: 19mm;
+	height: 19mm;
+	border-radius: 9.5mm;
+	box-shadow: /*inset*/ 0px 4px 8px 0px rgba(0,0,0,0.8);
+	background-color: #0F0F73;
+	position: absolute;
+	-webkit-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+.button_shadow:hover {
+	/*cursor: pointer;*/
+	box-shadow: /*inset*/ 0px 8px 32px 0px rgba(0,0,0,0.5);
+}
+.icon {
+	padding-right: 2mm;
+	padding-bottom: 2mm;
+	width: 17mm;
+	height: 17mm;
+}
+
+/* Экспериментальная кнопка */
+#circle {
+	width: 64px;
+	height: 64px;
+	border-radius: 32px;
+	transition: all 0.2s linear;
+	border: 1px solid #ffffff;
+}
+#circle:hover {
+	width: 0px;
+	height: 0px;
+	transition: all 0.2s linear;
+	border-width: 33px;
+	border-color: #507398;
+}
+
+/* Расчленение контента */
+#header {
+	padding: 16px;
+	text-align: left;
+	height: 30%;
+}
+#middler {
+	height: 40%;
+}
+#footer {
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+}
+
+/* HEAD */
+#head_title {
+	padding-left: 16px;
+	text-align: right;
+	vertical-align: top;
+}
+#head_title #name {
+	font-size: 32pt;
+	font-weight: bold;
+}
+#head_title #dignity {
+	font-size: 24pt;
+}
+.divider {
+	width: .3mm;
+	height: 100%;
+	background-color: #ffffff;
+	opacity: 0.5;
+	margin-left: 32px;
+	margin-right: 32px;
+}
+#ava {
+	height: 100%;
+	border-radius: 50%;
+}
+
+/* Заголовки с линиями */
+.fancy {
+  line-height: 0.5;
+  text-align: center;
+}
+.fancy span {
+  display: inline-block;
+  position: relative;  
+}
+.fancy span:before,
+.fancy span:after {
+  content: "";
+  position: absolute;
+  height: 0px;
+  border-top: 1px solid rgba(255,255,255,0.5);
+  border-bottom: 0px solid #ffffff;
+  top: 50%;
+  width: 80vh;
+}
+.fancy span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+.fancy span:after {
+  left: 100%;
+  margin-left: 15px;
+}
+
+/* Круглые ссылки и слайдер */
+.icon_link {
+	width: 32px;
+	height: 32px;
+	transition: all 0.3s linear;
+	margin: 8px 16px 8px 16px;
+	border-radius: 48px;
+	border: 0.3mm solid #ffffff;
+	padding: 16px;
+}
+.icon_link:hover {
+	cursor: pointer;
+}
+#lin:hover {
+	border-color: #1c5d83;
+}
+#hh:hover {
+	border-color: #ff0000;
+}
+#git:hover {
+	border-color: #888888;
+}
+#play:hover {
+	border-color: #689f38;
+}
+#vk:hover {
+	border-color: #507398;
+}
+#skype:hover {
+	border-color: #1ba6df;
+}
+#email:hover {
+	border-color: #ffdb4d;
+}
+#slider {
+	width: 100%;
+	height: 30px;
+}
+#nick {
+	padding-right:;
+	width: 300px;
+	height: 30px;
+	text-align: center;
+	opacity: 0;
+}
+
+/* Прочее */
+.inline {
+	display: inline-block;
+}
+#bug {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	font-size: 4vh;
+}
+
+#note {
+	transition: all 0.3s linear;
+	transform-origin: 100% 100%;
+	transform: rotate(-90deg);
+	text-align: right;
+	margin-left: 70%;
+	margin-top: -10%;
+	margin-right: -1.3%;
+	padding-top: 10%;
+	padding-right: 10%;
+	font-size: 14px;
+	opacity: 0;
+}
+#note:hover {
+	opacity: 1;
+}
+
+@keyframes show {
+	from {
+	  opacity: 0;
+	}
+	50% {
+	  opacity: .5;
+	}
+	to {
+	  opacity: 1;
+	}
+}
+@keyframes hide {
+	from {
+	  opacity: 1;
+	}
+	50% {
+	  opacity: .5;
+	}
+	to {
+	  opacity: 0;
+	}
+}
+
+.icon_big {
+	width: 128px;
+	transition: all 0.3s ease-in;
+	filter: grayscale(100%);
+}
+
+.icon_big:hover {
+	transition: all 0.3s ease-out;
+	filter: grayscale(0%) drop-shadow(0px 0px 8px white);
+}
+
+</style>
+<body onscroll="onBodyScroll()">
+
+<div class=parallax>
+	<div class=parallax__group>
+		<div class="parallax__layer parallax__layer--back" id=back><div id=bug>не баг, а фича</div></div>
+		<div class="parallax__layer parallax__layer--front" id=front></div>
+		<div class="parallax__layer parallax__layer--base" id=base>
+			<div id=header>
+				<div id=head_title class=inline>
+					<font class=unhoverable id=name><br>Нестеров Ярослав<br><br></font>
+					<font class=unhoverable id=dignity onmouseover="showAgent()" onmouseout="hideAgent()">Android Разработчик</font>
+				</div>
+				<div class="inline divider"></div>
+				<img id=ava class=inline src=ava.jpg />
+			</div>
+			<div id=middler>
+				<p class=fancy><span class=unhoverable>Навыки</span></p>
+				<img class=icon_big src=svg/android_colored.svg width="128px" />
+				<img class=icon_big src=svg/java_colored.svg width="128px" />
+				<img class=icon_big src=svg/js_colored.svg width="128px" />
+				<img class=icon_big src=svg/python_colored.svg width="128px" />
+				<img class=icon_big src=svg/bash_colored.svg width="128px" />
+				<br>
+				<img class=icon_big src=svg/cpp_colored.svg width="128px" />
+				<img class=icon_big src=svg/linux_colored.svg width="128px" />
+				<img class=icon_big src=svg/git_colored.svg width="128px" />
+				<img class=icon_big src=svg/html_colored.svg width="128px" />
+				<img class=icon_big src=svg/css_colored.svg width="128px" />
+			</div>
+			<div id=footer>
+				<p class=fancy><span class=unhoverable>Контакты</span></p>
+				<a target=_blank href=https://ru.linkedin.com/in/raslav><img id=lin class=icon_link src=svg/linkedin-box.svg /></a>
+				<a target=_blank href=https://rostov.hh.ru/resume/5a21394aff02f385b80039ed1f3447686a5067><img id=hh class=icon_link src=png/hh.png /></a>
+				<a target=_blank href=https://github.com/Atomofiron><img id=git class=icon_link src=svg/github-circle.svg /></a>
+				<a target=_blank href=https://play.google.com/store/apps/developer?id=Ярослав+Нестеров><img id=play class=icon_link src=svg/google-play.svg /></a>
+				<a target=_blank href=https://vk.com/ra.slav><img id=vk class=icon_link src=svg/vk-circle.svg onmouseover="showNickname(0)" onmouseout="hideNickname()" /></a>
+				<img id=skype class=icon_link src=svg/skype.svg onmouseover="showNickname(1)" onmouseout="hideNickname()" onclick="copyNick(1)" />
+				<img id=email class=icon_link src=svg/email.svg onmouseover="showNickname(2)" onmouseout="hideNickname()" onclick="copyNick(2)" />
+				<div id=slider><div id=nick><center>atomofiron</center></div></div>
+			</div>
+		</div>
+	</div>
+</div>
+<center><font class=unhoverable size="3">&copy; Нестеров Я. В., оформление сайта, 2017</font></center>
+
+<script type="text/javascript">
+var px = "px"
+var inh = "in"
+
+function clog(str) {
+	console.log(str)
+}
+function get(id) {
+	return document.getElementById(id)
+}
+function add(obj, string) {
+	obj.insertAdjacentHTML("beforeend", string)
+}
+function getPX(value) {
+	return (value.replace(px, ""))*1
+}
+/*function getInchPixels() { 
+	var temp =document.createElement("div")
+	temp.style.overflow='hidden'
+	temp.style.visibility='hidden'
+	document.body.appendChild(temp)
+	temp.style.width = "1in"
+	return screen.width / temp.offsetWidth
+}*/
+
+var Back = get("back")
+var Front = get("front")
+var steps = 10
+var brightness = 50.0
+var richness = 100
+
+// Отрисовка зелёных листов
+for (var i = 0; i < 6; i++) {
+	add(Back, "<div class='layer' id='layer"+i+"'></div>")
+	var layer = get("layer"+i)
+	var k = i/steps
+	var color = Math.round(brightness * k)
+	var r = color
+	var g = color + richness
+	var b = color
+	layer.style.backgroundColor = "rgb("+r+","+g+","+b+")"
+	layer.style.transform = "rotate("+(360*k-36)+"deg)"; 
+}
+
+// Отрисовка синих листов
+for (var i = 0; i < 3; i++) {
+	add(Front, "<div class='layer_secondary' id='layer_secondary"+i+"'></div>")
+	var layer_secondary = get("layer_secondary"+i)
+	var k = i/steps
+	var color = Math.round(brightness * k)
+	var r = color
+	var g = color
+	var b = color + richness
+	layer_secondary.style.backgroundColor = "rgb("+r+","+g+","+b+")"
+	layer_secondary.style.transform = "rotate("+(360*k+36)+"deg)"
+}
+add(get("layer_secondary2"), "<div id=note>так задумано;)</div>")
+
+// Отрисовка синих кнопок
+var icons = ["android", "linux", "ubuntu", "js" ]
+for (var i = 0; i < 4; i++) {
+	add(Back, "<div class='button_shadow btn"+i+"' id=btn"+i+"><img id=icon"+i+" class=icon src=svg/"+icons[i]+".svg /></img></div>")
+	var btn = get("btn"+i)
+	btn.style.top = "25%"
+	btn.style.left = (i+0.1) + "in"
+	var icon = get("icon"+i)
+	icon.style.top = "25%"
+	icon.style.left = (i+0.1) + "in"
+}
+
+// Отслеживание курсора мыши
+function init() {
+    if (document.layers) document.captureEvents(Event.MOUSEMOVE);
+    document.onmousemove=mousemove;
+}
+function mousemove(event) {
+    var x = y = 0;
+    if (document.attachEvent != null) {
+        x = window.event.clientX;
+        y = window.event.clientY;
+    } else {
+        x = event.clientX;
+        y = event.clientY;
+    }
+    get("slider").style.marginLeft = (x-150)+px
+}
+init()
+
+// Отображение никнеймов и пр.
+var nick = get("nick")
+var names = [ "/ra.slav", "atomofiron", "atomofiron@yandex.ru", "atomofiron", "atomofiron" ]
+function showNickname(n) {
+	nick.innerHTML = names[n]
+	nick.style.opacity = 1
+	nick.style.animation = "show 0.3s linear"
+}
+function hideNickname() {
+	nick.style.opacity = 0
+	nick.style.animation = "hide 0.3s linear"
+}
+
+function copyNick(n) {
+	window.prompt("Скопировать: Ctrl+C, Enter", names[n]);
+}
+
+// Отображение текста
+var text = get("text")
+var line = "Туууууууут какой-то -то -то -то -то очень очень очень длинный длинный длинный теееееееееее<br> ееееее ееееееекст мазафака"
+var lines = [ line, line, line, line, line, line, line, line, line, line, line, line, line ]
+function showText(n) {
+	text.innerHTML = lines[n]
+	text.style.opacity = 1
+	text.style.width = "100%";
+}
+function hideText() {
+	text.style.opacity = 0
+	text.style.width = "0%";
+}
+
+// Пасхалка про агента
+String.prototype.replaceAt=function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
+}
+var dignity = get("dignity")
+var developer = "Android Разработчик"
+var agent = "          Агент ЦРУ"
+var abc = "РазработчикAndroid  АгентЦРУ  "
+var abc2 = "разработчикРАЗРАБОТЧИКandroidANDROIDагентАГЕНТЦРУ  "
+var target
+var proc = false
+var f = [ 7,18,15,2,9,6,13,17,1,8,3,16,10,14,4,5,11,0,12 ]
+function showAgent() {
+	target = agent
+	if (!proc) {
+		proc = true
+		animAgent()
+	}
+}
+function hideAgent() {
+	target = developer
+	if (!proc) {
+		proc = true
+		animAgent()
+	}
+}
+function animAgent(n=0) {
+	var text = dignity.innerHTML
+	if (text == target) {
+		proc = false
+		return
+	}
+	var pos = f[n%19]
+	if (text[pos] != target[pos]) {
+		var c
+		var rnd = Math.random()
+		if (rnd > Math.min(0.5, (100-n)/100))
+			c = target[pos]
+		else
+			c = abc[Math.round(rnd * abc.length)];
+
+		text = text.replaceAt(pos, c)
+		dignity.innerHTML = text
+	}
+
+	setTimeout("animAgent("+(n+1)+")", 20)
+}
+
+// Прячем знак авторского права
+function onBodyScroll() {
+	if (window.pageYOffset > 0)
+		setTimeout("window.scrollTo(window.pageXOffset, window.pageYOffset-1)", (5-window.pageYOffset%3) * 100)
+}
+</script>
+
+</body>
+</html>
