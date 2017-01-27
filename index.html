@@ -2,8 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8">
-	<title></title>
+	<title>Ярослав Нестеров - Android Разработчик</title>
 </head>
+
+<!-- и ничего страшного, что стили и скрипт в одном html файле... в данном случае -->
 <style type="text/css">
 
 @font-face {
@@ -16,15 +18,12 @@ body, html {
 	font-family: PragmaticaLightC;
 	margin: 0px;
 	padding: 0px;
-	background-color: #111111;
+	background-color: #000000;
 	overflow-x: hidden;
 	color: #ffffff;
 }
 ::-webkit-scrollbar { 
 	display: none;
-}
-.unhoverable {
-	cursor: default;
 }
 
 /* Сам параллакс */
@@ -33,6 +32,7 @@ body, html {
 	overflow-x: hidden;
 	-webkit-perspective: 300px;
 	perspective: 300px;
+	background-color: #000000;
 }
 .parallax__group {
 	position: relative;
@@ -49,7 +49,7 @@ body, html {
 	z-index: 1;
 	-webkit-transform: translateZ(-300px) scale(2);
 	transform: translateZ(-300px) scale(2);
-	height: 100vh;
+	height: 50vh;
 	background: rgba(255,0,0,0.0);
 	margin-top: -30vh;
 	overflow: hidden;
@@ -60,10 +60,13 @@ body, html {
 	height: 100vh;
 	-webkit-transform: translateZ(0px);
 	transform: translateZ(0px);
-	background-color: #111111;
-	box-shadow: 0px 0px 100px 0px #000;
+	background-color: #000000;
+	box-shadow: 0px 0px 100px 0px #000000;
 	margin-top: 30vh;
 	text-align: center;
+	vertical-align: middle;
+	display: table;
+	width: 100%;
 }
 .parallax__layer--front {
 	z-index: 3;
@@ -75,14 +78,13 @@ body, html {
 }
 
 /* Цветные листы */
-.layer { /* 100vh */
-	z-index: 1;
+.layer {
 	background-color: #056905;
-	width: 80%;
-	height: 80%;
+	width: 100%;
+	height: 150%;
 	position: absolute;
 	left: 0%;
-	top: -40%;
+	top: -100%;
 	transform-origin: 50% 100%;
 	box-shadow: 0px 0px 100px 0px #000;
 }
@@ -98,62 +100,16 @@ body, html {
 	transform-origin: 50% 150%;
 	box-shadow: 0px 0px 100px 0px #000;
 }
-.layer_secondary1 {
-	background-color: #050569;
-	display: block;
-	z-index: 3;
-	width: 80%;
-	height: 50%;
-	position: absolute;
-	left: 30%;
-	top: 80%;
-	transform-origin: 50% 150%;
-	box-shadow: 0px 0px 100px 0px #000;
-}
-#layer_main {
-	display: none;
-	z-index: 2;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 256px;
-	background-color: #111111;
-	/*box-shadow: 0px 0px 100px 0px #000;*/
-}
-
-
-/* Синие кнопки вверху */
-.button_shadow {
-	z-index: 1;
-	width: 19mm;
-	height: 19mm;
-	border-radius: 9.5mm;
-	box-shadow: /*inset*/ 0px 4px 8px 0px rgba(0,0,0,0.8);
-	background-color: #0F0F73;
-	position: absolute;
-	-webkit-transition: all 0.3s ease-out;
-	transition: all 0.3s ease-out;
-}
-.button_shadow:hover {
-	/*cursor: pointer;*/
-	box-shadow: /*inset*/ 0px 8px 32px 0px rgba(0,0,0,0.5);
-}
-.icon {
-	padding-right: 2mm;
-	padding-bottom: 2mm;
-	width: 17mm;
-	height: 17mm;
-}
 
 /* Экспериментальная кнопка */
-#circle {
+#circle_btn {
 	width: 64px;
 	height: 64px;
-	border-radius: 32px;
+	border-radius: 999px;
 	transition: all 0.2s linear;
 	border: 1px solid #ffffff;
 }
-#circle:hover {
+#circle_btn:hover {
 	width: 0px;
 	height: 0px;
 	transition: all 0.2s linear;
@@ -161,84 +117,90 @@ body, html {
 	border-color: #507398;
 }
 
-/* Расчленение контента */
-#header {
-	padding: 16px;
-	text-align: left;
-	height: 30%;
-}
-#middler {
-	height: 40%;
-}
-#footer {
-	width: 100%;
+/* Кнопки вверху */
+#top_buttons_box {
+	bottom: 0vh;
+	left: 0vh;
+	display: inline-block;
 	position: absolute;
-	bottom: 0px;
+}
+.top_button {
+	width: 64px;
+	height: 64px;
+	padding: 4px;
+	margin: 16px;
+	display: inline-block;
+	border-radius: 999px;
+	box-shadow: inset 0px 0px 0px 0px #000000;
+	/*background-color: #056905; /* 0F0F73 056905 */
+	-webkit-transition: all 0.3s ease-in;
+	transition: all 0.3s ease-out;
+	text-align: left;
+	border: 1px solid rgba(0,0,0,0.3);
+}
+.top_button:hover {
+	/*width: 60px;
+	height: 60px;
+	padding: 6px;*/
+	/*cursor: pointer;*/
+	/*box-shadow: 0px 8px 32px 0px rgba(0,0,0,0.5);*/
+	box-shadow: inset 0px 4px 10px 0px #000000;
 }
 
-/* HEAD */
+/* Содержимое */
+#box {
+	width: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+/* Имя и ава */
 #head_title {
+	width: 360px;
 	padding-left: 16px;
 	text-align: right;
 	vertical-align: top;
+	margin-left: -400px;
+	margin-top: 64px;
+	margin-right: 16px;
 }
 #head_title #name {
-	font-size: 32pt;
-	font-weight: bold;
+	font-size: 28pt;
+	vertical-align: middle;
 }
 #head_title #dignity {
-	font-size: 24pt;
-}
-.divider {
-	width: .3mm;
-	height: 100%;
-	background-color: #ffffff;
-	opacity: 0.5;
-	margin-left: 32px;
-	margin-right: 32px;
+	font-size: 18pt;
+	vertical-align: middle;
 }
 #ava {
-	height: 100%;
-	border-radius: 50%;
+	width: 192px;
+	height: 192px;
+	border-radius: 999px;
+	margin: 16px;
 }
 
-/* Заголовки с линиями */
-.fancy {
-  line-height: 0.5;
-  text-align: center;
+/* Навыки */
+.icon_big {
+	width: 96px;
+	height: 96px;
+	margin: 12px;
+	transition: all 0.3s ease-in;
+	filter: grayscale(100%);
 }
-.fancy span {
-  display: inline-block;
-  position: relative;  
-}
-.fancy span:before,
-.fancy span:after {
-  content: "";
-  position: absolute;
-  height: 0px;
-  border-top: 1px solid rgba(255,255,255,0.5);
-  border-bottom: 0px solid #ffffff;
-  top: 50%;
-  width: 80vh;
-}
-.fancy span:before {
-  right: 100%;
-  margin-right: 15px;
-}
-.fancy span:after {
-  left: 100%;
-  margin-left: 15px;
+.icon_big:hover {
+	transition: all 0.3s ease-out;
+	filter: grayscale(0%) drop-shadow(0px 0px 8px white);
 }
 
 /* Круглые ссылки и слайдер */
 .icon_link {
-	width: 32px;
-	height: 32px;
+	width: 36px;
+	height: 36px;
 	transition: all 0.3s linear;
-	margin: 8px 16px 8px 16px;
-	border-radius: 48px;
+	margin: 0px 16px 0px 16px;
+	border-radius: 999px;
 	border: 0.3mm solid #ffffff;
-	padding: 16px;
+	padding: 18px;
 }
 .icon_link:hover {
 	cursor: pointer;
@@ -250,7 +212,7 @@ body, html {
 	border-color: #ff0000;
 }
 #git:hover {
-	border-color: #888888;
+	border-color: #705040;
 }
 #play:hover {
 	border-color: #689f38;
@@ -265,43 +227,28 @@ body, html {
 	border-color: #ffdb4d;
 }
 #slider {
-	width: 100%;
-	height: 30px;
+	width: 0px;
 }
 #nick {
-	padding-right:;
-	width: 300px;
-	height: 30px;
-	text-align: center;
+	width: 512px;
 	opacity: 0;
+	text-align: center;
 }
 
 /* Прочее */
 .inline {
 	display: inline-block;
 }
+.unhoverable {
+	cursor: default;
+}
 #bug {
+	background-color: #000000;
 	position: absolute;
 	bottom: 0px;
 	right: 0px;
 	font-size: 4vh;
-}
-
-#note {
-	transition: all 0.3s linear;
-	transform-origin: 100% 100%;
-	transform: rotate(-90deg);
-	text-align: right;
-	margin-left: 70%;
-	margin-top: -10%;
-	margin-right: -1.3%;
-	padding-top: 10%;
-	padding-right: 10%;
-	font-size: 14px;
-	opacity: 0;
-}
-#note:hover {
-	opacity: 1;
+	z-index: 9;
 }
 
 @keyframes show {
@@ -327,56 +274,47 @@ body, html {
 	}
 }
 
-.icon_big {
-	width: 128px;
-	transition: all 0.3s ease-in;
-	filter: grayscale(100%);
-}
-
-.icon_big:hover {
-	transition: all 0.3s ease-out;
-	filter: grayscale(0%) drop-shadow(0px 0px 8px white);
-}
-
 </style>
 <body onscroll="onBodyScroll()">
 
 <div class=parallax>
 	<div class=parallax__group>
-		<div class="parallax__layer parallax__layer--back" id=back><div id=bug>не баг, а фича</div></div>
+		<div class="parallax__layer parallax__layer--back" id=back><div id=bug>&nbsp;не баг, а фича&nbsp;</div></div>
 		<div class="parallax__layer parallax__layer--front" id=front></div>
 		<div class="parallax__layer parallax__layer--base" id=base>
-			<div id=header>
+			<div id=box>
 				<div id=head_title class=inline>
-					<font class=unhoverable id=name><br>Нестеров Ярослав<br><br></font>
+					<font class=unhoverable id=name>Ярослав Нестеров<br><br></font>
 					<font class=unhoverable id=dignity onmouseover="showAgent()" onmouseout="hideAgent()">Android Разработчик</font>
 				</div>
-				<div class="inline divider"></div>
 				<img id=ava class=inline src=ava.jpg />
-			</div>
-			<div id=middler>
-				<p class=fancy><span class=unhoverable>Навыки</span></p>
-				<img class=icon_big src=svg/android_colored.svg width="128px" />
-				<img class=icon_big src=svg/java_colored.svg width="128px" />
-				<img class=icon_big src=svg/js_colored.svg width="128px" />
-				<img class=icon_big src=svg/python_colored.svg width="128px" />
-				<img class=icon_big src=svg/bash_colored.svg width="128px" />
+
+				<!--  --><br>
+				<img class=icon_big width="128px" src=svg/android_colored.svg />
+				<img class=icon_big width="128px" src=svg/java_colored.svg />
+				<img class=icon_big width="128px" src=svg/js_colored.svg />
+				<img class=icon_big width="128px" src=svg/python_colored.svg />
+				<img class=icon_big width="128px" src=svg/bash_colored.svg />
 				<br>
-				<img class=icon_big src=svg/cpp_colored.svg width="128px" />
-				<img class=icon_big src=svg/linux_colored.svg width="128px" />
-				<img class=icon_big src=svg/git_colored.svg width="128px" />
-				<img class=icon_big src=svg/html_colored.svg width="128px" />
-				<img class=icon_big src=svg/css_colored.svg width="128px" />
-			</div>
-			<div id=footer>
-				<p class=fancy><span class=unhoverable>Контакты</span></p>
-				<a target=_blank href=https://ru.linkedin.com/in/raslav><img id=lin class=icon_link src=svg/linkedin-box.svg /></a>
-				<a target=_blank href=https://rostov.hh.ru/resume/5a21394aff02f385b80039ed1f3447686a5067><img id=hh class=icon_link src=png/hh.png /></a>
-				<a target=_blank href=https://github.com/Atomofiron><img id=git class=icon_link src=svg/github-circle.svg /></a>
-				<a target=_blank href=https://play.google.com/store/apps/developer?id=Ярослав+Нестеров><img id=play class=icon_link src=svg/google-play.svg /></a>
-				<a target=_blank href=https://vk.com/ra.slav><img id=vk class=icon_link src=svg/vk-circle.svg onmouseover="showNickname(0)" onmouseout="hideNickname()" /></a>
-				<img id=skype class=icon_link src=svg/skype.svg onmouseover="showNickname(1)" onmouseout="hideNickname()" onclick="copyNick(1)" />
-				<img id=email class=icon_link src=svg/email.svg onmouseover="showNickname(2)" onmouseout="hideNickname()" onclick="copyNick(2)" />
+				<img class=icon_big width="128px" src=svg/cpp_colored.svg />
+				<img class=icon_big width="128px" src=svg/linux_colored.svg />
+				<img class=icon_big width="128px" src=svg/git_colored.svg />
+				<img class=icon_big width="128px" src=svg/html_colored.svg />
+				<img class=icon_big width="128px" src=svg/css_colored.svg />
+
+				<!--  --><br>
+				<a target=_blank href=https://ru.linkedin.com/in/raslav>
+					<img class=icon_link id=lin src=svg/linkedin-box.svg /></a>
+				<a target=_blank href=https://rostov.hh.ru/resume/5a21394aff02f385b80039ed1f3447686a5067>
+					<img class=icon_link id=hh src=png/hh.png /></a>
+				<a target=_blank href=https://github.com/Atomofiron>
+					<img class=icon_link id=git src=svg/github-circle.svg /></a>
+				<a target=_blank href=https://play.google.com/store/apps/developer?id=Ярослав+Нестеров>
+					<img class=icon_link id=play src=svg/google-play.svg /></a>
+				<a target=_blank href=https://vk.com/ra.slav>
+					<img class=icon_link id=vk src=svg/vk-circle.svg onmouseover="showNickname(0)" onmouseout="hideNickname()" /></a>
+				<img class=icon_link id=skype src=svg/skype.svg onmouseover="showNickname(1)" onmouseout="hideNickname()" onclick="copyNick(1)" />
+				<img class=icon_link id=email src=svg/email.svg onmouseover="showNickname(2)" onmouseout="hideNickname()" onclick="copyNick(2)" />
 				<div id=slider><div id=nick><center>atomofiron</center></div></div>
 			</div>
 		</div>
@@ -391,47 +329,49 @@ var inh = "in"
 function clog(str) {
 	console.log(str)
 }
+function create(tag) {
+	return document.createElement(tag)
+}
 function get(id) {
 	return document.getElementById(id)
 }
-function add(obj, string) {
+function append(obj, string) {
 	obj.insertAdjacentHTML("beforeend", string)
 }
 function getPX(value) {
 	return (value.replace(px, ""))*1
 }
-/*function getInchPixels() { 
-	var temp =document.createElement("div")
-	temp.style.overflow='hidden'
-	temp.style.visibility='hidden'
-	document.body.appendChild(temp)
-	temp.style.width = "1in"
-	return screen.width / temp.offsetWidth
-}*/
 
-var Back = get("back")
-var Front = get("front")
+var backLayer = get("back")
+var frontLayer = get("front")
+var nick = get("nick")
 var steps = 10
 var brightness = 50.0
 var richness = 100
 
+if (screen.height > screen.width)
+	get("base").style.height = "70vh"
+
 // Отрисовка зелёных листов
 for (var i = 0; i < 6; i++) {
-	add(Back, "<div class='layer' id='layer"+i+"'></div>")
-	var layer = get("layer"+i)
-	var k = i/steps
+	var layer = create("div")
+	layer.className = "layer"
+	var k = i / steps
 	var color = Math.round(brightness * k)
 	var r = color
 	var g = color + richness
 	var b = color
 	layer.style.backgroundColor = "rgb("+r+","+g+","+b+")"
-	layer.style.transform = "rotate("+(360*k-36)+"deg)"; 
+	layer.style.transform = "rotate("+(360*k-36)+"deg)";
+	backLayer.appendChild(layer)
+	if (i == 1)
+		layer.id = "buttons_layer"
 }
 
 // Отрисовка синих листов
 for (var i = 0; i < 3; i++) {
-	add(Front, "<div class='layer_secondary' id='layer_secondary"+i+"'></div>")
-	var layer_secondary = get("layer_secondary"+i)
+	var layer_secondary = create("div")
+	layer_secondary.className = "layer_secondary"
 	var k = i/steps
 	var color = Math.round(brightness * k)
 	var r = color
@@ -439,20 +379,16 @@ for (var i = 0; i < 3; i++) {
 	var b = color + richness
 	layer_secondary.style.backgroundColor = "rgb("+r+","+g+","+b+")"
 	layer_secondary.style.transform = "rotate("+(360*k+36)+"deg)"
+	frontLayer.appendChild(layer_secondary)
 }
-add(get("layer_secondary2"), "<div id=note>так задумано;)</div>")
 
-// Отрисовка синих кнопок
+// Отрисовка кнопок
 var icons = ["android", "linux", "ubuntu", "js" ]
-for (var i = 0; i < 4; i++) {
-	add(Back, "<div class='button_shadow btn"+i+"' id=btn"+i+"><img id=icon"+i+" class=icon src=svg/"+icons[i]+".svg /></img></div>")
-	var btn = get("btn"+i)
-	btn.style.top = "25%"
-	btn.style.left = (i+0.1) + "in"
-	var icon = get("icon"+i)
-	icon.style.top = "25%"
-	icon.style.left = (i+0.1) + "in"
-}
+var box = create("div")
+box.id = "top_buttons_box"
+for (var i = 0; i < 4; i++)
+	append(box, "<img class='top_button' src=svg/"+icons[i]+".svg />")
+get("buttons_layer").appendChild(box)
 
 // Отслеживание курсора мыши
 function init() {
@@ -468,12 +404,11 @@ function mousemove(event) {
         x = event.clientX;
         y = event.clientY;
     }
-    get("slider").style.marginLeft = (x-150)+px
+    nick.style.marginLeft = (x-256)+px
 }
 init()
 
 // Отображение никнеймов и пр.
-var nick = get("nick")
 var names = [ "/ra.slav", "atomofiron", "atomofiron@yandex.ru", "atomofiron", "atomofiron" ]
 function showNickname(n) {
 	nick.innerHTML = names[n]
@@ -489,20 +424,6 @@ function copyNick(n) {
 	window.prompt("Скопировать: Ctrl+C, Enter", names[n]);
 }
 
-// Отображение текста
-var text = get("text")
-var line = "Туууууууут какой-то -то -то -то -то очень очень очень длинный длинный длинный теееееееееее<br> ееееее ееееееекст мазафака"
-var lines = [ line, line, line, line, line, line, line, line, line, line, line, line, line ]
-function showText(n) {
-	text.innerHTML = lines[n]
-	text.style.opacity = 1
-	text.style.width = "100%";
-}
-function hideText() {
-	text.style.opacity = 0
-	text.style.width = "0%";
-}
-
 // Пасхалка про агента
 String.prototype.replaceAt=function(index, character) {
     return this.substr(0, index) + character + this.substr(index+character.length);
@@ -510,8 +431,7 @@ String.prototype.replaceAt=function(index, character) {
 var dignity = get("dignity")
 var developer = "Android Разработчик"
 var agent = "          Агент ЦРУ"
-var abc = "РазработчикAndroid  АгентЦРУ  "
-var abc2 = "разработчикРАЗРАБОТЧИКandroidANDROIDагентАГЕНТЦРУ  "
+var abc = "Android Разработчик Агент ЦРУ"
 var target
 var proc = false
 var f = [ 7,18,15,2,9,6,13,17,1,8,3,16,10,14,4,5,11,0,12 ]
@@ -548,13 +468,23 @@ function animAgent(n=0) {
 		dignity.innerHTML = text
 	}
 
-	setTimeout("animAgent("+(n+1)+")", 20)
+	setTimeout("animAgent("+(++n)+")", 20)
 }
 
 // Прячем знак авторского права
+var wait = false
 function onBodyScroll() {
-	if (window.pageYOffset > 0)
-		setTimeout("window.scrollTo(window.pageXOffset, window.pageYOffset-1)", (5-window.pageYOffset%3) * 100)
+	if (!wait) {
+		setTimeout("hideAuthor()", 3000)
+		wait = true
+	}
+}
+function hideAuthor() {
+	if (window.pageYOffset > 0) {
+		window.scrollTo(window.pageXOffset, window.pageYOffset-window.pageYOffset/10)
+		setTimeout("hideAuthor()", 30)
+	} else
+		wait = false
 }
 </script>
 
