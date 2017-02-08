@@ -220,6 +220,9 @@ body, html {
 #vk:hover {
 	border-color: #507398;
 }
+#telegram:hover {
+	border-color: #1e96c8;
+}
 #skype:hover {
 	border-color: #1ba6df;
 }
@@ -313,10 +316,12 @@ body, html {
 					<img class=icon_link id=git src=svg/github-circle.svg /></a>
 				<a target=_blank href=https://play.google.com/store/apps/developer?id=Ярослав+Нестеров>
 					<img class=icon_link id=play src=svg/google-play.svg /></a>
+				<a target="_blank" href=https://web.telegram.org/#/im?p=@atomofiron>
+					<img class=icon_link id=telegram src=svg/telegram.svg onmouseover="showNickname(0)" onmouseout="hideNickname()" /></a>
 				<a target=_blank href=https://vk.com/ra.slav>
-					<img class=icon_link id=vk src=svg/vk-circle.svg onmouseover="showNickname(0)" onmouseout="hideNickname()" /></a>
-				<img class=icon_link id=skype src=svg/skype.svg onmouseover="showNickname(1)" onmouseout="hideNickname()" onclick="copyNick(1)" />
-				<img class=icon_link id=email src=svg/email.svg onmouseover="showNickname(2)" onmouseout="hideNickname()" onclick="copyNick(2)" />
+					<img class=icon_link id=vk src=svg/vk-circle.svg onmouseover="showNickname(1)" onmouseout="hideNickname()" /></a>
+				<img class=icon_link id=skype src=svg/skype.svg onmouseover="showNickname(2)" onmouseout="hideNickname()" onclick="copyNick(1)" style="display:none;" />
+				<img class=icon_link id=email src=svg/email.svg onmouseover="showNickname(3)" onmouseout="hideNickname()" onclick="copyNick(2)" />
 				<div id=slider><div id=nick><center>atomofiron</center></div></div>
 			</div>
 		</div>
@@ -327,15 +332,16 @@ body, html {
 <script type="text/javascript">
 var px = "px"
 var inh = "in"
+var clog = console.log
 
-function clog(str) {
-	console.log(str)
-}
 function create(tag) {
 	return document.createElement(tag)
 }
 function get(id) {
 	return document.getElementById(id)
+}
+function gets(cls) {
+	return document.getElementsByClassName(cls)
 }
 function append(obj, string) {
 	obj.insertAdjacentHTML("beforeend", string)
@@ -411,7 +417,7 @@ function mousemove(event) {
 init()
 
 // Отображение никнеймов и пр.
-var names = [ "/ra.slav", "atomofiron", "atomofiron@yandex.ru", "atomofiron", "atomofiron" ]
+var names = [ "@atomofiron", "/ra.slav", "atomofiron", "atomofiron@yandex.ru", "atomofiron", "atomofiron" ]
 function showNickname(n) {
 	nick.innerHTML = names[n]
 	nick.style.opacity = 1
@@ -489,6 +495,5 @@ function hideAuthor() {
 		wait = false
 }
 </script>
-
 </body>
 </html>
