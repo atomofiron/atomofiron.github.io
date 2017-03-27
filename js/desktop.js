@@ -143,3 +143,5 @@ function hideAuthor() {
 	} else
 		wait = false
 }
+
+get("cr").style.display = "block"
