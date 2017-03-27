@@ -1,7 +1,7 @@
 
 @font-face {
 	font-family: Exo_2_Thin;
-	src: url(Exo_2_Thin.ttf);
+	src: url(../Exo_2_Thin.ttf);
 }
 body, html {
 	user-select: none;
