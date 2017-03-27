@@ -17,3 +17,5 @@ forEach(icons, function(item, i, arr) {
 	item.style.width = size
 	item.style.height = size
 })
+
+get("cr").style.display = "none"
