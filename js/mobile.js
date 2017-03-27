@@ -12,14 +12,8 @@ function forEach(arr, callback) {
 
 var icons = gets("icon_link")
 
-var size = getSize(10) + px
+var size = Math.floor(getSize(10)) + px
 forEach(icons, function(item, i, arr) {
 	item.style.width = size
 	item.style.height = size
 })
-
-function resizeIcons() {
-	forEach(icons, function(item, i, arr) {
-		item.style.padding = "5%"
-	})
-}

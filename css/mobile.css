@@ -13,16 +13,16 @@
 #mobile #ava {
 	width: 50%;
 	border-radius: 999px;
-	padding: 5%;
+	padding: 3%;
 }
 
 #mobile .icon_link {
 	-webkit-transition: all 0.3s linear;
 	transition: all 0.3s linear;
-	margin: 5%;
+	margin: 3%;
 	border-radius: 999px;
 	border: 0px;
-	padding: 10%;
+	padding: 4%;
 }
 #mobile #lin {
 	background-color: #1c5d83;
