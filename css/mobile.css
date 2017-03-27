@@ -1,0 +1,53 @@
+
+/* Имя и ава */
+#mobile #head_title {
+	width: 100%;
+	vertical-align: top;
+}
+#mobile #name {
+	font-size: 64pt;
+}
+#mobile #dignity {
+	font-size: 48pt;
+}
+#mobile #ava {
+	width: 50%;
+	border-radius: 999px;
+	padding: 5%;
+}
+
+#mobile .icon_link {
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+	margin: 5%;
+	border-radius: 999px;
+	border: 0px;
+	padding: 10%;
+}
+#mobile #lin {
+	background-color: #1c5d83;
+}
+#mobile #hh {
+	background-color: #ff0000;
+}
+#mobile #git {
+	background-color: #705040;
+}
+#mobile #play {
+	background-color: #689f38;
+}
+#mobile #twitter {
+	background-color: #00aeed;
+}
+#mobile #vk {
+	background-color: #507398;
+}
+#mobile #telegram {	
+	background-color: #1e96c8;
+}
+#mobile #skype {
+	background-color: #1ba6df;
+}
+#mobile #email {
+	background-color: #ffdb4d;
+}

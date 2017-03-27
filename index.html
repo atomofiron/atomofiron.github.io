@@ -6,6 +6,8 @@
 
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/desktop.css">
+<link rel="stylesheet" type="text/css" href="css/mobile.css">
 
 </head>
 
@@ -13,7 +15,7 @@
 <script type="text/javascript" src=js/mc.js></script>
 <noscript><div><img src=https://mc.yandex.ru/watch/42408679 style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
-<div class=parallax>
+<div class=parallax id=desktop>
 	<div class=parallax__group>
 		<div class="parallax__layer parallax__layer--back" id=back><div id=bug>&nbsp;не баг, а фича&nbsp;</div></div>
 		<div class="parallax__layer parallax__layer--front" id=front></div>
@@ -40,25 +42,52 @@
 
 				<!--  --><br>
 				<a target=_blank href=https://ru.linkedin.com/in/raslav>
-					<img class=icon_link id=lin src=svg/linkedin-box.svg /></a>
+					<img class=icon_link id=lin src=svg/desktop/linkedin-box.svg /></a>
 				<a target=_blank href=https://rostov.hh.ru/resume/5a21394aff02f385b80039ed1f3447686a5067>
-					<img class=icon_link id=hh src=png/hh.png /></a>
+					<img class=icon_link id=hh src=png/desktop/hh.png /></a>
 				<a target=_blank href=https://github.com/Atomofiron>
-					<img class=icon_link id=git src=svg/github-circle.svg /></a>
+					<img class=icon_link id=git src=svg/desktop/github-circle.svg /></a>
 				<!--<a target=_blank href=https://play.google.com/store/apps/developer?id=Ярослав+Нестеров>
-					<img class=icon_link id=play src=svg/google-play.svg /></a>-->
+					<img class=icon_link id=play src=svg/desktop/google-play.svg /></a>-->
 				<a target=_blank href=https://twitter.com/atomofiron>
-					<img class=icon_link id=twitter src=svg/twitter.svg /></a>
+					<img class=icon_link id=twitter src=svg/desktop/twitter.svg /></a>
 				<a target="_blank" href=https://t.me/atomofiron>
-					<img class=icon_link id=telegram src=svg/telegram.svg onmouseover="showNickname(0)" onmouseout="hideNickname()" /></a>
+					<img class=icon_link id=telegram src=svg/desktop/telegram.svg onmouseover="showNickname(0)" onmouseout="hideNickname()" /></a>
 				<a target=_blank href=https://vk.com/ra.slav>
-					<img class=icon_link id=vk src=svg/vk-circle.svg onmouseover="showNickname(1)" onmouseout="hideNickname()" /></a>
-				<img class=icon_link id=skype src=svg/skype.svg onmouseover="showNickname(2)" onmouseout="hideNickname()" onclick="copyNick(2)" style="display:none;" />
-				<img class=icon_link id=email src=svg/email.svg onmouseover="showNickname(3)" onmouseout="hideNickname()" onclick="copyNick(3)" />
+					<img class=icon_link id=vk src=svg/desktop/vk-circle.svg onmouseover="showNickname(1)" onmouseout="hideNickname()" /></a>
+				<img class=icon_link id=skype src=svg/desktop/skype.svg onmouseover="showNickname(2)" onmouseout="hideNickname()" onclick="copyNick(2)" style="display:none;" />
+				<img class=icon_link id=email src=svg/desktop/email.svg onmouseover="showNickname(3)" onmouseout="hideNickname()" onclick="copyNick(3)" />
 				<div id=slider><div id=nick><center>atomofiron</center></div></div>
 			</div>
 		</div>
 	</div>
+</div>
+
+<div id=mobile>
+<center>
+	<img id=ava src=ava.jpg onclick="resizeIcons()" /><br>
+	<font class=unhoverable id=name>Ярослав Нестеров</font><br><br>
+	<font class=unhoverable id=dignity>Android Разработчик</font><br>
+	<!--  --><br>
+	<a target=_blank href=https://ru.linkedin.com/in/raslav>
+		<img class=icon_link id=lin src=svg/mobile/linkedin-box.svg /></a>
+	<a target=_blank href=https://rostov.hh.ru/resume/5a21394aff02f385b80039ed1f3447686a5067>
+		<img class=icon_link id=hh src=png/mobile/hh.png /></a>
+	<a target=_blank href=https://github.com/Atomofiron>
+		<img class=icon_link id=git src=svg/mobile/github-circle.svg /></a>
+	<!--<a target=_blank href=https://play.google.com/store/apps/developer?id=Ярослав+Нестеров>
+		<img class=icon_link id=play src=svg/mobile/google-play.svg /></a>-->
+	<a target=_blank href=https://twitter.com/atomofiron>
+		<img class=icon_link id=twitter src=svg/mobile/twitter.svg /></a>
+	<a target="_blank" href=https://t.me/atomofiron>
+		<img class=icon_link id=telegram src=svg/mobile/telegram.svg /></a>
+	<a target=_blank href=https://vk.com/ra.slav>
+		<img class=icon_link id=vk src=svg/mobile/vk-circle.svg /></a>
+	<a href=skype:atomofiron?chat>
+		<img class=icon_link id=skype src=svg/mobile/skype.svg /></a>
+	<a href=mailto:atomofiron@yandex.ru>
+		<img class=icon_link id=email src=svg/mobile/email.svg /></a>
+</center>
 </div>
 <center><font class=unhoverable size="3">&copy; Нестеров Я. В., оформление сайта, 2017</font></center>
 
