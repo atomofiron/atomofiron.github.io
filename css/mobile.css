@@ -17,8 +17,8 @@
 }
 
 #mobile .icon_link {
-	-webkit-transition: all 0.3s linear;
-	transition: all 0.3s linear;
+	-webkit-transition: all 1s ease;
+	transition: all 1s ease;
 	margin: 3%;
 	border-radius: 999px;
 	border: 0px;
