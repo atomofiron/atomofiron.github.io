@@ -13,16 +13,18 @@
 </head>
 
 <body onscroll="onBodyScroll()">
+<script type="text/javascript" src="js/anim.js"></script>
 <script type="text/javascript" src=js/mc.js></script>
 <noscript><div><img src=https://mc.yandex.ru/watch/42408679 style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <div id=meter></div>
+<div id=splash></div>
 
 <div class=parallax id=desktop>
 	<div class=parallax__group>
-		<div class="parallax__layer parallax__layer--back" id=back><div id=bug>&nbsp;не баг, а фича&nbsp;</div></div>
-		<div class="parallax__layer parallax__layer--front" id=front></div>
+		<div class="parallax__layer parallax__layer--back showable" id=back><div id=bug>&nbsp;не баг, а фича&nbsp;</div></div>
+		<div class="parallax__layer parallax__layer--front showable" id=front></div>
 		<div class="parallax__layer parallax__layer--base" id=base>
-			<div id=box>
+			<div id=box class=showable>
 				<div id=head_title class=inline>
 					<font class=unhoverable id=name>Ярослав Нестеров<br><br></font>
 					<font class=unhoverable id=dignity onmouseover="showAgent()" onmouseout="hideAgent()">Android Разработчик</font>
@@ -68,7 +70,7 @@
 <div>
 <center>
 </div>
-<table id=mobile border=0>
+<table id=mobile class=showable border=0>
 	<tr>
 		<td>
 			<img id=ava src=ava.jpg /><br>

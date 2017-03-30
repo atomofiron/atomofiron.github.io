@@ -6,11 +6,6 @@ function getSize(percent) {
 	return size * percent / 100
 }
 
-function forEach(arr, callback) {
-	for (var i = 0; i < arr.length; i++)
-		callback(arr[i], i, arr)
-}
-
 get("ava").style.width = "50%"
 
 var icons = gets("icon_link")
@@ -53,3 +48,5 @@ function updateOrientation() {
 window.onresize = updateOrientation
 updateOrientation()
 
+pageReady = true
+showContent()

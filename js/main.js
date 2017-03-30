@@ -17,6 +17,10 @@ function append(obj, string) {
 function getPX(value) {
 	return (value.replace(px, ""))*1
 }
+function forEach(arr, callback) {
+	for (var i = 0; i < arr.length; i++)
+		callback(arr[i], i, arr)
+}
 function getScreenDiagonal() {
 	var cm = get("meter").clientHeight
 	var dpi = Math.sqrt(2 * cm * cm) / Math.sqrt(128) * 2.51
@@ -29,6 +33,7 @@ var land = window.innerHeight < window.innerWidth * 0.8
 var mobile = phone || get("head_title").offsetLeft < -10
 
 get(mobile ? "mobile" : "desktop").style.visibility = "visible"
+get(!mobile ? "mobile" : "desktop").style.display = "none"
 body.removeChild(get(!mobile ? "mobile" : "desktop"))
 
 var script = create('script')

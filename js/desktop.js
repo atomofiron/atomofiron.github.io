@@ -145,3 +145,6 @@ function hideAuthor() {
 }
 
 get("cr").style.display = "block"
+
+pageReady = true
+showContent()
