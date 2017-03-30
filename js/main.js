@@ -17,11 +17,18 @@ function append(obj, string) {
 function getPX(value) {
 	return (value.replace(px, ""))*1
 }
+function getScreenDiagonal() {
+	var cm = get("meter").clientHeight
+	var dpi = Math.sqrt(2 * cm * cm) / Math.sqrt(128) * 2.51
+	return Math.sqrt(Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2)) / dpi
+}
 
 var body = document.getElementsByTagName("body")[0]
-var mobile = (window.innerWidth < window.innerHeight || get("head_title").offsetLeft < -10)
+var phone = getScreenDiagonal() < 7
+var land = window.innerHeight < window.innerWidth * 0.8
+var mobile = phone || get("head_title").offsetLeft < -10
 
-get(mobile ? "mobile" : "desktop").style.display = "block"
+get(mobile ? "mobile" : "desktop").style.visibility = "visible"
 body.removeChild(get(!mobile ? "mobile" : "desktop"))
 
 var script = create('script')

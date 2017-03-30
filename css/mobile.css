@@ -1,13 +1,17 @@
 
+#mobile {
+	width: 100%;
+	height: 100%;
+}
+
 /* Имя и ава */
 #mobile #name {
-	font-size: 32pt;
-}
-#mobile #dignity {
 	font-size: 24pt;
 }
+#mobile #dignity {
+	font-size: 16pt;
+}
 #mobile #ava {
-	width: 50%;
 	border-radius: 999px;
 	padding-top: 3%;
 }
@@ -46,4 +50,12 @@
 }
 #mobile #email {
 	background-color: #ffdb4d;
+}
+
+#port {
+	height: 100%;
+}
+#mobile, #port {
+	vertical-align: top;
+	text-align: center;
 }

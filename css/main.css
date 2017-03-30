@@ -41,7 +41,7 @@ body, html {
 }
 
 #desktop, #mobile {
-	display: none;
+	visibility: hide;
 }
 
 .inline {
@@ -49,4 +49,10 @@ body, html {
 }
 .unhoverable {
 	cursor: default;
+}
+
+#meter {
+	height: 8cm;
+	position: absolute;
+	opacity: 0;
 }
