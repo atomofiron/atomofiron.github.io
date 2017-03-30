@@ -1,19 +1,15 @@
 
 /* Имя и ава */
-#mobile #head_title {
-	width: 100%;
-	vertical-align: top;
-}
 #mobile #name {
-	font-size: 64pt;
+	font-size: 32pt;
 }
 #mobile #dignity {
-	font-size: 48pt;
+	font-size: 24pt;
 }
 #mobile #ava {
 	width: 50%;
 	border-radius: 999px;
-	padding: 3%;
+	padding-top: 3%;
 }
 
 #mobile .icon_link {
