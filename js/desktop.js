@@ -40,7 +40,7 @@ for (var i = 0; i < 3; i++) {
 }
 
 // Отрисовка кнопок
-var icons = ["android", "linux", "ubuntu", "js" ]
+var icons = ["android", "linux", "js", "oneplus" ]
 var box = create("div")
 box.id = "top_buttons_box"
 for (var i = 0; i < 4; i++)
