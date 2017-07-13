@@ -30,16 +30,10 @@ function updateOrientation() {
 			portBox.removeChild(links)
 			landBox.appendChild(links)
 			landBox.style.width = "50%"
-
-			get("name").style.fontSize = "24pt"
-			get("dignity").style.fontSize = "16pt"
 		} else {
 			landBox.removeChild(links)
 			portBox.appendChild(links)
 			landBox.style.width = "0%"
-
-			get("name").style.fontSize = "48pt"
-			get("dignity").style.fontSize = "32pt"
 		}
 	}
 	port = !land
