@@ -66,7 +66,7 @@ function mousemove(event) {
 init()
 
 // Отображение никнеймов и пр.
-var names = [ "@atomofiron", "/ra.slav", "atomofiron", "atomofiron@yandex.ru", "atomofiron", "atomofiron" ]
+var names = [ "@atomofiron", "/ra.slav", "atomofiron#5236", "atomofiron@yandex.ru", "atomofiron", "atomofiron" ]
 function showNickname(n) {
 	nick.innerHTML = names[n]
 	nick.style.opacity = 1
