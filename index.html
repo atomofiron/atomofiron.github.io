@@ -186,14 +186,19 @@ function startDisorting() {
 	clearInterval(desortingInterval)
 	intensitySecuence = 0
 	const deviation = Math.PI * 2 * Math.random()
-	deviationRed = deviation
-	deviationGreen = deviationRed + Math.PI * 2 / 3
-	deviationBlue = deviationRed + Math.PI * 4 / 3
+	if (oneWay) {
+		deviationRed = 0
+		deviationGreen = 0
+		deviationBlue = Math.PI
+	} else {
+		deviationRed = deviation
+		deviationGreen = deviationRed + Math.PI * 2 / 3
+		deviationBlue = deviationRed + Math.PI * 4 / 3
+	}
 	desortingInterval = setInterval(distortPicture, 16)
 }
 function distortPicture() {
 	const r = oneWay ? Math.min(Math.PI / 2, intensitySecuence) : intensitySecuence
-	const intensity = Math.sin(r)
 	intensitySecuence += intensityStep
 	if (intensitySecuence > Math.PI) {
 		intensitySecuence = 0
@@ -209,15 +214,16 @@ function distortPicture() {
 		}
 		return
 	}
-	distortLayer(avaRed, deviationRed, intensity)
+	const intensity = Math.sin(r)
+	distortLayer(avaRed, deviationRed, intensity, oneWay)
 	distortLayer(avaGreen, deviationGreen, intensity)
 	distortLayer(avaBlue, deviationBlue, intensity)
 }
-function distortLayer(element, radian, intensity) {
-	const dx = disappearance * (Math.random() > 0.5) ? trembling : -trembling
-	const dy = disappearance * (Math.random() > 0.5) ? trembling : -trembling
-	const x = (Math.cos(radian) * maxTranslation * disappearance + dx) * intensity
-	const y = (Math.sin(radian) * maxTranslation * disappearance + dy) * intensity
+function distortLayer(element, radian, intensity, onlyTrembling) {
+	const dx = intensity * disappearance * (Math.random() > 0.5) ? trembling : -trembling
+	const dy = intensity * disappearance * (Math.random() > 0.5) ? trembling : -trembling
+	const x = onlyTrembling ? dx : (Math.cos(radian) * maxTranslation * disappearance) * intensity + dx
+	const y = onlyTrembling ? dy : (Math.sin(radian) * maxTranslation * disappearance) * intensity + dy
 	element.style.transform = `translate(${x}px, ${y}px)`
 }
 
