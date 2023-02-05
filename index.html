@@ -39,9 +39,15 @@ canvas {
 	text-align: center;
 }
 .layer {
-	position: absolute;
+	width: 440px;
+	height: 411px;
+	/*position: absolute;
 	left: 0;
 	right: 0;
+	top: 0;
+	margin: auto;*/
+}
+.layer_box {
 	top: 0;
 	margin: auto;
 }
@@ -147,9 +153,15 @@ canvas {
 			</div>
 		</div>
 		<!-- <img id="avaRgb" style="transform: translate(400px, 0px);" class="layer" src="./new/me.png" width="440" /> -->
-		<img id="avaRed" class="layer" src="./new/red.png" width="440"  />
-		<img id="avaGreen" class="layer" src="./new/green.png" width="440"  />
-		<img id="avaBlue" class="layer" src="./new/blue.png" width="440"  />
+		<div class="center_box layer_box">
+			<img id="avaRed" class="layer" src="./new/red.png" />
+		</div>
+		<div class="center_box layer_box">
+			<img id="avaGreen" class="layer" src="./new/green.png" />
+		</div>
+		<div class="center_box layer_box">
+			<img id="avaBlue" class="layer" src="./new/blue.png" />
+		</div>
 
 		<div class="center_box">
 			<img src="./new/mnts.png" width="1000" height="206" />
