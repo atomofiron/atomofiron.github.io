@@ -388,7 +388,7 @@ function updadeVolumeOffset(offset) {
 	audio.volume = volume
 }
 volumeBox.onclick = function(event) {
-	if (event.pointerType != 'touch') return
+	if (event.pointerType == 'mouse') return
 	const offset = event.clientY - thumb.clientHeight
 	updadeVolumeOffset(offset)
 }
