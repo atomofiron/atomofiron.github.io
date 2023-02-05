@@ -200,6 +200,8 @@ const zeroTwo = get("zero2")
 
 function updateLinesCount() {
 	vLineCount = window.innerWidth * pixelRatio / 100
+	vLineCount = vLineCount | 0
+	vLineCount += vLineCount % 2
 }
 document.onresize = updateLinesCount
 window.onresize = updateLinesCount
