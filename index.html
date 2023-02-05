@@ -14,6 +14,9 @@ html, body, video {
 	overflow-x: hidden;
 	user-select: none;
 }
+img {
+	-webkit-user-drag: none;
+}
 ::-webkit-scrollbar {
     display: none;
 }
@@ -47,6 +50,18 @@ canvas {
 	top: 0;
 	margin: auto;
 }
+#progress {
+	height: 100px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	color: #ff00ff;
+	text-align: center;
+	font-size: 48px;
+}
 #start_button {
 	width: 200px;
 	height: 200px;
@@ -63,6 +78,7 @@ canvas {
 	color: black;
 	text-align: center;
 	cursor: pointer;
+	visibility: hidden;
 }
 #content {
 	display: none;
@@ -91,7 +107,7 @@ canvas {
 }
 #volume_track {
 	width: 100%;
-	/*height: 80px;*/
+	/*height: 80px; in html attribute*/
 	position: absolute;
 	background-color: #ff00ff;
 	margin: 0 auto;
@@ -103,7 +119,6 @@ canvas {
 #volume_track img {
 	width: 24px;
 	height: 24px;
-	-webkit-user-drag: none;
 	position: absolute;
 	left: 0;
 	top: 8px;
@@ -133,7 +148,6 @@ canvas {
 		<img id="volume_icon" src="./new/volume-off.png" />
 	</div>
 </div>
-
 <div id="content">
 	<div id="header">
 		<div class="center_box">
@@ -165,9 +179,10 @@ canvas {
 </div>
 
 <div id="start_button">
-	<img src="./new/yeah.png" style="-webkit-user-drag: none;">
-	<b>НАЖМИ НА МЕНЯ<b><br><br>
+	<img src="./new/yeah.png">
+	<b>НАЖМИ НА МЕНЯ</b><br><br>
 </div>
+<div id="progress" style="visibility: visible;">0/4</div>
 
 <script type="text/javascript">
 
@@ -416,6 +431,29 @@ startButton.onclick = function() {
 	startButton.style.display = 'none'
 	get("content").style.display = 'block'
 }
+
+const progress = get("progress")
+let count = 0
+function onImageLoad(arg) {
+	count++
+	progress.innerText = `Loading… ${count}/4`
+	if (count == 4) {
+		progress.style.visibility = 'hidden'
+		startButton.style.visibility = 'visible'
+	}
+}
+const mnts = new Image()
+const red = new Image()
+const green = new Image()
+const blue = new Image()
+mnts.onload = onImageLoad
+red.onload = onImageLoad
+green.onload = onImageLoad
+blue.onload = onImageLoad
+mnts.src = "./new/mnts.png"
+red.src = "./new/red.png"
+green.src = "./new/green.png"
+blue.src = "./new/blue.png"
 
 </script>
 
