@@ -225,7 +225,7 @@ function drowVerticalLines(frameWidth, frameHeight) {
 	const hStep = frameWidth / vLineCount
 
 	const centerX = frameWidth / 2
-	for (let x = hStep / 2; x < frameWidth - hStep / 2; x += hStep) {
+	for (let x = hStep / 2; x < frameWidth - hStep / 4; x += hStep) {
 		ctx.lineWidth = lineWidthMax * (1 - Math.abs(centerX - x) / centerX)
 		ctx.beginPath()
 		ctx.moveTo(x, 0)
