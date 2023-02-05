@@ -351,11 +351,9 @@ const volumeTrack = get("volume_track")
 const volumeIcon = get("volume_icon")
 const startVolume = function() {
 	volumeBox.onmousemove = moveVolume
-	volumeBox.onpointermove = moveVolume
 }
 const stopVolume = function() {
 	volumeBox.onmousemove = null
-	volumeBox.onpointermove = null
 }
 volumeBox.onmousedown = startVolume
 volumeBox.onmouseleave = stopVolume
@@ -368,6 +366,9 @@ const moveVolume = function(event) {
 	if (allowedType == null) allowedType = event.type
 	if (allowedType != event.type) return
 	let offset = noPx(thumb.style.top) + event.movementY
+	updadeVolumeOffset(offset)
+}
+function updadeVolumeOffset(offset) {
 	offset = Math.max(0, offset)
 	const range = volumeBox.clientHeight - thumb.clientHeight
 	offset = Math.min(range, offset)
@@ -376,6 +377,12 @@ const moveVolume = function(event) {
 
 	let volume = 1 - offset / range
 	audio.volume = volume
+}
+volumeBox.onclick = function(event) {
+	if (event.pointerType != 'touch') return
+	clog(event)
+	const offset = event.clientY - thumb.clientHeight
+	updadeVolumeOffset(offset)
 }
 
 function onVolumeChanged(event) {
