@@ -41,16 +41,11 @@ canvas {
 .layer {
 	width: 440px;
 	height: 411px;
+	mix-blend-mode: exclusion;
 }
 .layer_box {
 	top: 0;
 	margin: auto;
-}
-#avaRed, #avaGreen, #avaBlue {
-	mix-blend-mode: exclusion;
-}
-#avaRgb {
-	color: #0f0;
 }
 #start_button {
 	width: 200px;
@@ -73,17 +68,18 @@ canvas {
 	display: none;
 }
 #volume_box {
-	z-index: 1;
+	width: 40px;
 	height: 128px;
 	border: 4px #550055 solid;
 	border-radius: 999px;
 	margin: 16px;
 	overflow: hidden;
 	background-color: #550055;
+	z-index: 1;
 }
-#volume_track_background {
+#volume_track_line {
 	width: 8px;
-	height: 104px;
+	height: 96px;
 	background-color: #ff00ff;
 	border-radius: 4px;
 	position: absolute;
@@ -95,35 +91,25 @@ canvas {
 }
 #volume_track {
 	width: 100%;
-	height: 50%;
+	/*height: 80px;*/
 	position: absolute;
 	background-color: #ff00ff;
 	margin: 0 auto;
 	bottom: 0;
 	left: 0;
 	right: 0;
+	border-radius: 999px;
 }
-#volume_thumb img {
+#volume_track img {
 	width: 24px;
 	height: 24px;
 	-webkit-user-drag: none;
 	position: absolute;
 	left: 0;
-	top: 0;
+	top: 8px;
 	right: 0;
-	bottom: 0;
 	margin: auto;
 }
-#volume_thumb {
-	width: 32px;
-	height: 32px;
-	border-radius: 999px;
-	position: relative;
-	background-color: #ff00ff;
-	top: 0px;
-	z-index: 1;
-}
-
 #header {
 	height: 450px;
 	position: relative;
@@ -141,15 +127,12 @@ canvas {
 </head>
 <body>
 
-
 <div id="volume_box" style="position: absolute; right: 0">
-	<div id="volume_thumb">
+	<div id="volume_track_line"></div>
+	<div id="volume_track" style="height: 80px">
 		<img id="volume_icon" src="./new/volume-off.png" />
 	</div>
-	<div id="volume_track_background"></div>
-	<div id="volume_track"></div>
 </div>
-
 
 <div id="content">
 	<div id="header">
@@ -366,8 +349,6 @@ function showPicture() {
 }
 
 
-
-const thumb = get("volume_thumb")
 const volumeBox = get("volume_box")
 const volumeTrack = get("volume_track")
 const volumeIcon = get("volume_icon")
@@ -387,23 +368,22 @@ let allowedType = null
 const moveVolume = function(event) {
 	if (allowedType == null) allowedType = event.type
 	if (allowedType != event.type) return
-	let offset = noPx(thumb.style.top) + event.movementY
-	updadeVolumeOffset(offset)
+	let height = noPx(volumeTrack.style.height) - event.movementY
+	updadeVolumeOffset(height)
 }
-function updadeVolumeOffset(offset) {
-	offset = Math.max(0, offset)
-	const range = volumeBox.clientHeight - thumb.clientHeight
-	offset = Math.min(range, offset)
-	thumb.style.top = offset + px
-	volumeTrack.style.height = (volumeBox.clientHeight - offset - thumb.clientHeight / 2) + px
+function updadeVolumeOffset(height) {
+	const min = 40
+	height = Math.max(min, height)
+	height = Math.min(volumeBox.clientHeight, height)
+	volumeTrack.style.height = height + px
 
-	let volume = 1 - offset / range
+	let volume = (height - min) / (volumeBox.clientHeight - min)
 	audio.volume = volume
 }
 volumeBox.onclick = function(event) {
 	if (event.pointerType == 'mouse') return
-	const offset = event.clientY - thumb.clientHeight
-	updadeVolumeOffset(offset)
+	const height = volumeBox.clientHeight - event.clientY + 40
+	updadeVolumeOffset(height)
 }
 
 function onVolumeChanged(event) {
@@ -414,12 +394,6 @@ function updateVolumeIcon(volume) {
 	if (volume == 0) volumeIcon.src = './new/volume-off.png'
 	else if (volume < 1) volumeIcon.src = './new/volume-low.png'
 	else volumeIcon.src = './new/volume-high.png'
-	if (thumb.style.top == '') {
-		const range = volumeBox.clientHeight - thumb.clientHeight
-		let top = range * volume
-		top = top|0
-		thumb.style.top = top + px
-	}
 }
 
 const audio = new Audio("./new/cut.mp3")
