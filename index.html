@@ -1,111 +1,267 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ярослав Нестеров - Android Разработчик</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
 
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="css/main.css">
-<link rel="stylesheet" type="text/css" href="css/desktop.css">
-<link rel="stylesheet" type="text/css" href="css/mobile.css">
-
+<style type="text/css">
+html, body, video {
+	padding: 0px;
+	margin: 0px;
+	background-color: #000000;
+	overflow: hidden;
+	font-family: arial;
+}
+* {
+	box-sizing: content-box;
+}
+video {
+    filter: brightness(0.8) contrast(2) hue-rotate(300deg);
+}
+canvas {
+	width: 100%;
+	background-color: #000000;
+    margin-top: -4px;
+    margin-bottom: -4px;
+    image-rendering: optimizeSpeed;             /* Older versions of FF          */
+    image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+    image-rendering: -webkit-optimize-contrast; /* Safari                        */
+    image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+    image-rendering: pixelated;                 /* Awesome future-browsers       */
+    -ms-interpolation-mode: nearest-neighbor;
+}
+#zero2 {
+	text-align: center;
+}
+.layer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	margin: auto;
+}
+#avaRed, #avaGreen, #avaBlue {
+	mix-blend-mode: exclusion;
+}
+#avaRgb {
+	color: #0f0;
+}
+#start_button {
+	width: 200px;
+	height: 200px;
+	background-color: #ff00ff;
+	border-radius: 999px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	padding: 64px;
+	padding-top: 32px;
+	color: black;
+	text-align: center;
+	cursor: pointer;
+}
+#content {
+	display: none;
+}
+</style>
 </head>
+<body>
 
-<body onscroll="onBodyScroll()">
-<script type="text/javascript" src="js/anim.js"></script>
-<script type="text/javascript" src=js/mc.js></script>
-<noscript><div><img src=https://mc.yandex.ru/watch/42408679 style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<div id=meter></div>
-<div id=splash></div>
 
-<div class=parallax id=desktop>
-	<div class=parallax__group>
-		<div class="parallax__layer parallax__layer--back showable" id=back><div id=bug>&nbsp;не баг, а фича&nbsp;</div></div>
-		<div class="parallax__layer parallax__layer--front showable" id=front></div>
-		<div class="parallax__layer parallax__layer--base" id=base>
-			<div id=box class=showable>
-				<div id=head_title class=inline>
-					<font class=unhoverable id=name>Ярослав Нестеров</font>
-					<br><br>
-					<font class=unhoverable id=dignity onmouseover="showAgent()" onmouseout="hideAgent()">Android Разработчик</font>
-				</div>
-				<img id=ava class=inline src=ava.jpg />
+<div id="content">
+	<div style="position: relative;">
+		<center>
+			<video style="visibility: hidden;" id="zero2" width="800" autoplay="" loop="" playsmuted="" muted="" [muted]="'muted'">
+			    <source src="./new/02-5.mp4" type="video/mp4">
+			</video>
+		</center>
+		<!-- <img id="avaRgb" style="transform: translate(400px, 0px);" class="layer" src="./new/me.png" width="440" /> -->
+		<img id="avaRed" class="layer" src="./new/red.png" width="440"  />
+		<img id="avaGreen" class="layer" src="./new/green.png" width="440"  />
+		<img id="avaBlue" class="layer" src="./new/blue.png" width="440"  />
 
-				<!--  --><br>
-				<img class=icon_big width="128px" src=svg/android_colored.svg />
-				<img class=icon_big width="128px" src=svg/kotlin_colored.svg />
-				<img class=icon_big width="128px" src=svg/js_colored.svg />
-				<img class=icon_big width="128px" src=svg/python_colored.svg />
-				<img class=icon_big width="128px" src=svg/bash_colored.svg />
-				<br>
-				<img class=icon_big width="128px" src=svg/cpp_colored.svg />
-				<img class=icon_big width="128px" src=svg/linux_colored.svg />
-				<img class=icon_big width="128px" src=svg/git_colored.svg />
-				<img class=icon_big width="128px" src=svg/html_colored.svg />
-				<img class=icon_big width="128px" src=svg/css_colored.svg />
-
-				<!--  --><br>
-				<a target=_blank href=https://ru.linkedin.com/in/raslav>
-					<img class=icon_link id=lin src=svg/desktop/linkedin-box.svg /></a>
-				<a target=_blank href=https://rostov.hh.ru/resume/5a21394aff02f385b80039ed1f3447686a5067>
-					<img class=icon_link id=hh src=svg/desktop/hh.svg /></a>
-				<a target=_blank href=https://github.com/Atomofiron>
-					<img class=icon_link id=git src=svg/desktop/github-circle.svg /></a>
-				<a target=_blank href=https://play.google.com/store/apps/developer?id=Ярослав+Нестеров>
-					<img class=icon_link id=play src=svg/desktop/google-play.svg /></a>
-				<a target=_blank href=https://twitter.com/atomofiron>
-					<img class=icon_link id=twitter src=svg/desktop/twitter.svg /></a>
-				<a target="_blank" href=https://t.me/atomofiron>
-					<img class=icon_link id=telegram src=svg/desktop/telegram.svg onmouseover="showNickname(0)" onmouseout="hideNickname()" /></a>
-				<a target=_blank href=https://vk.com/ra.slav>
-					<img class=icon_link id=vk src=svg/desktop/vk-circle.svg onmouseover="showNickname(1)" onmouseout="hideNickname()" /></a>
-				<img class=icon_link id=discord src=svg/desktop/discord.svg onmouseover="showNickname(2)" onmouseout="hideNickname()" onclick="copyNick(2)" style="" />
-				<img class=icon_link id=email src=svg/desktop/email.svg onmouseover="showNickname(3)" onmouseout="hideNickname()" onclick="copyNick(3)" />
-				<div id=slider><div id=nick><center>atomofiron</center></div></div>
-			</div>
-		</div>
+		<img style="position: absolute; left: 0; right: 0; bottom: 4px; margin: auto;" src="./new/mnts.png" width="65%"  />
 	</div>
+
+	<!-- <audio src="cut.mp3" controls></audio> -->
+
+	<canvas id="canvas_ground" style="width: 100%;"></canvas>
 </div>
 
-<table id=mobile class=showable border=0>
-	<tr>
-		<td>
-			<img id=ava src=ava.jpg /><br>
-			<font class=unhoverable id=name>Ярослав Нестеров</font><br>
-			<font class=unhoverable id=dignity>Android Разработчик</font><br>
-		</td>
-		<td id=land rowspan="2"></td>
-	</tr>
-	<tr>
-		<td id=port>
-			<div id=links>
-				<a target=_blank href=https://vk.com/ra.slav>
-					<img class=icon_link id=vk src=svg/mobile/vk-circle.svg /></a>
-				<a target="_blank" href=https://t.me/atomofiron>
-					<img class=icon_link id=telegram src=svg/mobile/telegram.svg /></a>
-				<a target=_blank href=https://github.com/Atomofiron>
-					<img class=icon_link id=git src=svg/mobile/github-circle.svg /></a><br>
-				<a target=_blank href=https://ru.linkedin.com/in/raslav>
-					<img class=icon_link id=lin src=svg/mobile/linkedin-box.svg /></a>
-				<a target=_blank href=https://play.google.com/store/apps/developer?id=Ярослав+Нестеров>
-					<img class=icon_link id=play src=svg/mobile/google-play.svg /></a>
-				<a target=_blank href=https://twitter.com/atomofiron>
-					<img class=icon_link id=twitter src=svg/mobile/twitter.svg /></a><br>
-				<a href=mailto:atomofiron@yandex.ru>
-					<img class=icon_link id=email src=svg/mobile/email.svg /></a>
-				<a target=_blank href=https://rostov.hh.ru/resume/5a21394aff02f385b80039ed1f3447686a5067>
-					<img class=icon_link id=hh src=svg/mobile/hh.svg /></a>
-				<a target=_blank href=https://discordapp.com/channels/@me/565906135249453056>
-					<img class=icon_link id=discord src=svg/mobile/discord.svg /></a>
-			</div>
-		</td>
-	</tr>
-</table>
+<div id="start_button">
+	<img src="./new/yeah.png">
+	<b>НАЖМИ НА МЕНЯ<b><br><br>
+</div>
 
-<center><font id=cr class=unhoverable size="3" style="display: none;">&copy; Нестеров Я. В., оформление сайта, 2019</font></center>
+<script type="text/javascript">
 
-<script type="text/javascript" src=js/main.js></script>
+const clog = console.log
+function get(id) {
+	return document.getElementById(id)
+}
+
+const ground = document.getElementById("canvas_ground")
+const ctx = ground.getContext("2d");
+
+const lineWidthMin = 1
+const lineWidthMax = 10
+const hLineCount = 100
+const vLineCount = 30
+let hLineOffset = 0
+
+const zeroTwo = get("zero2")
+
+function drowVerticalLines(frameWidth, frameHeight) {
+	ctx.lineCap = 'round'
+	ctx.strokeStyle = "#ff00ff"
+
+	const vOffset = 0
+	const hStep = frameWidth / vLineCount
+
+	const centerX = frameWidth / 2
+	for (let x = hStep / 2; x < frameWidth - hStep / 2; x += hStep) {
+		ctx.lineWidth = lineWidthMax * (1 - Math.abs(centerX - x) / centerX)
+		ctx.beginPath()
+		ctx.moveTo(x, 0)
+		let dif = centerX - x
+		dif *= Math.abs(dif) / hStep + 5
+		ctx.lineTo(x - dif, frameHeight)
+		ctx.stroke()
+	}
+}
+let time = 0
+function drowHorisontalLines() {
+	ctx.lineWidth = 5
+	const groundWidth = window.innerWidth * 2
+	const groundHeight = window.innerHeight * 2
+
+	for (let i = 0; i < hLineCount; i++) {
+		let a = (i + 1) / hLineCount
+		let y = Math.tan(time + (i + 1) * Math.PI / hLineCount) * 50 - 50
+		y = y|0 + 0.5
+		const lineWidth = lineWidthMax * (y / groundHeight) * 2
+		ctx.lineWidth = Math.max(lineWidthMin, lineWidth)
+	    ctx.beginPath()
+		ctx.moveTo(0, y)
+		ctx.lineTo(groundWidth, y)
+		ctx.stroke()
+	}
+	time += Math.PI / 3000
+	time %= Math.PI / 2
+}
+function drawGround() {
+	const groundWidth = window.innerWidth * 2
+	const groundHeight = window.innerHeight * 2
+
+	ground.width = groundWidth
+	ground.height = groundHeight
+
+	drowVerticalLines(groundWidth, groundHeight)
+	drowHorisontalLines()
+}
+setInterval(drawGround, 16)
+
+
+
+const avaRed = get("avaRed")
+const avaGreen = get("avaGreen")
+const avaBlue = get("avaBlue")
+const trembling = 5
+let disappearance = 1 // 10
+let maxTranslation = 20
+let intensitySecuence = 0
+let intensityStep = Math.PI / 30
+
+let deviationRed = 0
+let deviationGreen = 0
+let deviationBlue = 0
+let desortingInterval = 0
+let oneWay = false
+
+function startDisorting() {
+	clearInterval(desortingInterval)
+	intensitySecuence = 0
+	const deviation = Math.PI * 2 * Math.random()
+	deviationRed = deviation
+	deviationGreen = deviationRed + Math.PI * 2 / 3
+	deviationBlue = deviationRed + Math.PI * 4 / 3
+	desortingInterval = setInterval(distortPicture, 16)
+}
+function distortPicture() {
+	const r = oneWay ? Math.min(Math.PI / 2, intensitySecuence) : intensitySecuence
+	const intensity = Math.sin(r)
+	intensitySecuence += intensityStep
+	if (intensitySecuence > Math.PI) {
+		intensitySecuence = 0
+		clearInterval(desortingInterval)
+		avaRed.style.transform = ''
+		avaGreen.style.transform = ''
+		avaBlue.style.transform = ''
+		if (oneWay) {
+			avaRed.style.display = 'none'
+			avaGreen.style.display = 'none'
+			avaBlue.style.display = 'none'
+			zeroTwo.style.visibility = 'visible'
+		}
+		return
+	}
+	distortLayer(avaRed, deviationRed, intensity)
+	distortLayer(avaGreen, deviationGreen, intensity)
+	distortLayer(avaBlue, deviationBlue, intensity)
+}
+function distortLayer(element, radian, intensity) {
+	const dx = disappearance * (Math.random() > 0.5) ? trembling : -trembling
+	const dy = disappearance * (Math.random() > 0.5) ? trembling : -trembling
+	const x = (Math.cos(radian) * maxTranslation * disappearance + dx) * intensity
+	const y = (Math.sin(radian) * maxTranslation * disappearance + dy) * intensity
+	element.style.transform = `translate(${x}px, ${y}px)`
+}
+
+function hidePicture() {
+	clearInterval(disortingStarterInterval)
+	oneWay = true
+	disappearance = 10
+	intensitySecuence = 0
+	startDisorting()
+}
+function showPicture() {
+	oneWay = false
+	disappearance = 1
+	avaRed.style.display = 'block'
+	avaGreen.style.display = 'block'
+	avaBlue.style.display = 'block'
+	zeroTwo.style.visibility = 'hidden'
+	clearInterval(disortingStarterInterval)
+	disortingStarterInterval = setInterval(startDisorting, 1800)
+	startDisorting()
+}
+
+
+const audio = new Audio("./new/cut.mp3")
+audio.volume = 1
+audio.onended = function() {
+	audio.play()
+}
+let disortingStarterInterval = 0
+audio.onplay = function() {
+	showPicture()
+	setTimeout(hidePicture, 48000)
+	setTimeout(showPicture, 79000)
+	setTimeout(hidePicture, 127000)
+	setTimeout(showPicture, 143000)
+}
+const startButton = get("start_button")
+startButton.onclick = function() {
+	audio.play()
+	startButton.style.display = 'none'
+	get("content").style.display = 'block'
+}
+
+</script>
 
 </body>
 </html>
