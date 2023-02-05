@@ -12,6 +12,7 @@ html, body, video {
 	background-color: #000000;
 	font-family: arial;
 	overflow-x: hidden;
+	user-select: none;
 }
 ::-webkit-scrollbar {
     display: none;
@@ -111,10 +112,11 @@ canvas {
 }
 
 #header {
+	height: 450px;
 	position: relative;
 	text-align: center;
 }
-#mountains_box {
+.center_box {
 	display: flex;
 	justify-content: center;
 	position: absolute;
@@ -137,17 +139,19 @@ canvas {
 
 <div id="content">
 	<div id="header">
-		<center>
-			<video id="zero2" width="800" autoplay="" loop="" playsmuted="" muted="" [muted]="'muted'">
-			    <source src="./new/02-5.mp4" type="video/mp4">
-			</video>
-		</center>
+		<div class="center_box">
+			<div>
+				<video id="zero2" width="800" autoplay="" loop="" playsmuted="" muted="" [muted]="'muted'">
+				    <source src="./new/02-5.mp4" type="video/mp4">
+				</video>
+			</div>
+		</div>
 		<!-- <img id="avaRgb" style="transform: translate(400px, 0px);" class="layer" src="./new/me.png" width="440" /> -->
 		<img id="avaRed" class="layer" src="./new/red.png" width="440"  />
 		<img id="avaGreen" class="layer" src="./new/green.png" width="440"  />
 		<img id="avaBlue" class="layer" src="./new/blue.png" width="440"  />
 
-		<div id="mountains_box">
+		<div class="center_box">
 			<img src="./new/mnts.png" width="1000" height="206" />
 		</div>
 	</div>
@@ -346,8 +350,11 @@ thumb.onmouseup = function() {
 	thumb.onmousemove = null
 }
 
-function updateVolumeIcon(event) {
-	const volume = event.path[0].volume
+function onVolumeChanged(event) {
+	updateVolumeIcon(event.path[0].volume)
+}
+
+function updateVolumeIcon(volume) {
 	if (volume == 0) volumeIcon.src = './new/volume-off.png'
 	else if (volume < 1) volumeIcon.src = './new/volume-low.png'
 	else volumeIcon.src = './new/volume-high.png'
@@ -359,10 +366,10 @@ function updateVolumeIcon(event) {
 	}
 }
 
-
 const audio = new Audio("./new/cut.mp3")
-audio.onvolumechange = updateVolumeIcon
 audio.volume = 0.5
+audio.onvolumechange = onVolumeChanged
+updateVolumeIcon(audio.volume)
 audio.onended = function() {
 	audio.play()
 }
