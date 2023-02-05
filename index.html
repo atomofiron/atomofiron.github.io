@@ -229,6 +229,12 @@ function drowHorisontalLines() {
 	const groundWidth = window.innerWidth * pixelRatio
 	const groundHeight = window.innerHeight * pixelRatio
 
+	ctx.lineWidth = lineWidthMax
+    ctx.beginPath()
+	ctx.moveTo(0, 0)
+	ctx.lineTo(groundWidth, 0)
+	ctx.stroke()
+
 	for (let i = 0; i < hLineCount; i++) {
 		let a = (i + 1) / hLineCount
 		let y = Math.tan(time + (i + 1) * Math.PI / hLineCount) * 50 - 50
