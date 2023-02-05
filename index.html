@@ -278,8 +278,17 @@ let deviationBlue = 0
 let desortingInterval = 0
 let oneWay = false
 let disortingStarterInterval = 0
+let probability = 0.5
 
-function startDisorting() {
+function startDisorting(anyWay) {
+	if (anyWay != true) {
+		const yes = Math.random() < probability
+		if (yes) probability /= 2
+		else {
+			probability += Math.min(0.3, (1 - probability) / 2)
+			return
+		}
+	}
 	clearInterval(desortingInterval)
 	intensitySecuence = 0
 	const deviation = Math.PI * 2 * Math.random()
@@ -329,7 +338,7 @@ function hidePicture() {
 	oneWay = true
 	disappearance = 10
 	intensitySecuence = 0
-	startDisorting()
+	startDisorting(true)
 }
 function showPicture() {
 	oneWay = false
@@ -339,8 +348,8 @@ function showPicture() {
 	avaBlue.style.display = 'block'
 	zeroTwo.style.visibility = 'hidden'
 	clearInterval(disortingStarterInterval)
-	disortingStarterInterval = setInterval(startDisorting, 1800)
-	startDisorting()
+	disortingStarterInterval = setInterval(startDisorting, 900)
+	startDisorting(true)
 }
 
 
@@ -380,7 +389,6 @@ function updadeVolumeOffset(offset) {
 }
 volumeBox.onclick = function(event) {
 	if (event.pointerType != 'touch') return
-	clog(event)
 	const offset = event.clientY - thumb.clientHeight
 	updadeVolumeOffset(offset)
 }
