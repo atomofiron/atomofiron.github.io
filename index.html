@@ -26,7 +26,6 @@ video {
 canvas {
 	width: 100%;
 	background-color: #000000;
-    margin-top: -4px;
     margin-bottom: -4px;
     image-rendering: optimizeSpeed;             /* Older versions of FF          */
     image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
@@ -41,11 +40,6 @@ canvas {
 .layer {
 	width: 440px;
 	height: 411px;
-	/*position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	margin: auto;*/
 }
 .layer_box {
 	top: 0;
@@ -195,13 +189,19 @@ function noPx(value) {
 const ground = document.getElementById("canvas_ground")
 const ctx = ground.getContext("2d");
 
+const pixelRatio = window.devicePixelRatio
 const lineWidthMin = 1
-const lineWidthMax = 10
+const lineWidthMax = 5 * pixelRatio
 const hLineCount = 100
-const vLineCount = 30
-let hLineOffset = 0
+let vLineCount = 30
 
 const zeroTwo = get("zero2")
+
+function updateLinesCount() {
+	vLineCount = window.innerWidth * pixelRatio / 100
+}
+document.onresize = updateLinesCount
+window.onresize = updateLinesCount
 
 function drowVerticalLines(frameWidth, frameHeight) {
 	ctx.lineCap = 'round'
@@ -223,15 +223,14 @@ function drowVerticalLines(frameWidth, frameHeight) {
 }
 let time = 0
 function drowHorisontalLines() {
-	ctx.lineWidth = 5
-	const groundWidth = window.innerWidth * 2
-	const groundHeight = window.innerHeight * 2
+	const groundWidth = window.innerWidth * pixelRatio
+	const groundHeight = window.innerHeight * pixelRatio
 
 	for (let i = 0; i < hLineCount; i++) {
 		let a = (i + 1) / hLineCount
 		let y = Math.tan(time + (i + 1) * Math.PI / hLineCount) * 50 - 50
 		y = y|0 + 0.5
-		const lineWidth = lineWidthMax * (y / groundHeight) * 2
+		const lineWidth = lineWidthMax * (y / groundHeight) * pixelRatio
 		ctx.lineWidth = Math.max(lineWidthMin, lineWidth)
 	    ctx.beginPath()
 		ctx.moveTo(0, y)
@@ -242,8 +241,8 @@ function drowHorisontalLines() {
 	time %= Math.PI / 2
 }
 function drawGround() {
-	const groundWidth = window.innerWidth * 2
-	const groundHeight = window.innerHeight * 2
+	const groundWidth = window.innerWidth * pixelRatio
+	const groundHeight = window.innerHeight * pixelRatio
 
 	ground.width = groundWidth
 	ground.height = groundHeight
