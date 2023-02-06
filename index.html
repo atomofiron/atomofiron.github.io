@@ -367,7 +367,8 @@ function showPicture() {
 const volumeBox = get("volume_box")
 const volumeTrack = get("volume_track")
 const volumeIcon = get("volume_icon")
-const startVolume = function() {
+const startVolume = function(ev) {
+	allowClicks = true
 	volumeBox.onmousemove = moveVolume
 }
 const stopVolume = function() {
@@ -379,10 +380,9 @@ volumeBox.onmouseup = stopVolume
 volumeBox.onpointerdown = startVolume
 volumeBox.onpointereave = stopVolume
 volumeBox.onpointerup = stopVolume
-let allowedType = null
+let allowClicks = true
 const moveVolume = function(event) {
-	if (allowedType == null) allowedType = event.type
-	if (allowedType != event.type) return
+	allowClicks = false
 	let height = noPx(volumeTrack.style.height) - event.movementY
 	updadeVolumeOffset(height)
 }
@@ -396,7 +396,7 @@ function updadeVolumeOffset(height) {
 	audio.volume = volume
 }
 volumeBox.onclick = function(event) {
-	if (event.pointerType == 'mouse') return
+	if (!allowClicks) return
 	const height = volumeBox.clientHeight - event.clientY + 40
 	updadeVolumeOffset(height)
 }
