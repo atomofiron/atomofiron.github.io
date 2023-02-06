@@ -92,12 +92,13 @@ canvas {
 	overflow: hidden;
 	background-color: #550055;
 	z-index: 1;
+	cursor: ns-resize;
 }
 #volume_track_line {
-	width: 8px;
-	height: 96px;
+	width: 4px;
+	height: 92px;
 	background-color: #ff00ff;
-	border-radius: 4px;
+	border-radius: 2px;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -197,6 +198,10 @@ function noPx(value) {
 	return (str.length == 0) ? 0 : parseInt(str)
 }
 
+const imgs = document.getElementsByTagName("img")
+for (let img of imgs) {
+  img.draggable = false
+}
 
 const ground = document.getElementById("canvas_ground")
 const ctx = ground.getContext("2d");
