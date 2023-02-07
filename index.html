@@ -44,11 +44,12 @@ canvas {
 .layer {
 	width: 440px;
 	height: 411px;
-	mix-blend-mode: exclusion;
+	/*mix-blend-mode: exclusion; doesn't work in Safari for nested element*/
 }
 .layer_box {
 	top: 0;
 	margin: auto;
+	mix-blend-mode: exclusion;
 }
 #progress {
 	height: 100px;
