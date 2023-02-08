@@ -441,7 +441,7 @@ function updadeVolumeOffset(height) {
 	volumeTrack.style.height = height + px
 
 	let volume = (height - min) / (volumeBox.clientHeight - min)
-	audio.volume = volume
+	audio.volume = Math.pow(volume, 2)
 }
 volumeBox.onclick = function(event) {
 	if (!allowClicks) return
@@ -450,7 +450,7 @@ volumeBox.onclick = function(event) {
 }
 
 function onVolumeChanged(event) {
-	updateVolumeIcon(audio.volume)
+	updateVolumeIcon(Math.sqrt(audio.volume))
 }
 
 function updateVolumeIcon(volume) {
