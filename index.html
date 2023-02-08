@@ -29,7 +29,6 @@ video {
 canvas {
 	width: 100%;
 	background-color: #000000;
-    margin-bottom: -4px;
     image-rendering: optimizeSpeed;             /* Older versions of FF          */
     image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
     image-rendering: -webkit-optimize-contrast; /* Safari                        */
@@ -37,19 +36,19 @@ canvas {
     image-rendering: pixelated;                 /* Awesome future-browsers       */
     -ms-interpolation-mode: nearest-neighbor;
 }
-#zero2 {
-	visibility: hidden;
-	text-align: center;
-}
-.layer {
-	width: 440px;
-	height: 411px;
-	/*mix-blend-mode: exclusion; doesn't work in Safari for nested element*/
+.underlayer_box {
+	top: 0;
+	margin: auto;
 }
 .layer_box {
 	top: 0;
 	margin: auto;
 	mix-blend-mode: exclusion;
+}
+.layer {
+	width: 440px;
+	height: 411px;
+	/*mix-blend-mode: exclusion; doesn't work in Safari for nested element*/
 }
 #progress {
 	height: 100px;
@@ -106,6 +105,7 @@ canvas {
 	top: 0;
 	bottom: 0;
 	margin: auto;
+	opacity: 0.5;
 }
 #volume_track {
 	width: 100%;
@@ -140,6 +140,25 @@ canvas {
 	left: 0;
 	right: 0;
 }
+#sky {
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	position: absolute;
+	mix-blend-mode: exclusion;
+}
+#canvas_sky {
+	background: radial-gradient(farthest-corner at 50% 100%, rgba(0, 80, 128, 0.5), rgba(0, 80, 128, 0.5) 30%, rgba(0, 0, 0, 0.5)), url("./new/noise.svg");
+	filter: contrast(2) brightness(50%);
+}
+#canvas_ground {
+	background: radial-gradient(circle at 50% 0%, rgba(255, 0, 255, 0.2), rgba(255, 0, 255, 0.05));
+    margin-bottom: -4px;
+}
 </style>
 </head>
 <body>
@@ -154,12 +173,21 @@ canvas {
 	<div id="header">
 		<div class="center_box">
 			<div>
-				<video id="zero2" width="800" autoplay="" loop="" playsmuted="" muted="" [muted]="'muted'">
+				<video id="zero2" style="display: none;" width="800" autoplay="" loop="" playsmuted="" muted="" [muted]="'muted'">
 				    <source src="./new/02-5.mp4" type="video/mp4">
 				</video>
 			</div>
 		</div>
-		<!-- <img id="avaRgb" style="transform: translate(400px, 0px);" class="layer" src="./new/me.png" width="440" /> -->
+
+
+		<div id="sky" class="center_box">
+			<canvas id="canvas_sky"></canvas>
+		</div>
+
+
+		<div class="center_box underlayer_box">
+			<img id="avaBlack" class="layer" src="./new/red.png" style="filter: brightness(0);" />
+		</div>
 		<div class="center_box layer_box">
 			<img id="avaRed" class="layer" src="./new/red.png" />
 		</div>
@@ -204,13 +232,17 @@ for (let img of imgs) {
   img.draggable = false
 }
 
-const ground = document.getElementById("canvas_ground")
-const ctx = ground.getContext("2d");
+const groundCanvas = document.getElementById("canvas_ground")
+const ground = groundCanvas.getContext("2d");
+
+const skyCanvas = document.getElementById("canvas_sky")
+const sky = skyCanvas.getContext("2d");
 
 const pixelRatio = window.devicePixelRatio
-const lineWidthMin = 1
+const lineWidthMin = 0.5 * pixelRatio
 const lineWidthMax = 5 * pixelRatio
-const hLineCount = 100
+const hLineWidthMax = lineWidthMax * 2
+const hLineCount = 25
 let vLineCount = 30
 
 const zeroTwo = get("zero2")
@@ -224,62 +256,69 @@ document.onresize = updateLinesCount
 window.onresize = updateLinesCount
 
 function drowVerticalLines(frameWidth, frameHeight) {
-	ctx.lineCap = 'round'
-	ctx.strokeStyle = "#ff00ff"
+	ground.lineCap = 'round'
+	ground.strokeStyle = "#ff00ff"
 
 	const vOffset = 0
 	const hStep = frameWidth / vLineCount
-
 	const centerX = frameWidth / 2
 	for (let x = hStep / 2; x < frameWidth - hStep / 4; x += hStep) {
-		ctx.lineWidth = lineWidthMax * (1 - Math.abs(centerX - x) / centerX)
-		ctx.beginPath()
-		ctx.moveTo(x, 0)
+		ground.lineWidth = lineWidthMax * (1 - Math.abs(centerX - x) / centerX)
+		ground.beginPath()
+		ground.moveTo(x, 0)
 		let dif = centerX - x
 		dif *= Math.abs(dif) / hStep + 5
-		ctx.lineTo(x - dif, frameHeight)
-		ctx.stroke()
+		ground.lineTo(x - dif, frameHeight)
+		ground.stroke()
 	}
 }
 let time = 0
-function drowHorisontalLines() {
-	const groundWidth = window.innerWidth * pixelRatio
-	const groundHeight = window.innerHeight * pixelRatio
+const tanLimit = Math.PI / 2
+function drowHorizontalLines() {
+	const groundCanvasWidth = window.innerWidth * pixelRatio
+	const groundCanvasHeight = window.innerHeight * pixelRatio
 
-	ctx.lineWidth = lineWidthMax
-    ctx.beginPath()
-	ctx.moveTo(0, 0)
-	ctx.lineTo(groundWidth, 0)
-	ctx.stroke()
+	ground.lineWidth = lineWidthMax
+    ground.beginPath()
+	ground.moveTo(0, 0)
+	ground.lineTo(groundCanvasWidth, 0)
+	ground.stroke()
 
-	for (let i = 0; i < hLineCount; i++) {
-		let a = (i + 1) / hLineCount
-		let y = Math.tan(time + (i + 1) * Math.PI / hLineCount) * 50 - 50
+	const yOffset = 50
+	for (let i = 0; i < hLineCount * 2; i++) {
+		let arg = time
+		arg += (i + 1) * tanLimit / hLineCount / 2
+		arg %= tanLimit
+		let y = Math.tan(arg) * 50 - yOffset
+		if (y < 0 || y > groundCanvasHeight) continue
 		y = y|0 + 0.5
-		const lineWidth = lineWidthMax * (y / groundHeight) * pixelRatio
-		ctx.lineWidth = Math.max(lineWidthMin, lineWidth)
-	    ctx.beginPath()
-		ctx.moveTo(0, y)
-		ctx.lineTo(groundWidth, y)
-		ctx.stroke()
+		const lineWidth = hLineWidthMax * (y / groundCanvasHeight)
+		ground.lineWidth = Math.max(lineWidthMin, lineWidth)
+	    ground.beginPath()
+		ground.moveTo(0, y)
+		ground.lineTo(groundCanvasWidth, y)
+		ground.stroke()
 	}
 	time += Math.PI / 3000
-	time %= Math.PI / 2
+	time %= tanLimit
 }
 function drawGround() {
-	const groundWidth = window.innerWidth * pixelRatio
-	const groundHeight = window.innerHeight * pixelRatio
+	const groundCanvasWidth = window.innerWidth * pixelRatio
+	const groundCanvasHeight = window.innerHeight * pixelRatio
 
-	ground.width = groundWidth
-	ground.height = groundHeight
+	groundCanvas.width = groundCanvasWidth
+	groundCanvas.height = groundCanvasHeight
 
-	drowVerticalLines(groundWidth, groundHeight)
-	drowHorisontalLines()
+	drowVerticalLines(groundCanvasWidth, groundCanvasHeight)
+	drowHorizontalLines()
 }
 setInterval(drawGround, 16)
 
 
 
+sky
+
+const avaBlack = get("avaBlack")
 const avaRed = get("avaRed")
 const avaGreen = get("avaGreen")
 const avaBlue = get("avaBlue")
@@ -330,10 +369,7 @@ function distortPicture() {
 		avaGreen.style.transform = ''
 		avaBlue.style.transform = ''
 		if (oneWay) {
-			avaRed.style.display = 'none'
-			avaGreen.style.display = 'none'
-			avaBlue.style.display = 'none'
-			zeroTwo.style.visibility = 'visible'
+			zeroTwoElsePicture(true)
 		}
 		return
 	}
@@ -350,6 +386,15 @@ function distortLayer(element, radian, intensity, onlyTrembling) {
 	element.style.transform = `translate(${x}px, ${y}px)`
 }
 
+function zeroTwoElsePicture(showZeroTwo) {
+	const picture = showZeroTwo ? 'none' : 'block'
+	avaBlack.style.display = picture
+	avaRed.style.display = picture
+	avaGreen.style.display = picture
+	avaBlue.style.display = picture
+	zeroTwo.style.display = showZeroTwo ? 'block' : 'none'
+}
+
 function hidePicture() {
 	clearInterval(disortingStarterInterval)
 	oneWay = true
@@ -360,10 +405,7 @@ function hidePicture() {
 function showPicture() {
 	oneWay = false
 	disappearance = 1
-	avaRed.style.display = 'block'
-	avaGreen.style.display = 'block'
-	avaBlue.style.display = 'block'
-	zeroTwo.style.visibility = 'hidden'
+	zeroTwoElsePicture(false)
 	clearInterval(disortingStarterInterval)
 	disortingStarterInterval = setInterval(startDisorting, 900)
 	startDisorting(true)
