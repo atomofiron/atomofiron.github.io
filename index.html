@@ -246,6 +246,8 @@ const hLineCount = 25
 let vLineCount = 30
 
 const zeroTwo = get("zero2")
+const tanLimit = Math.PI / 2
+let time = 0
 
 function updateLinesCount() {
 	vLineCount = window.innerWidth * pixelRatio / 100
@@ -254,6 +256,7 @@ function updateLinesCount() {
 }
 document.onresize = updateLinesCount
 window.onresize = updateLinesCount
+updateLinesCount()
 
 function drowVerticalLines(frameWidth, frameHeight) {
 	ground.lineCap = 'round'
@@ -272,16 +275,14 @@ function drowVerticalLines(frameWidth, frameHeight) {
 		ground.stroke()
 	}
 }
-let time = 0
-const tanLimit = Math.PI / 2
 function drowHorizontalLines() {
-	const groundCanvasWidth = window.innerWidth * pixelRatio
-	const groundCanvasHeight = window.innerHeight * pixelRatio
+	const groundWidth = groundCanvas.width
+	const groundHeight = groundCanvas.height
 
 	ground.lineWidth = lineWidthMax
     ground.beginPath()
 	ground.moveTo(0, 0)
-	ground.lineTo(groundCanvasWidth, 0)
+	ground.lineTo(groundWidth, 0)
 	ground.stroke()
 
 	const yOffset = 50
@@ -290,33 +291,55 @@ function drowHorizontalLines() {
 		arg += (i + 1) * tanLimit / hLineCount / 2
 		arg %= tanLimit
 		let y = Math.tan(arg) * 50 - yOffset
-		if (y < 0 || y > groundCanvasHeight) continue
+		if (y < 0 || y > groundHeight) continue
 		y = y|0 + 0.5
-		const lineWidth = hLineWidthMax * (y / groundCanvasHeight)
+		const lineWidth = hLineWidthMax * (y / groundHeight)
 		ground.lineWidth = Math.max(lineWidthMin, lineWidth)
 	    ground.beginPath()
 		ground.moveTo(0, y)
-		ground.lineTo(groundCanvasWidth, y)
+		ground.lineTo(groundWidth, y)
 		ground.stroke()
 	}
+}
+function drawWorld() {
+	const windowWidth = window.innerWidth * pixelRatio
+	const windowHeight = window.innerHeight * pixelRatio
+
+	groundCanvas.width = windowWidth
+	groundCanvas.height = windowHeight
+	skyCanvas.width = windowWidth
+	skyCanvas.height = skyCanvas.clientHeight * pixelRatio
+
+	drowVerticalLines(windowWidth, windowHeight)
+	drowHorizontalLines()
 	time += Math.PI / 3000
 	time %= tanLimit
 }
-function drawGround() {
-	const groundCanvasWidth = window.innerWidth * pixelRatio
-	const groundCanvasHeight = window.innerHeight * pixelRatio
+setInterval(drawWorld, 16)
 
-	groundCanvas.width = groundCanvasWidth
-	groundCanvas.height = groundCanvasHeight
 
-	drowVerticalLines(groundCanvasWidth, groundCanvasHeight)
-	drowHorizontalLines()
+const starsX = [ 500, -10, 50, -400, 800, -100, 200, -200, -800, 100, -50, 400, -500, 10 ]
+
+
+function drawSky() {
+	const skyWidth = skyCanvas.width
+	const skyHeight = skyCanvas.height
+	sky.lineWidth = lineWidthMin
+	sky.strokeStyle = "#ffffff"
+
+	for (let i = 0; i < starsX.length; i++) {
+		let y = Math.tan(time) * 50
+		const lineWidth = lineWidthMax * (y / skyHeight)
+		sky.lineWidth = Math.max(lineWidthMin, lineWidth)
+		const x = starsX[i]
+	    sky.beginPath()
+		sky.moveTo(x, skyHeight - y)
+		sky.lineTo(x, skyHeight - y - 10)
+		sky.stroke()
+	}
 }
-setInterval(drawGround, 16)
 
 
-
-sky
 
 const avaBlack = get("avaBlack")
 const avaRed = get("avaRed")
