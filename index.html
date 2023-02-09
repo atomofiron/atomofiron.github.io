@@ -59,36 +59,6 @@ canvas {
 	height: 411px;
 	/*mix-blend-mode: exclusion; doesn't work in Safari for nested element*/
 }
-#progress {
-	height: 100px;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	color: #ff00ff;
-	text-align: center;
-	font-size: 48px;
-}
-#start_button {
-	width: 200px;
-	height: 200px;
-	background-color: #ff00ff;
-	border-radius: 64px;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	padding-top: 24px;
-	padding-bottom: 64px;
-	color: black;
-	text-align: center;
-	cursor: pointer;
-	visibility: hidden;
-}
 #content {
 	display: none;
 }
@@ -199,19 +169,47 @@ canvas {
 }
 
 .blinking {
-    -moz-transition:all 1s ease-in-out;
-    -webkit-transition:all 1s ease-in-out;
-    -o-transition:all 1s ease-in-out;
-    -ms-transition:all 1s ease-in-out;
-    transition:all 1s ease-in-out;
-    -moz-animation:blink normal 1s infinite ease-in-out;
-    /* Firefox */
-    -webkit-animation:blink normal 1s infinite ease-in-out;
-    /* Webkit */
-    -ms-animation:blink normal 1s infinite ease-in-out;
-    /* IE */
-    animation:blink normal 1s infinite ease-in-out;
-    /* Opera */
+    -moz-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+    -moz-animation: blink normal 1s infinite ease-in-out; /* Firefox */
+    -webkit-animation: blink normal 1s infinite ease-in-out; /* Webkit */
+    -ms-animation: blink normal 1s infinite ease-in-out; /* IE */
+    animation: blink normal 1s infinite ease-in-out; /* Opera */
+}
+
+#progress_box {
+	width: 214px;
+	border: 1px #ff00ff solid;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0px 16px 16px 16px;
+}
+#progress_title {
+	color: white;
+	font-size: 32px;
+	background-color: black;
+	position: relative;
+	top: -20px;
+	left: -8px;
+	padding: 0px 8px;
+}
+#progress_bar tr td {
+	width: 40px;
+	height: 20px;
+	background-color: black;
+	border-top: 2px black solid;
+	border-bottom: 2px black solid;
+}
+#start_button {
+	border: 2px #ff00ff solid;
+	cursor: pointer;
+	visibility: hidden;
+	border: 1px #ff00ff solid;
+	right: 0;
+	margin-left: auto;
 }
 </style>
 </head>
@@ -259,7 +257,7 @@ canvas {
 			<span id="name" style="font-size: 24px;"></span>
 			<br>
 			<span id="vocation" style="font-size: 16px; line-height: 24px;"></span>
-			<span id="cursor" style="visibility: hidden;">&ZeroWidthSpace;_<span>
+			<span id="cursor" style="visibility: hidden;">&ZeroWidthSpace;_</span>
 		</div>
 	</div>
 
@@ -268,11 +266,27 @@ canvas {
 	<canvas id="canvas_ground" style="width: 100%;"></canvas>
 </div>
 
-<div id="start_button">
-	<img src="./new/yeah.png">
-	<b>НАЖМИ НА МЕНЯ</b><br><br>
+<div style="display: table; position: absolute; top: 0; left: 0; height: 100%; width: 100%;">
+<div style="display: table-cell; vertical-align: middle;">
+	<div id="progress_box">
+		<span id="progress_title">Loading…</span>
+		<br>
+		<table id="progress_bar" cellspacing="0" cellpadding="0" style="border: 1px #ff00ff solid; padding-right: 2px;">
+			<tr>
+				<td></td><td></td><td></td><td></td><td></td>
+			</tr>
+		</table>
+		<br>
+		<table id="start_button">
+			<tr>
+				<td style="background-color: #ff00ff; font-size: 24px; padding: 8px 16px 8px 16px;">
+					Continue
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
-<div id="progress" style="visibility: visible;">Loading… 0/4</div>
+</div>
 
 <script type="text/javascript">
 
@@ -571,50 +585,6 @@ function updateVolumeIcon(volume) {
 	else volumeIcon.src = './new/volume-high.png'
 }
 
-const audio = new Audio("./new/cut.mp3")
-audio.volume = 0.5
-audio.onvolumechange = onVolumeChanged
-updateVolumeIcon(audio.volume)
-audio.onended = function() {
-	audio.play()
-}
-audio.onplay = function() {
-	showPicture()
-	setTimeout(hidePicture, 48000)
-	setTimeout(showPicture, 79000)
-	setTimeout(hidePicture, 127000)
-	setTimeout(showPicture, 143000)
-}
-const startButton = get("start_button")
-startButton.onclick = function() {
-	audio.play()
-	startButton.style.display = 'none'
-	get("content").style.display = 'block'
-	titleInterval = setInterval(showName, 100)
-}
-
-const progress = get("progress")
-let count = 0
-function onImageLoad(arg) {
-	count++
-	progress.innerText = `Loading… ${count}/4`
-	if (count == 4) {
-		progress.style.visibility = 'hidden'
-		startButton.style.visibility = 'visible'
-	}
-}
-const mnts = new Image()
-const red = new Image()
-const green = new Image()
-const blue = new Image()
-mnts.onload = onImageLoad
-red.onload = onImageLoad
-green.onload = onImageLoad
-blue.onload = onImageLoad
-mnts.src = "./new/mnts.png"
-red.src = "./new/red.png"
-green.src = "./new/green.png"
-blue.src = "./new/blue.png"
 
 
 const name = "Yaroslav Nesterov"
@@ -674,6 +644,70 @@ function showVocation() {
 	if (vocationSpan.innerText != text) {
 		vocationSpan.innerText = text
 	}
+}
+
+const loadingCompleted = "Completed"
+const progressBox = get('progress_box')
+const progressTitle = get('progress_title')
+const progressBar = get('progress_bar')
+let progress = 0
+function onResourceLoaded() {
+	progress++
+	setProgress(progress)
+	if (progress == 5) {
+		progressTitle.innerText = loadingCompleted
+		startButton.style.visibility = 'visible'
+	}
+}
+function setProgress(count) {
+	const cells = progressBar.getElementsByTagName("td")
+	for (let i = 0; i < cells.length; i++) {
+		const cell = cells[i]
+		cell.style.backgroundColor = (i < count) ? "#ff00ff" : "#000000"
+		cell.style.borderLeft = (i == 0 || i <= count) ? "2px #000000 solid" : "1px #ff00ff solid"
+		cell.style.borderRight = (i == 0 || i <= count) ? "0px #000000 solid" : "1px #000000 solid"
+		cell.style.borderTop = (i == 0 || i < count) ? "2px #000000 solid" : "0px"
+		cell.style.borderBottom = (i == 0 || i < count) ? "2px #000000 solid" : "0px"
+	}
+}
+setProgress(0)
+
+const startButton = get("start_button")
+startButton.onclick = function() {
+	progressBox.style.display = 'none'
+	audio.play()
+	get("content").style.display = 'block'
+	titleInterval = setInterval(showName, 100)
+}
+
+const audio = new Audio()
+const mnts = new Image()
+const red = new Image()
+const green = new Image()
+const blue = new Image()
+mnts.onload = onResourceLoaded
+red.onload = onResourceLoaded
+green.onload = onResourceLoaded
+blue.onload = onResourceLoaded
+audio.oncanplay = onResourceLoaded
+mnts.src = "./new/mnts.png"
+red.src = "./new/red.png"
+green.src = "./new/green.png"
+blue.src = "./new/blue.png"
+audio.src = "./new/cut.mp3"
+
+audio.volume = 0.5
+audio.onvolumechange = onVolumeChanged
+updateVolumeIcon(audio.volume)
+audio.onended = function() {
+	audio.play()
+}
+audio.onplay = function() {
+	showPicture()
+	setTimeout(hidePicture, 48000)
+	setTimeout(showPicture, 79000)
+	setTimeout(hidePicture, 127000)
+	setTimeout(showPicture, 143000)
 }
 
 </script>
