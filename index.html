@@ -703,15 +703,20 @@ green.onload = onResourceLoaded
 blue.onload = onResourceLoaded
 audio.oncanplay = onResourceLoaded
 
-document.fonts.onloadingdone = function(event) {
-	const fixedsys = event.fontfaces.find((it) => it.family == 'fixedsys')
-	if (fixedsys) {
-		onResourceLoaded()
-		red.src = "./new/red.png"
-		green.src = "./new/green.png"
-		blue.src = "./new/blue.png"
-		mnts.src = "./new/mnts.png"
-		audio.src = "./new/cut.mp3"
+function onFontLoaded() {
+	onResourceLoaded()
+	red.src = "./new/red.png"
+	green.src = "./new/green.png"
+	blue.src = "./new/blue.png"
+	mnts.src = "./new/mnts.png"
+	audio.src = "./new/cut.mp3"
+}
+if (document.fonts.size > 0 && document.fonts.status == 'loaded') {
+	onFontLoaded()
+} else {
+	document.fonts.onloadingdone = function(event) {
+		const fixedsys = event.fontfaces.find((it) => it.family == 'fixedsys')
+		if (fixedsys) onFontLoaded()
 	}
 }
 
