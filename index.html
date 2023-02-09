@@ -193,8 +193,7 @@ canvas {
     }
 }
 
- #cursor {
- 	color: black;
+.blinking {
     -moz-transition:all 1s ease-in-out;
     -webkit-transition:all 1s ease-in-out;
     -o-transition:all 1s ease-in-out;
@@ -251,7 +250,7 @@ canvas {
 			<img src="./new/mnts.png" width="1000" height="206" />
 		</div>
 
-		<div style="position: absolute; color: white; padding: 16px; text-align: left;">
+		<div id="title" style="position: absolute; color: white; padding: 16px; text-align: left;">
 			<span id="name" style="font-size: 24px;"></span>
 			<br>
 			<span id="vocation" style="font-size: 16px; line-height: 24px;"></span>
@@ -272,7 +271,7 @@ canvas {
 
 <script type="text/javascript">
 
-const clog = console.log
+const poop = console.log
 function get(id) {
 	return document.getElementById(id)
 }
@@ -586,7 +585,7 @@ startButton.onclick = function() {
 	audio.play()
 	startButton.style.display = 'none'
 	get("content").style.display = 'block'
-	titleInterval = setInterval(nextChar, 100)
+	titleInterval = setInterval(showName, 100)
 }
 
 const progress = get("progress")
@@ -612,38 +611,64 @@ red.src = "./new/red.png"
 green.src = "./new/green.png"
 blue.src = "./new/blue.png"
 
-const name = "Yaroslav Nesterov".split('')
-const vocation = "Android Developer".split('')
+
+const name = "Yaroslav Nesterov"
+const vocation = "Android Developer"
 const enjoyer = "Anime Enjoyer"
 const cursor = "_"
 
+const titleDiv = get("title")
 const nameSpan = get("name")
 const vocationSpan = get("vocation")
 const cursorSpan = get("cursor")
 
 let titleInterval = 0
-
 nameSpan.innerText = cursor
-function nextChar() {
-	if (name.length > 0) {
-		const text = nameSpan.innerText
-		const value = text.substring(0, text.length - 1)
-		nameSpan.innerText = value + name.shift() + cursor
-	} else if (vocation.length > 0 && vocationSpan.innerText.length == 0) {
-		const name = nameSpan.innerText
-		nameSpan.innerText = name.substring(0, name.length - 1)
-		vocationSpan.innerText = cursor
-	} else if (vocation.length > 0) {
-		const text = vocationSpan.innerText
-		const value = text.substring(0, text.length - 1)
-		vocationSpan.innerText = value + vocation.shift() + cursor
-	} else {
-		const vocation = vocationSpan.innerText
-		vocationSpan.innerText = vocation.substring(0, vocation.length - 1)
-		clearInterval(titleInterval)
-		cursorSpan.style.visibility = 'visible'
-	}
 
+function showName() {
+	const visibleName = nameSpan.innerText
+	const index = visibleName.length - 1
+	const value = visibleName.substring(0, index)
+	if (visibleName.length < name.length + 1) {
+		nameSpan.innerText = value + name[index] + cursor
+	} else {
+		nameSpan.innerText = value
+		vocationSpan.innerText = cursor
+		clearInterval(titleInterval)
+		setInterval(showVocation, 100)
+	}
+}
+function showBlinkingCursor(show) {
+	if (show) cursorSpan.classList.add('blinking')
+	else cursorSpan.classList.remove('blinking')
+	cursorSpan.style.visibility = show ? 'visible' : 'hidden'
+}
+function showVocation() {
+	let text = vocationSpan.innerText
+	if (text.endsWith(cursor)) {
+		text = text.substring(0, text.length - 1)
+	}
+	const isVocation = vocation.startsWith(text)
+	const toAnime = titleDiv.matches(':hover')
+	const remove = text.length > 2 && (isVocation == toAnime)
+	if (remove) {
+		text = text.substring(0, text.length - 1)
+		text += cursor
+		showBlinkingCursor(false)
+	} else {
+		const target = toAnime ? enjoyer : vocation
+		if (text.length < target.length) {
+			text += target[text.length]
+			if (text.length < target.length) {
+				text += cursor
+			}
+		} else {
+			showBlinkingCursor(true)
+		}
+	}
+	if (vocationSpan.innerText != text) {
+		vocationSpan.innerText = text
+	}
 }
 
 </script>
