@@ -204,12 +204,20 @@ canvas {
 	border-bottom: 2px black solid;
 }
 #start_button {
-	border: 2px #ff00ff solid;
 	cursor: pointer;
 	visibility: hidden;
 	border: 1px #ff00ff solid;
 	right: 0;
 	margin-left: auto;
+}
+#start_button_text {
+	background-color: #ff00ff;
+	font-size: 24px;
+	padding: 8px 16px 8px 16px;
+}
+#start_button_text:hover {
+	background-color: black;
+	color: #ff00ff;
 }
 </style>
 </head>
@@ -277,9 +285,7 @@ canvas {
 		<br>
 		<table id="start_button">
 			<tr>
-				<td style="background-color: #ff00ff; font-size: 24px; padding: 8px 16px 8px 16px;">
-					Continue
-				</td>
+				<td id="start_button_text">Continue</td>
 			</tr>
 		</table>
 	</div>
