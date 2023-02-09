@@ -181,7 +181,7 @@ canvas {
 }
 
 #progress_box {
-	width: 214px;
+	width: 256px;
 	border: 1px #ff00ff solid;
 	margin-left: auto;
 	margin-right: auto;
@@ -272,9 +272,7 @@ canvas {
 		<span id="progress_title">Loading…</span>
 		<br>
 		<table id="progress_bar" cellspacing="0" cellpadding="0" style="border: 1px #ff00ff solid; padding-right: 2px;">
-			<tr>
-				<td></td><td></td><td></td><td></td><td></td>
-			</tr>
+			<tr id="progress_row"></tr>
 		</table>
 		<br>
 		<table id="start_button">
@@ -650,11 +648,18 @@ const loadingCompleted = "Completed"
 const progressBox = get('progress_box')
 const progressTitle = get('progress_title')
 const progressBar = get('progress_bar')
+const progressRow = get('progress_row')
+const progressCell = "<td></td>"
+const progressMax = 6
 let progress = 0
+
+for (let i = 0; i < progressMax; i++) {
+	progressRow.innerHTML += progressCell
+}
 function onResourceLoaded() {
 	progress++
 	setProgress(progress)
-	if (progress == 5) {
+	if (progress == progressMax) {
 		progressTitle.innerText = loadingCompleted
 		startButton.style.visibility = 'visible'
 	}
@@ -690,11 +695,18 @@ red.onload = onResourceLoaded
 green.onload = onResourceLoaded
 blue.onload = onResourceLoaded
 audio.oncanplay = onResourceLoaded
-mnts.src = "./new/mnts.png"
-red.src = "./new/red.png"
-green.src = "./new/green.png"
-blue.src = "./new/blue.png"
-audio.src = "./new/cut.mp3"
+
+document.fonts.onloadingdone = function(event) {
+	const fixedsys = event.fontfaces.find((it) => it.family == 'fixedsys')
+	if (fixedsys) {
+		onResourceLoaded()
+		red.src = "./new/red.png"
+		green.src = "./new/green.png"
+		blue.src = "./new/blue.png"
+		mnts.src = "./new/mnts.png"
+		audio.src = "./new/cut.mp3"
+	}
+}
 
 audio.volume = 0.5
 audio.onvolumechange = onVolumeChanged
