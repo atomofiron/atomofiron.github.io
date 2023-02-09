@@ -274,7 +274,7 @@ canvas {
 	<canvas id="canvas_ground" style="width: 100%;"></canvas>
 </div>
 
-<div style="display: table; position: absolute; top: 0; left: 0; height: 100%; width: 100%;">
+<div id="progress_box_overlay" style="display: table; position: absolute; top: 0; left: 0; height: 100%; width: 100%;">
 <div style="display: table-cell; vertical-align: middle;">
 	<div id="progress_box">
 		<span id="progress_title">Loading…</span>
@@ -651,6 +651,7 @@ function showVocation() {
 }
 
 const loadingCompleted = "Completed"
+const progressBoxOverlay = get('progress_box_overlay')
 const progressBox = get('progress_box')
 const progressTitle = get('progress_title')
 const progressBar = get('progress_bar')
@@ -685,7 +686,7 @@ setProgress(0)
 
 const startButton = get("start_button")
 startButton.onclick = function() {
-	progressBox.style.display = 'none'
+	progressBoxOverlay.style.display = 'none'
 	audio.play()
 	get("content").style.display = 'block'
 	titleInterval = setInterval(showName, 100)
