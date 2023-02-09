@@ -147,24 +147,24 @@ canvas {
 }
 @keyframes blink {
     0% {
-           color: rgba(255, 255, 255, 0);
-    }
-    50% {
            color: rgba(255, 255, 255, 1);
     }
-    100% {
+    50% {
            color: rgba(255, 255, 255, 0);
+    }
+    100% {
+           color: rgba(255, 255, 255, 1);
     }
 }
 @-webkit-keyframes blink {
     0% {
-           color: rgba(255, 255, 255, 0);
-    }
-    50% {
            color: rgba(255, 255, 255, 1);
     }
-    100% {
+    50% {
            color: rgba(255, 255, 255, 0);
+    }
+    100% {
+           color: rgba(255, 255, 255, 1);
     }
 }
 
@@ -617,9 +617,13 @@ function showName() {
 	}
 }
 function showBlinkingCursor(show) {
-	if (show) cursorSpan.classList.add('blinking')
-	else cursorSpan.classList.remove('blinking')
-	cursorSpan.style.visibility = show ? 'visible' : 'hidden'
+	const blinking = 'blinking'
+	const contains = cursorSpan.classList.contains(blinking)
+	if (show && !contains) cursorSpan.classList.add(blinking)
+	else if (!show && contains) cursorSpan.classList.remove('blinking')
+	const visibility = show ? 'visible' : 'hidden'
+	if (cursorSpan.style.visibility != visibility)
+		cursorSpan.style.visibility = visibility
 }
 function showVocation() {
 	let text = vocationSpan.innerText
@@ -636,10 +640,7 @@ function showVocation() {
 	} else {
 		const target = toAnime ? enjoyer : vocation
 		if (text.length < target.length) {
-			text += target[text.length]
-			if (text.length < target.length) {
-				text += cursor
-			}
+			text += target[text.length] + cursor
 		} else {
 			showBlinkingCursor(true)
 		}
