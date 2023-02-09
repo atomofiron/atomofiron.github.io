@@ -6,6 +6,10 @@
 	<title></title>
 
 <style type="text/css">
+@font-face {
+	font-family: fixedsys;
+	src: url("./new/fixedsys.ttf");
+}
 html, body, video {
 	padding: 0px;
 	margin: 0px;
@@ -13,6 +17,7 @@ html, body, video {
 	font-family: arial;
 	overflow-x: hidden;
 	user-select: none;
+	font-family: fixedsys;
 }
 img {
 	-webkit-user-drag: none;
@@ -28,7 +33,6 @@ video {
 }
 canvas {
 	width: 100%;
-	background-color: #000000;
     image-rendering: optimizeSpeed;             /* Older versions of FF          */
     image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
     image-rendering: -webkit-optimize-contrast; /* Safari                        */
@@ -148,16 +152,62 @@ canvas {
 	right: 0;
 	bottom: 0;
 	margin: auto;
+}
+#firmament {
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
 	position: absolute;
 	mix-blend-mode: exclusion;
-}
-#canvas_sky {
 	background: radial-gradient(farthest-corner at 50% 100%, rgba(0, 80, 128, 0.5), rgba(0, 80, 128, 0.5) 30%, rgba(0, 0, 0, 0.5)), url("./new/noise.svg");
 	filter: contrast(2) brightness(50%);
 }
 #canvas_ground {
-	background: radial-gradient(circle at 50% 0%, rgba(255, 0, 255, 0.2), rgba(255, 0, 255, 0.05));
+	background: radial-gradient(circle at 50% 0%, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05));
     margin-bottom: -4px;
+}
+@keyframes blink {
+    0% {
+           color: rgba(255, 255, 255, 1);
+    }
+    50% {
+           color: rgba(255, 255, 255, 0);
+    }
+    100% {
+           color: rgba(255, 255, 255, 1);
+    }
+}
+@-webkit-keyframes blink {
+    0% {
+           color: rgba(255, 255, 255, 1);
+    }
+    50% {
+           color: rgba(255, 255, 255, 0);
+    }
+    100% {
+           color: rgba(255, 255, 255, 1);
+    }
+}
+
+ #cursor {
+ 	color: black;
+    -moz-transition:all 1s ease-in-out;
+    -webkit-transition:all 1s ease-in-out;
+    -o-transition:all 1s ease-in-out;
+    -ms-transition:all 1s ease-in-out;
+    transition:all 1s ease-in-out;
+    -moz-animation:blink normal 1s infinite ease-in-out;
+    /* Firefox */
+    -webkit-animation:blink normal 1s infinite ease-in-out;
+    /* Webkit */
+    -ms-animation:blink normal 1s infinite ease-in-out;
+    /* IE */
+    animation:blink normal 1s infinite ease-in-out;
+    /* Opera */
 }
 </style>
 </head>
@@ -179,11 +229,10 @@ canvas {
 			</div>
 		</div>
 
-
+		<div id="firmament" class="center_box"></div>
 		<div id="sky" class="center_box">
 			<canvas id="canvas_sky"></canvas>
 		</div>
-
 
 		<div class="center_box underlayer_box">
 			<img id="avaBlack" class="layer" src="./new/red.png" style="filter: brightness(0);" />
@@ -200,6 +249,13 @@ canvas {
 
 		<div class="center_box">
 			<img src="./new/mnts.png" width="1000" height="206" />
+		</div>
+
+		<div style="position: absolute; color: white; padding: 16px; text-align: left;">
+			<span id="name" style="font-size: 24px;"></span>
+			<br>
+			<span id="vocation" style="font-size: 16px; line-height: 24px;"></span>
+			<span id="cursor" style="visibility: hidden;">&ZeroWidthSpace;_<span>
 		</div>
 	</div>
 
@@ -307,38 +363,66 @@ function drawWorld() {
 
 	groundCanvas.width = windowWidth
 	groundCanvas.height = windowHeight
+	const skyHeight = skyCanvas.clientHeight * pixelRatio
 	skyCanvas.width = windowWidth
-	skyCanvas.height = skyCanvas.clientHeight * pixelRatio
+	skyCanvas.height = skyHeight
 
 	drowVerticalLines(windowWidth, windowHeight)
 	drowHorizontalLines()
+	drawStars()
 	time += Math.PI / 3000
 	time %= tanLimit
 }
-setInterval(drawWorld, 16)
 
+const stars = [ ]
+const starCount = 100
 
-const starsX = [ 500, -10, 50, -400, 800, -100, 200, -200, -800, 100, -50, 400, -500, 10 ]
-
-
-function drawSky() {
+for (let i = 0; i < starCount; i++) {
+	stars.push(null)
+	let j = stars.length * Math.random()
+	j |= 0
+	stars[i] = stars[j]
+	stars[j] = [ i, Math.random() ]
+}
+function drawStars() {
 	const skyWidth = skyCanvas.width
 	const skyHeight = skyCanvas.height
+	if (skyHeight <= 0) return
 	sky.lineWidth = lineWidthMin
 	sky.strokeStyle = "#ffffff"
 
-	for (let i = 0; i < starsX.length; i++) {
-		let y = Math.tan(time) * 50
+	let dx = 0
+	for (let i = 0; i < stars.length; i++) {
+		dx += skyWidth / stars.length
+		const star = stars[i]
+		let arg = time
+		arg += star[0] * tanLimit / starCount
+		arg %= tanLimit
+		let y = Math.tan(arg) * 50
+		let y2 = Math.tan(arg - 0.02) * 50 - 1
+		if (y2 > skyHeight) continue
 		const lineWidth = lineWidthMax * (y / skyHeight)
 		sky.lineWidth = Math.max(lineWidthMin, lineWidth)
-		const x = starsX[i]
-	    sky.beginPath()
-		sky.moveTo(x, skyHeight - y)
-		sky.lineTo(x, skyHeight - y - 10)
-		sky.stroke()
+		y += skyHeight * star[1]
+		y2 += skyHeight * star[1]
+		if (y2 > skyHeight) continue
+		drawStar(dx, y, y2, skyWidth, skyHeight)
 	}
 }
+function drawStar(dx, y, y2, skyWidth, skyHeight) {
+	let x = dx + skyWidth / stars.length
+	let x2 = x
+	x += (x - skyWidth / 2) * (y / skyHeight)
+	x2 += (x2 - skyWidth / 2) * (y2 / skyHeight)
 
+    sky.beginPath()
+	sky.moveTo(x, skyHeight - y)
+	sky.lineTo(x2, skyHeight - y2)
+	sky.stroke()
+}
+
+
+setInterval(drawWorld, 16)
 
 
 const avaBlack = get("avaBlack")
@@ -424,6 +508,7 @@ function hidePicture() {
 	disappearance = 10
 	intensitySecuence = 0
 	startDisorting(true)
+	avaBlack.style.display = 'none'
 }
 function showPicture() {
 	oneWay = false
@@ -501,6 +586,7 @@ startButton.onclick = function() {
 	audio.play()
 	startButton.style.display = 'none'
 	get("content").style.display = 'block'
+	titleInterval = setInterval(nextChar, 100)
 }
 
 const progress = get("progress")
@@ -525,6 +611,40 @@ mnts.src = "./new/mnts.png"
 red.src = "./new/red.png"
 green.src = "./new/green.png"
 blue.src = "./new/blue.png"
+
+const name = "Yaroslav Nesterov".split('')
+const vocation = "Android Developer".split('')
+const enjoyer = "Anime Enjoyer"
+const cursor = "_"
+
+const nameSpan = get("name")
+const vocationSpan = get("vocation")
+const cursorSpan = get("cursor")
+
+let titleInterval = 0
+
+nameSpan.innerText = cursor
+function nextChar() {
+	if (name.length > 0) {
+		const text = nameSpan.innerText
+		const value = text.substring(0, text.length - 1)
+		nameSpan.innerText = value + name.shift() + cursor
+	} else if (vocation.length > 0 && vocationSpan.innerText.length == 0) {
+		const name = nameSpan.innerText
+		nameSpan.innerText = name.substring(0, name.length - 1)
+		vocationSpan.innerText = cursor
+	} else if (vocation.length > 0) {
+		const text = vocationSpan.innerText
+		const value = text.substring(0, text.length - 1)
+		vocationSpan.innerText = value + vocation.shift() + cursor
+	} else {
+		const vocation = vocationSpan.innerText
+		vocationSpan.innerText = vocation.substring(0, vocation.length - 1)
+		clearInterval(titleInterval)
+		cursorSpan.style.visibility = 'visible'
+	}
+
+}
 
 </script>
 
