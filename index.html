@@ -8,7 +8,7 @@
 <style type="text/css">
 @font-face {
 	font-family: fixedsys;
-	src: url("./new/fixedsys.ttf");
+	src: url("./retrowave/fixedsys.ttf");
 }
 html, body, video {
 	padding: 0px;
@@ -146,7 +146,7 @@ canvas {
 	margin: auto;
 	position: absolute;
 	mix-blend-mode: exclusion;
-	background: radial-gradient(farthest-corner at 50% 100%, rgba(0, 80, 128, 0.5), rgba(0, 80, 128, 0.5) 30%, rgba(0, 0, 0, 0.5)), url("./new/noise.svg");
+	background: radial-gradient(farthest-corner at 50% 100%, rgba(0, 80, 128, 0.5), rgba(0, 80, 128, 0.5) 30%, rgba(0, 0, 0, 0.5)), url("./retrowave/noise.svg");
 	filter: contrast(2) brightness(50%);
 	opacity: 0.5;
 }
@@ -235,7 +235,7 @@ canvas {
 <div id="volume_box">
 	<div id="volume_track_line"></div>
 	<div id="volume_track" style="height: 80px">
-		<img id="volume_icon" src="./new/volume-off.png" />
+		<img id="volume_icon" src="./retrowave/volume-off.png" />
 	</div>
 </div>
 <div id="content">
@@ -243,7 +243,7 @@ canvas {
 		<div class="center_box">
 			<div>
 				<video id="zero2" style="display: none;" width="800" autoplay="" loop="" playsmuted="" muted="" [muted]="'muted'">
-				    <source src="./new/02-5.mp4" type="video/mp4">
+				    <source src="./retrowave/02-5.mp4" type="video/mp4">
 				</video>
 			</div>
 		</div>
@@ -254,20 +254,20 @@ canvas {
 		</div>
 
 		<div class="center_box underlayer_box">
-			<img id="avaBlack" class="layer" src="./new/red.png" style="filter: brightness(0);" />
+			<img id="avaBlack" class="layer" src="./retrowave/red.png" style="filter: brightness(0);" />
 		</div>
 		<div class="center_box layer_box">
-			<img id="avaRed" class="layer" src="./new/red.png" />
+			<img id="avaRed" class="layer" src="./retrowave/red.png" />
 		</div>
 		<div class="center_box layer_box">
-			<img id="avaGreen" class="layer" src="./new/green.png" />
+			<img id="avaGreen" class="layer" src="./retrowave/green.png" />
 		</div>
 		<div class="center_box layer_box">
-			<img id="avaBlue" class="layer" src="./new/blue.png" />
+			<img id="avaBlue" class="layer" src="./retrowave/blue.png" />
 		</div>
 
 		<div class="center_box">
-			<img src="./new/mnts.png" width="1000" height="206" />
+			<img src="./retrowave/mnts.png" width="1000" height="206" />
 		</div>
 
 		<div id="title" style="position: absolute; color: white; padding: 16px; text-align: left;">
@@ -592,9 +592,9 @@ function onVolumeChanged(event) {
 }
 
 function updateVolumeIcon(volume) {
-	if (volume == 0) volumeIcon.src = './new/volume-off.png'
-	else if (volume < 1) volumeIcon.src = './new/volume-low.png'
-	else volumeIcon.src = './new/volume-high.png'
+	if (volume == 0) volumeIcon.src = './retrowave/volume-off.png'
+	else if (volume < 1) volumeIcon.src = './retrowave/volume-low.png'
+	else volumeIcon.src = './retrowave/volume-high.png'
 }
 
 
@@ -710,11 +710,11 @@ audio.oncanplay = onResourceLoaded
 
 function onFontLoaded() {
 	onResourceLoaded()
-	red.src = "./new/red.png"
-	green.src = "./new/green.png"
-	blue.src = "./new/blue.png"
-	mnts.src = "./new/mnts.png"
-	audio.src = "./new/cut.mp3"
+	red.src = "./retrowave/red.png"
+	green.src = "./retrowave/green.png"
+	blue.src = "./retrowave/blue.png"
+	mnts.src = "./retrowave/mnts.png"
+	audio.src = "./retrowave/cut.mp3"
 }
 if (document.fonts.size > 0 && document.fonts.status == 'loaded') {
 	onFontLoaded()
