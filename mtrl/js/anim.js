@@ -9,7 +9,7 @@ function showContent() {
 var avaLoaded = false
 var pageReady = false
 var img = new Image()
-img.src = "ava.jpg"
+img.src = "./mtrl/ava.jpg"
 img.onload = function() {
 	avaLoaded = true
 	showContent()

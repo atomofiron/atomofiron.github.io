@@ -38,5 +38,5 @@ body.removeChild(get(!mobile ? "mobile" : "desktop"))
 
 var script = create('script')
 script.setAttribute("type","text/javascript")
-script.setAttribute("src", mobile ? "js/mobile.js" : "js/desktop.js")
+script.setAttribute("src", mobile ? "./mtrl/js/mobile.js" : "./mtrl/js/desktop.js")
 body.appendChild(script)

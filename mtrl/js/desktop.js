@@ -44,7 +44,7 @@ var icons = ["android", "linux", "kotlin", "oneplus" ]
 var box = create("div")
 box.id = "top_buttons_box"
 for (var i = 0; i < 4; i++)
-	append(box, "<img class='top_button' src=svg/"+icons[i]+".svg />")
+	append(box, "<img class='top_button' src=./mtrl/svg/"+icons[i]+".svg />")
 get("buttons_layer").appendChild(box)
 
 // Отслеживание курсора мыши
