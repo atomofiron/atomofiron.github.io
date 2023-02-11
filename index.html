@@ -405,14 +405,14 @@ function drawWorld() {
 }
 
 const stars = [ ]
-const starCount = 100
+const starCount = 300
 
 for (let i = 0; i < starCount; i++) {
 	stars.push(null)
 	let j = stars.length * Math.random()
 	j |= 0
 	stars[i] = stars[j]
-	stars[j] = [ i, Math.random() ]
+	stars[j] = [ i, Math.sqrt(Math.random()) ]
 }
 function drawStars() {
 	const skyWidth = skyCanvas.width
@@ -428,8 +428,8 @@ function drawStars() {
 		let arg = time
 		arg += star[0] * tanLimit / starCount
 		arg %= tanLimit
-		let y = Math.tan(arg) * 50
-		let y2 = Math.tan(arg - 0.02) * 50 - 1
+		let y = Math.tan(arg ) * 50
+		let y2 = Math.tan(arg - 0.02 - 0.02 * star[1]) * 50 - 1
 		if (y2 > skyHeight) continue
 		const lineWidth = lineWidthMax * (y / skyHeight)
 		sky.lineWidth = Math.max(lineWidthMin, lineWidth)
@@ -452,7 +452,7 @@ function drawStar(dx, y, y2, skyWidth, skyHeight) {
 }
 
 
-setInterval(drawWorld, 16)
+setInterval(drawWorld, 20)
 
 
 const avaBlack = get("avaBlack")
