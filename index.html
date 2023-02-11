@@ -65,26 +65,34 @@ canvas {
 #volume_box {
 	width: 40px;
 	height: 128px;
-	border: 4px #550055 solid;
-	border-radius: 999px;
+	border: 2px #550055 solid;
+	box-shadow: 0 0 0 1px #ff00ff;
+	border-radius: 0px;
 	margin: 16px;
 	overflow: hidden;
 	background-color: #550055;
 	z-index: 1;
 	cursor: ns-resize;
+	position: absolute;
+	right: 0;
+	filter: opacity(0.5);
+    transition: all 0.2s ease-in-out;
+}
+#volume_box:hover {
+	filter: opacity(1);
 }
 #volume_track_line {
 	width: 4px;
 	height: 92px;
 	background-color: #ff00ff;
-	border-radius: 2px;
+	border-radius: 0px;
 	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
 	margin: auto;
-	opacity: 0.5;
+	opacity: 0.0; /* эхх */
 }
 #volume_track {
 	width: 100%;
@@ -95,7 +103,7 @@ canvas {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	border-radius: 999px;
+	border-radius: 0px;
 }
 #volume_track img {
 	width: 24px;
@@ -140,9 +148,10 @@ canvas {
 	mix-blend-mode: exclusion;
 	background: radial-gradient(farthest-corner at 50% 100%, rgba(0, 80, 128, 0.5), rgba(0, 80, 128, 0.5) 30%, rgba(0, 0, 0, 0.5)), url("./new/noise.svg");
 	filter: contrast(2) brightness(50%);
+	opacity: 0.5;
 }
 #canvas_ground {
-	background: radial-gradient(circle at 50% 0%, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05));
+	background: radial-gradient(circle at 50% 0%, rgba(255, 0, 255, 0.05), rgba(255, 0, 255, 0.025));
     margin-bottom: -4px;
 }
 @keyframes blink {
@@ -223,7 +232,7 @@ canvas {
 </head>
 <body>
 
-<div id="volume_box" style="position: absolute; right: 0">
+<div id="volume_box">
 	<div id="volume_track_line"></div>
 	<div id="volume_track" style="height: 80px">
 		<img id="volume_icon" src="./new/volume-off.png" />
@@ -264,7 +273,7 @@ canvas {
 		<div id="title" style="position: absolute; color: white; padding: 16px; text-align: left;">
 			<span id="name" style="font-size: 24px;"></span>
 			<br>
-			<span id="vocation" style="font-size: 16px; line-height: 24px;"></span>&ZeroWidthSpace;<span id="cursor" style="visibility: hidden;">_</span>
+			<span id="vocation" style="font-size: 16px; line-height: 24px;"></span>&ZeroWidthSpace;<span id="cursor" class="blinking" style="display: none; font-weight: bold;">_</span>
 		</div>
 	</div>
 
@@ -617,13 +626,9 @@ function showName() {
 	}
 }
 function showBlinkingCursor(show) {
-	const blinking = 'blinking'
-	const contains = cursorSpan.classList.contains(blinking)
-	if (show && !contains) cursorSpan.classList.add(blinking)
-	else if (!show && contains) cursorSpan.classList.remove('blinking')
-	const visibility = show ? 'visible' : 'hidden'
-	if (cursorSpan.style.visibility != visibility)
-		cursorSpan.style.visibility = visibility
+	const display = show ? 'inline-block' : 'none'
+	if (cursorSpan.style.display != display)
+		cursorSpan.style.display = display
 }
 function showVocation() {
 	let text = vocationSpan.innerText
