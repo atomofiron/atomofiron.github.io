@@ -526,9 +526,6 @@ function drawStar(dx, y, y2, skyWidth, skyHeight) {
 }
 
 
-setInterval(drawWorld, 20)
-
-
 const avaBlack = get("avaBlack")
 const avaRed = get("avaRed")
 const avaGreen = get("avaGreen")
@@ -769,6 +766,7 @@ startButton.onclick = function() {
 	audio.play()
 	get("content").style.display = 'block'
 	titleInterval = setInterval(showName, 100)
+	setInterval(drawWorld, 20)
 }
 
 const audio = new Audio()
