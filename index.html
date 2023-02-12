@@ -797,19 +797,24 @@ if (document.fonts.size > 0 && document.fonts.status == 'loaded') {
 	}
 }
 
+audio.loop = true
 audio.volume = 0.5
 audio.onvolumechange = onVolumeChanged
 updateVolumeIcon(audio.volume)
-audio.onended = function() {
-	audio.play()
+const zeroTwoMoments = [ 48, 127 ]
+const pictureMoments = [ 0, 79, 143 ]
+function checkAudioProgress() {
+	let sec = audio.currentTime | 0
+
+	if (zeroTwoMoments.includes(sec))hidePicture()
+	else if (pictureMoments.includes(sec)) showPicture()
+
+	let ms = (audio.currentTime % 1 * 1000) | 0
+	ms = 1000 - ms
+	ms = Math.max(ms, 20)
+	setTimeout(checkAudioProgress, ms)
 }
-audio.onplay = function() {
-	showPicture()
-	setTimeout(hidePicture, 48000)
-	setTimeout(showPicture, 79000)
-	setTimeout(hidePicture, 127000)
-	setTimeout(showPicture, 143000)
-}
+checkAudioProgress()
 
 function copyContact(contact) {
 	window.prompt("", contact);
