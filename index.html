@@ -192,7 +192,7 @@ canvas {
 }
 
 #progress_box {
-	width: 256px;
+	width: 298px;
 	border: 1px #ff00ff solid;
 	margin-left: auto;
 	margin-right: auto;
@@ -273,7 +273,7 @@ canvas {
 	<div id="header">
 		<div class="center_box">
 			<div>
-				<video id="zero2" style="display: none;" width="800" autoplay="" loop="" playsmuted="" muted="" [muted]="'muted'">
+				<video id="zero2" style="display: none;" width="800" loop="" playsmuted="" muted="" [muted]="'muted'">
 				    <source src="./retrowave/02-5.mp4" type="video/mp4">
 				</video>
 			</div>
@@ -732,7 +732,7 @@ const progressTitle = get('progress_title')
 const progressBar = get('progress_bar')
 const progressRow = get('progress_row')
 const progressCell = "<td></td>"
-const progressMax = 6
+const progressMax = 7
 let progress = 0
 
 for (let i = 0; i < progressMax; i++) {
@@ -744,6 +744,7 @@ function onResourceLoaded() {
 	if (progress == progressMax) {
 		progressTitle.innerText = loadingCompleted
 		startButton.style.visibility = 'visible'
+		video.play()
 	}
 }
 function setProgress(count) {
@@ -769,6 +770,7 @@ startButton.onclick = function() {
 }
 
 const audio = new Audio()
+const video = get('zero2')
 const mnts = new Image()
 const red = new Image()
 const green = new Image()
@@ -778,6 +780,7 @@ red.onload = onResourceLoaded
 green.onload = onResourceLoaded
 blue.onload = onResourceLoaded
 audio.oncanplay = onResourceLoaded
+video.oncanplay = onResourceLoaded
 
 function onFontLoaded() {
 	onResourceLoaded()
