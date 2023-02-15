@@ -790,14 +790,7 @@ function onFontLoaded() {
 	mnts.src = "./retrowave/mnts.png"
 	audio.src = "./retrowave/cut.mp3"
 }
-if (document.fonts.size > 0 && document.fonts.status == 'loaded') {
-	onFontLoaded()
-} else {
-	document.fonts.onloadingdone = function(event) {
-		const fixedsys = event.fontfaces.find((it) => it.family == 'fixedsys')
-		if (fixedsys) onFontLoaded()
-	}
-}
+document.fonts.ready.then(onFontLoaded)
 
 audio.loop = true
 audio.volume = 0.5
@@ -808,7 +801,7 @@ const pictureMoments = [ 0, 79, 143 ]
 function checkAudioProgress() {
 	let sec = audio.currentTime | 0
 
-	if (zeroTwoMoments.includes(sec))hidePicture()
+	if (zeroTwoMoments.includes(sec)) hidePicture()
 	else if (pictureMoments.includes(sec)) showPicture()
 
 	let ms = (audio.currentTime % 1 * 1000) | 0
