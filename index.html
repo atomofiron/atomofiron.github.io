@@ -789,7 +789,7 @@ function onFontLoaded() {
 document.fonts.ready.then(onFontLoaded)
 
 audio.loop = true
-audio.volume = 0.5
+audio.volume = Math.pow(0.5, 2)
 audio.onvolumechange = onVolumeChanged
 updateVolumeIcon(audio.volume)
 const zeroTwoMoments = [ 48, 127 ]
