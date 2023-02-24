@@ -10,7 +10,7 @@
 	font-family: fixedsys;
 	src: url("./retrowave/fixedsys.ttf");
 }
-html, body, video {
+html, body {
 	padding: 0px;
 	margin: 0px;
 	background-color: #000000;
@@ -35,9 +35,6 @@ img {
 }
 a {
 	text-decoration: none;
-}
-video {
-    filter: brightness(0.8) contrast(2) hue-rotate(300deg);
 }
 canvas {
 	width: 100%;
@@ -273,8 +270,9 @@ canvas {
 	<div id="header">
 		<div class="center_box">
 			<div>
-				<video id="zero2" style="display: none;" width="800" loop="" playsmuted="" muted="" [muted]="'muted'">
-				    <source src="./retrowave/02-5.mp4" type="video/mp4">
+				<!-- <img id="zero2" src="./retrowave/02.webp" width="800" /> -->
+				<video id="zero2" autoplay width="800" loop="" playsmuted="" muted="" [muted]="'muted'">
+				    <source src="./retrowave/02-16.mp4" type="video/mp4">
 				</video>
 			</div>
 		</div>
@@ -744,7 +742,6 @@ function onResourceLoaded() {
 	if (progress == progressMax) {
 		progressTitle.innerText = loadingCompleted
 		startButton.style.visibility = 'visible'
-		video.play()
 	}
 }
 function setProgress(count) {
@@ -770,7 +767,6 @@ startButton.onclick = function() {
 }
 
 const audio = new Audio()
-const video = get('zero2')
 const mnts = new Image()
 const red = new Image()
 const green = new Image()
@@ -780,7 +776,7 @@ red.onload = onResourceLoaded
 green.onload = onResourceLoaded
 blue.onload = onResourceLoaded
 audio.oncanplay = onResourceLoaded
-video.oncanplay = onResourceLoaded
+zeroTwo.oncanplay = onResourceLoaded
 
 function onFontLoaded() {
 	onResourceLoaded()
