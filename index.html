@@ -22,13 +22,13 @@ html, body {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-webkit-touch-callout: none;
-    -ms-user-select: none;
+	-ms-user-select: none;
 }
 img {
 	-webkit-user-drag: none;
 }
 ::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 * {
 	box-sizing: content-box;
@@ -38,12 +38,12 @@ a {
 }
 canvas {
 	width: 100%;
-    image-rendering: optimizeSpeed;             /* Older versions of FF          */
-    image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
-    image-rendering: -webkit-optimize-contrast; /* Safari                        */
-    image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
-    image-rendering: pixelated;                 /* Awesome future-browsers       */
-    -ms-interpolation-mode: nearest-neighbor;
+	image-rendering: optimizeSpeed;             /* Older versions of FF          */
+	image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+	image-rendering: -webkit-optimize-contrast; /* Safari                        */
+	image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+	image-rendering: pixelated;                 /* Awesome future-browsers       */
+	-ms-interpolation-mode: nearest-neighbor;
 }
 .underlayer_box {
 	top: 0;
@@ -151,41 +151,41 @@ canvas {
 }
 #canvas_ground {
 	background: radial-gradient(circle at 50% 0%, rgba(255, 0, 255, 0.05), rgba(255, 0, 255, 0.025));
-    margin-bottom: -4px;
+	margin-bottom: -4px;
 }
 @keyframes blink {
-    0% {
-           color: rgba(255, 255, 255, 1);
-    }
-    50% {
-           color: rgba(255, 255, 255, 0);
-    }
-    100% {
-           color: rgba(255, 255, 255, 1);
-    }
+	0% {
+		color: rgba(255, 255, 255, 1);
+	}
+	50% {
+		color: rgba(255, 255, 255, 0);
+	}
+	100% {
+		color: rgba(255, 255, 255, 1);
+	}
 }
 @-webkit-keyframes blink {
-    0% {
-           color: rgba(255, 255, 255, 1);
-    }
-    50% {
-           color: rgba(255, 255, 255, 0);
-    }
-    100% {
-           color: rgba(255, 255, 255, 1);
-    }
+	0% {
+		color: rgba(255, 255, 255, 1);
+	}
+	50% {
+		color: rgba(255, 255, 255, 0);
+	}
+	100% {
+		color: rgba(255, 255, 255, 1);
+	}
 }
 
 .blinking {
-    -moz-transition: all 1s ease-in-out;
-    -webkit-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-    -ms-transition: all 1s ease-in-out;
-    transition: all 1s ease-in-out;
-    -moz-animation: blink normal 1s infinite ease-in-out; /* Firefox */
-    -webkit-animation: blink normal 1s infinite ease-in-out; /* Webkit */
-    -ms-animation: blink normal 1s infinite ease-in-out; /* IE */
-    animation: blink normal 1s infinite ease-in-out; /* Opera */
+	-moz-transition: all 1s ease-in-out;
+	-webkit-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	-ms-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+	-moz-animation: blink normal 1s infinite ease-in-out; /* Firefox */
+	-webkit-animation: blink normal 1s infinite ease-in-out; /* Webkit */
+	-ms-animation: blink normal 1s infinite ease-in-out; /* IE */
+	animation: blink normal 1s infinite ease-in-out; /* Opera */
 }
 
 #progress_box {
@@ -306,8 +306,6 @@ canvas {
 		</div>
 	</div>
 
-	<!-- <audio src="cut.mp3" controls></audio> -->
-
 	<div>
 		<canvas id="canvas_ground" style="position: absolute; width: 100%;"></canvas>
 		<div style="position: absolute; max-width: 500px; left: 0; right: 0; margin: auto; padding: 16px;">
@@ -397,7 +395,7 @@ const sky = skyCanvas.getContext("2d");
 
 const pixelRatio = window.devicePixelRatio
 const lineWidthMin = 0.5 * pixelRatio
-const lineWidthMax = 5 * pixelRatio
+const lineWidthMax = 4 * pixelRatio
 const hLineWidthMax = lineWidthMax * 2
 const hLineCount = 25
 let vLineCount = 30
@@ -437,7 +435,7 @@ function drowHorizontalLines() {
 	const groundHeight = groundCanvas.height
 
 	ground.lineWidth = lineWidthMax
-    ground.beginPath()
+	ground.beginPath()
 	ground.moveTo(0, 0)
 	ground.lineTo(groundWidth, 0)
 	ground.stroke()
@@ -516,7 +514,7 @@ function drawStar(dx, y, y2, skyWidth, skyHeight) {
 	x += (x - skyWidth / 2) * (y / skyHeight)
 	x2 += (x2 - skyWidth / 2) * (y2 / skyHeight)
 
-    sky.beginPath()
+	sky.beginPath()
 	sky.moveTo(x, skyHeight - y)
 	sky.lineTo(x2, skyHeight - y2)
 	sky.stroke()
