@@ -151,6 +151,8 @@ canvas {
 }
 #canvas_ground {
 	background: radial-gradient(circle at 50% 0%, rgba(255, 0, 255, 0.05), rgba(255, 0, 255, 0.025));
+	/*background: radial-gradient(farthest-corner at 50% 100%, rgba(50, 0, 50, 0.5), rgba(25, 0, 25, 0.5) 50%, rgba(10, 0, 10, 0.5)), url("./retrowave/noise.svg");
+	filter: contrast(2);*/
 	margin-bottom: -4px;
 }
 @keyframes blink {
@@ -229,7 +231,6 @@ canvas {
 }
 .headline {
 	background-color: black;
-	padding: 0px 8px;
 	font-size: 24px;
 	color: white;
 }
@@ -255,6 +256,69 @@ canvas {
 	right: 0;
 	bottom: 0;
 	margin: auto;
+}
+.tab {
+	padding: 8px;
+	background-color: black;
+	color: white;
+	border: 1px solid black;
+	border-bottom: 1px solid #ff00ff;
+	display: inline-block;
+	vertical-align: middle;
+}
+.tab div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.tab:hover {
+	border: 1px solid #ff00ff;
+	cursor: pointer;
+}
+.tab_selected {
+	border: 1px solid #ff00ff;
+}
+.tab_selected:hover {
+	border: 1px solid #ff00ff;
+}
+.tab .tab_title {
+	vertical-align: middle;
+	display: none;
+}
+.tab_selected .tab_title {
+	display: inline-block;
+	margin-left: 6px;
+}
+.emoji {
+	font-family: arial;
+}
+.text-line {
+	background-color: black;
+}
+.page {
+	color: white;
+	display: none;
+}
+.page_selected {
+	display: block;
+}
+.vline {
+	position: relative;
+	bottom: -5px;
+}
+.arrow {
+	position: relative;
+	left: -8px;
+	top: -5px;
+}
+.pet_link_icon {
+	float: right;
+	background-color: black;
+	border: 1px solid black;
+}
+.pet_link_icon:hover {
+	cursor: pointer;
+	border: 1px solid #ff00ff;
 }
 </style>
 </head>
@@ -308,45 +372,203 @@ canvas {
 
 	<div>
 		<canvas id="canvas_ground" style="position: absolute; width: 100%;"></canvas>
-		<div style="position: absolute; max-width: 500px; left: 0; right: 0; margin: auto; padding: 16px;">
-			<span class="headline">Contacts</span>
+		<div style="position: absolute; max-width: 460px; left: 0; right: 0; margin: auto; padding-top: 8px;">
+			<div class="tab tab_selected">
+				<div>
+					<img src="./retrowave/icons/account-box.svg" />
+					<span class="tab_title">About me</span>
+				</div>
+			</div>
+			<div class="tab">
+				<div>
+					<img src="./retrowave/icons/flipper.svg" />
+					<span class="tab_title">Img2fbm</span>
+				</div>
+			</div>
+			<div class="tab">
+				<div>
+					<img src="./retrowave/icons/file-seeker.svg" />
+					<span class="tab_title">File Seeker</span>
+				</div>
+			</div>
+			<div class="tab">
+				<div>
+					<img src="./retrowave/icons/wifi-seeker.svg" />
+					<span class="tab_title">WiFi Seeker</span>
+				</div>
+			</div>
+			<div class="tab">
+				<div>
+					<img src="./retrowave/icons/diary.svg" />
+					<span class="tab_title">Diary</span>
+				</div>
+			</div>
+			<div class="tab">
+				<div>
+					<img src="./retrowave/icons/insets.svg" />
+					<span class="tab_title">Insets</span>
+				</div>
+			</div>
+			<div class="tab">
+				<div>
+					<img src="./retrowave/icons/green-pain.svg" />
+					<span class="tab_title">Green pain</span>
+				</div>
+			</div>
+
+			<div class="page page_selected">
+				<font size="+1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+				&nbsp;&nbsp;<font class="text-line vline">┃</font><font class="arrow">↑</font>
+				&nbsp;&nbsp;&nbsp;<font class="text-line vline">┃</font><font class="arrow">↑</font>
+				&nbsp;&nbsp;&nbsp;<font class="text-line vline">┃</font><font class="arrow">↑</font>
+				&nbsp;&nbsp;&nbsp;<font class="text-line vline">┃</font><font class="arrow">↑</font>
+				&nbsp;&nbsp;&nbsp;<font class="text-line vline">┃</font><font class="arrow">↑</font>
+				&nbsp;&nbsp;&nbsp;<font class="text-line vline">┃</font><font class="arrow">↑</font>
+				<br>
+				<font class="text-line"><font size="+1">My pet projects</font> ━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┛</font>
+				<br><br><br>
+
+				<span class="headline">Contacts</span>
+				<br><br>
+				<a href="https://t.me/atomofiron">
+					<div class="social_button">
+						<img src="./retrowave/socials/telegram.svg" />
+					</div>
+				</a>
+				<a href="https://t.me/anarchdev">
+					<div class="social_button">
+						<img src="./retrowave/socials/horn.svg" />
+					</div>
+				</a>
+				<div class="social_button" onclick="copyContact('atomofiron#5236')">
+					<img src="./retrowave/socials/discord.svg" />
+				</div>
+				<a href="https://twitter.com/atomofiron">
+					<div class="social_button">
+						<img src="./retrowave/socials/twitter.svg" />
+					</div>
+				</a>
+				<a href="https://github.com/Atomofiron">
+					<div class="social_button" onclick="copy">
+						<img src="./retrowave/socials/github-circle.svg" />
+					</div>
+				</a>
+				<div class="social_button" onclick="copyContact('atomofiron@gmail.com')">
+					<img src="./retrowave/socials/email.svg" />
+				</div>
+				<a href="https://ru.linkedin.com/in/raslav">
+					<div class="social_button">
+						<img src="./retrowave/socials/linkedin-box.svg" />
+					</div>
+				</a>
+				<a href="https://play.google.com/store/apps/developer?id=Yaroslav+Nesterov">
+					<div class="social_button">
+						<img src="./retrowave/socials/google-play.svg" />
+					</div>
+				</a>
+				<br><br><br>
+				<span class="headline">Languages and libs I use:</span>
+				<br><br>
+				<font class="text-line">
+					Kotlin <span style="color: #aaa;">- Material, Dagger 2, Coroutines, Room, AndroidX (preference & datastore, lifecycle, navigation), Compose, Picasso, Leak Canary, Play Core, Insets</span>
+					<br><br>
+					Rust <span style="color: #aaa;">- clap, nix, image, regex, indicatif, svg, rayon</span>
+					<br><br>
+					Java<span class="emoji">🦖</span>, Bash<span class="emoji">☠️</span>, Javascript<span class="emoji">💩</span>
+				</font>
+				<br><br><br>
+				<span class="headline">I perform at meetups</font>
+				<br><br>
+				<iframe width="220" height="105" frameBorder="0" src="https://youtube.com/embed/-WQyzIKPUqA" allowfullscreen></iframe>
+				<iframe width="220" height="105" frameBorder="0" src="https://youtube.com/embed/dN25q1tFamo" allowfullscreen></iframe>
+			</div>
 			<br><br>
-			<a href="https://t.me/atomofiron">
-				<div class="social_button">
-					<img src="./retrowave/socials/telegram.svg" />
-				</div>
-			</a>
-			<div class="social_button" onclick="copyContact('atomofiron#5236')">
-				<img src="./retrowave/socials/discord.svg" />
+			<div class="page">
+				<span class="headline">Image to Flipper Animation converter</span>
+				<a href="https://github.com/Atomofiron/img2fbm">
+					<div class="pet_link_icon">
+						<img src="./retrowave/socials/github-circle.svg" />
+					</div>
+				</a>
+				<br><br><br>
+				<video width="460" preload="none" controls>
+				    <source type="video/mp4" src="https://user-images.githubusercontent.com/14147217/255355638-59cbb785-d17d-46e0-a8fe-b8a8210959ec.mp4">
+				</video>
 			</div>
-			<a href="https://twitter.com/atomofiron">
-				<div class="social_button">
-					<img src="./retrowave/socials/twitter.svg" />
+			<div class="page">
+				<span class="headline">Tree file manager</span>
+				<a href="https://github.com/Atomofiron/android-search-box-app">
+					<div class="pet_link_icon">
+						<img src="./retrowave/socials/github-circle.svg" />
+					</div>
+				</a>
+				<div style="float: right;">&nbsp;</div>
+				<a href="https://play.google.com/store/apps/details?id=app.atomofiron.searchboxapp">
+					<div class="pet_link_icon">
+						<img src="./retrowave/socials/google-play.svg" />
+					</div>
+				</a>
+				<br><br><br>
+				<div style="white-space: nowrap; overflow-x: scroll;">
+					<img height=640 src="https://play-lh.googleusercontent.com/1X3XF7HCZPMgH4t9fWUOrbbglHhh0YrB35OV3BQdYed00sdlIGUBfGC49M7n-7BsU0hx=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/yydVZk4XxV7Xr20i-5UnlWy-pHIhRmvXLdCIf_Iq8PqDt_5lEuIVgOzso6_bAjmhmw=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/B-imDxNu_dYGTcQks3yiSfK4m4YUHiv7oGic7JFQ-waRKzma6CYBzM6UrCgmoCcDNA=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/rY2heHuc6hSqpb9eGzqEwBQmkCrZqidwwLGi_ia2plIYJCiVSBiut_pHRQP-86mLTE0i=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/Ycu8dNg-WTNme68kpjiVLH_aQl_iKGIRPNvC7vVw_nBArT4X_RiR1FBpqhacNm8NTQ=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/YEy30bo0yJ-A2wnrjLAQx9YlwbzkXARy8ySqChoDXDLpjIwgvIfxlhNXGlIOX10NKpEr=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/yjntGWQ0Tqdx4n46hco7elBtVBp9jj4enRV3CxlAsXCN0Zamk3OqfPyUfP3tor40NA=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/7NQyBvhhtnVv62yDApz9q_V2lIoozZpmO3nLZQPENtrDWQ0JSb4d1zfh1tBhvHPSfhQ=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/4KmzfJudkiqS9E3q-HNkiUG1_ceWtJ_br2q6IsnJYLrAJxbW2LGdc7SEIfbtYff2Pv_N=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/7uOY5YJFpuzAIOatzwp5zu9vrPXSyMLDZqrpTTDQ08mps8RiMB83s1ZYWTVe9e3Myg=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/sXyBg9oPa0cn5DI8fBkZcmCmmXzhYKkCk2IKtXW6eUOk3VC348ucPdCC5f1rGTa3OW6K=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/SP5rABnEOD4MEDhUvW5vKkW_V45PqSv6oNFFcWgI1z-OrKL7INxUGu1QXDq0MDzJoNM=h1280-rw" />
+					<img height=640 src="https://play-lh.googleusercontent.com/gS1IfFYdKME5Pemur3HsiznpxWy-6uKzFFqYvcIZCY9PLREoWv1a3xo1yUiXni6SNtQ=h1280-rw" />
 				</div>
-			</a>
-			<a href="https://github.com/Atomofiron">
-				<div class="social_button" onclick="copy">
-					<img src="./retrowave/socials/github-circle.svg" />
-				</div>
-			</a>
-			<div class="social_button" onclick="copyContact('atomofiron@gmail.com')">
-				<img src="./retrowave/socials/email.svg" />
 			</div>
-			<a href="https://ru.linkedin.com/in/raslav">
-				<div class="social_button">
-					<img src="./retrowave/socials/linkedin-box.svg" />
-				</div>
-			</a>
-			<a href="https://rostov.hh.ru/resume/5a21394aff02f385b80039ed1f3447686a5067">
-				<div class="social_button">
-					<img src="./retrowave/socials/hh.svg" />
-				</div>
-			</a>
-			<a href="https://play.google.com/store/apps/developer?id=Yaroslav+Nesterov">
-				<div class="social_button">
-					<img src="./retrowave/socials/google-play.svg" />
-				</div>
-			</a>
+			<div class="page">
+				<span class="headline">WiFi scanner</span>
+				<a href="https://github.com/Atomofiron/WirelessScan">
+					<div class="pet_link_icon">
+						<img src="./retrowave/socials/github-circle.svg" />
+					</div>
+				</a>
+				<div style="float: right;">&nbsp;</div>
+				<a href="https://play.google.com/store/apps/details?id=ru.raslav.wirelessscan">
+					<div class="pet_link_icon">
+						<img src="./retrowave/socials/google-play.svg" />
+					</div>
+				</a>
+				<br><br><br>
+				<img width=360 src="https://github.com/Atomofiron/WirelessScan/raw/master/screenshots/main.png">
+			</div>
+			<div class="page">
+				<span class="headline">Your feelings diary</span>
+				<a href="https://play.google.com/store/apps/details?id=io.sergiolabs.feelingsdiary">
+					<div class="pet_link_icon">
+						<img src="./retrowave/socials/google-play.svg" />
+					</div>
+				</a>
+			</div>
+			<div class="page">
+				<span class="headline">Android window insets controller</span>
+				<a href="https://github.com/Atomofiron/android-window-insets-compat">
+					<div class="pet_link_icon">
+						<img src="./retrowave/socials/github-circle.svg" />
+					</div>
+				</a>
+				<br><br>
+				<img width=460 src="https://github.com/Atomofiron/android-window-insets-compat/raw/main/stuff/insets_demo.png">
+			</div>
+			<div class="page">
+				<span class="headline">ADB resolver for Linux</span>
+				<a href="https://github.com/Atomofiron/green-pain">
+					<div class="pet_link_icon">
+						<img src="./retrowave/socials/github-circle.svg" />
+					</div>
+				</a>
+				<br><br>
+				<img width=460 src="https://github.com/Atomofiron/green-pain/raw/main/stuff/screenshot.png">
+			</div>
 		</div>
 	</div>
 </div>
@@ -375,6 +597,14 @@ const poop = console.log
 function get(id) {
 	return document.getElementById(id)
 }
+function getByClass(id) {
+	return document.getElementsByClassName(id)
+}
+HTMLCollection.prototype.indexOf = function(el) {
+	for (let i = 0; i < this.length; i++) {
+		if (this[i] === el) return i
+	}
+}
 
 const px = 'px'
 function noPx(value) {
@@ -385,6 +615,10 @@ function noPx(value) {
 const imgs = document.getElementsByTagName("img")
 for (let img of imgs) {
   img.draggable = false
+}
+let links = document.getElementsByTagName('a')
+for (let a of links) {
+	a.target = '_blank'
 }
 
 const groundCanvas = document.getElementById("canvas_ground")
@@ -807,6 +1041,28 @@ checkAudioProgress()
 
 function copyContact(contact) {
 	window.prompt("", contact);
+}
+
+
+// TABS
+
+const TAB_SELECTED = 'tab_selected'
+const PAGE_SELECTED = 'page_selected'
+let tabs = getByClass('tab')
+let pages = getByClass('page')
+
+function onTabClick(e) {
+	getByClass(TAB_SELECTED)[0].classList.remove(TAB_SELECTED)
+	getByClass(PAGE_SELECTED)[0].classList.remove(PAGE_SELECTED)
+	this.classList.add(TAB_SELECTED)
+
+	let index = tabs.indexOf(this)
+	pages[index].classList.add(PAGE_SELECTED)
+}
+
+for (let tab of tabs) {
+	poop(tab)
+	tab.onclick = onTabClick
 }
 
 </script>

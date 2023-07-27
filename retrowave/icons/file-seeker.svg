@@ -1,0 +1,18 @@
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	width="22"
+	height="22"
+	viewBox="0 0 22 22"
+	>
+	<path
+		fill="white"
+		d="M 9 3 h -7 v 1 h -1 v 1 v 13 h 1 v 1 h 18 v -1 h 1 v -12 h -1 v -1 h -10 v -1 h -1 v -1 z"
+		/>
+	<path
+		stroke="white"
+		stroke-width="1"
+		fill="black"
+		fill-opacity="0.8"
+		d="M 9 3 h -7 v 1 h -1 v 1 v 13 h 1 v 1 h 9 v -1 h 1 v -2 h 1 v -6 h -1 v -3 h -1 v -2 h -1 v -1 h -1 z"
+		/>
+</svg>
