@@ -494,7 +494,7 @@ canvas {
 					</div>
 				</a>
 				<br><br><br>
-				<video width="460" preload="none" controls>
+				<video width="460" preload="none" controls style="background-color: black;">
 				    <source type="video/mp4" src="https://user-images.githubusercontent.com/14147217/255355638-59cbb785-d17d-46e0-a8fe-b8a8210959ec.mp4">
 				</video>
 			</div>
@@ -853,6 +853,7 @@ function showPicture() {
 }
 
 
+const VOLUME_SCALE = 3
 const volumeBox = get("volume_box")
 const volumeTrack = get("volume_track")
 const volumeIcon = get("volume_icon")
@@ -882,7 +883,7 @@ function updadeVolumeOffset(height) {
 	volumeTrack.style.height = height + px
 
 	let volume = (height - min) / (volumeBox.clientHeight - min)
-	audio.volume = Math.pow(volume, 2)
+	audio.volume = Math.pow(volume, VOLUME_SCALE)
 }
 volumeBox.onclick = function(event) {
 	if (!allowClicks) return
@@ -891,7 +892,7 @@ volumeBox.onclick = function(event) {
 }
 
 function onVolumeChanged(event) {
-	updateVolumeIcon(Math.sqrt(audio.volume))
+	updateVolumeIcon(Math.pow(audio.volume, 1 / VOLUME_SCALE))
 }
 
 function updateVolumeIcon(volume) {
@@ -1024,7 +1025,7 @@ function onFontLoaded() {
 document.fonts.ready.then(onFontLoaded)
 
 audio.loop = true
-audio.volume = Math.pow(0.5, 2)
+audio.volume = Math.pow(0.5, VOLUME_SCALE)
 audio.onvolumechange = onVolumeChanged
 updateVolumeIcon(audio.volume)
 const zeroTwoMoments = [ 48, 127 ]
