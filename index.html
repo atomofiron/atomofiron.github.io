@@ -294,6 +294,9 @@ canvas {
 .text-line {
 	background-color: black;
 }
+.wrapped {
+	white-space: normal;
+}
 .page {
 	color: white;
 	display: none;
@@ -372,7 +375,7 @@ canvas {
 
 	<div>
 		<canvas id="canvas_ground" style="position: absolute; width: 100%;"></canvas>
-		<div style="position: absolute; max-width: 468px; left: 0; right: 0; margin: auto; padding-top: 8px;">
+		<div style="position: absolute; max-width: 460px; left: 0; right: 0; margin: auto; padding-top: 8px; white-space: nowrap; overflow-x: scroll;">
 			<div class="tab tab_selected">
 				<div>
 					<img src="./retrowave/icons/account-box.svg" />
@@ -469,7 +472,7 @@ canvas {
 				<br><br><br>
 				<span class="headline">Languages and libs I use:</span>
 				<br><br>
-				<font class="text-line">
+				<font class="text-line wrapped">
 					Kotlin <span style="color: #aaa;">- Material, Dagger 2, Coroutines, Room, AndroidX (preference & datastore, lifecycle, navigation), Compose, Picasso, Leak Canary, Play Core, Insets</span>
 					<br><br>
 					Rust <span style="color: #aaa;">- clap, nix, image, regex, indicatif, svg, rayon</span>
