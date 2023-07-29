@@ -1,11 +1,23 @@
 <svg
-	xmlns="http://www.w3.org/2000/svg"
-	width="22"
-	height="22"
-	viewBox="0 0 22 22"
-	>
-	<path
-		fill="white"
-		d="Mz"
-		/>
+    xmlns="http://www.w3.org/2000/svg"
+    width="22"
+    height="22"
+    viewBox="0 0 22 22"
+    >
+    <path
+        fill="white"
+        d="M 9 21 h 4 v -1 h -1 v -1 h -2 v 1 h -1 z"
+        />
+    <path
+        fill="white"
+        d="M 7 20 v -1 h 1 v -1 h 1 v -1 h 4 v 1 h 1 v 1 h 1 v 1 h 2 v -1 h 1 v -2 h -1 v -1 h -1 v -1 h -2 v -1 h -6 v 1 h -2 v 1 h -1 v 1 h -1 v 2 h 1 v 1 z"
+        />
+    <path
+        fill="white"
+        d="M 2 16 h 1 v -1 h 1 v -1 h 1 v -1 h 2 v -1 h 8 v 1 h 2 v 1 h 1 v 1 h 1 v 1 h 1 v -1 h 1 v -5 h -1 v -1 h -2 v -1 h -2 v -1 h -3 v -1 h -4 v 1 h -3 v 1 h -2 v 1 h -2 v 1 h -1 v 5 h 1 z"
+        />
+    <path
+        fill="white"
+        d="M 2 7 h 1 v -1 h 2 v -1 h 3 v -1 h 6 v 1 h 3 v 1 h 2 v 1 h 1 v -2 h -1 v -1 h -1 v -1 h -1 v -1 h -2 v -1 h -8 v 1 h -2 v 1 h -1 v 1 h -1 v 1 h -1 z"
+        />
 </svg>
