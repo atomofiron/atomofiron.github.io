@@ -6,6 +6,13 @@
 	>
 	<path
 		fill="white"
-		d="Mz"
+		fill-rule="evenodd"
+		d="M 2 4 v 14 h 1 v 1 h 1 v 1 h 14 v -1 h 1 v -1 h 1 v -14 h -1 v -1 h -1 v -1 h -14 v 1 h -1 v 1 h -1 z
+		M 13 4 h 4 v 1 h 1 v 12 h -1 v 1 h -12 v -1 h -1 v -12 h 1 v -1 h 2 v 1 h 1 v 1 h 1 v 1 h 4 v -1 h 1 v -1 h 1 v -1 z
+		M 10 4 h 2 v 2 h -2 z"
+		/>
+	<path
+		fill="white"
+		d="M 7 17 h 8 v -2 h -8	 z"
 		/>
 </svg>
