@@ -1074,6 +1074,7 @@ let frameLoadedCount = 0
 let frames = []
 let zeroTwoInterval = null
 let currentFrame = ZERO2_FRAME_COUNT - 1
+let isZeroTwoVisible = false
 
 function onZeroTwoFrameLoaded() {
 	frameLoadedCount++
@@ -1094,6 +1095,8 @@ function initZeroTwo() {
 	}
 }
 function startZeroTwo() {
+	if (isZeroTwoVisible) return
+	isZeroTwoVisible = true
 	currentFrame = ZERO2_FRAME_COUNT - 1
 	nextZeroTwo()
 	zeroTwoInterval = setInterval(nextZeroTwo, 34)
@@ -1106,6 +1109,7 @@ function nextZeroTwo() {
 }
 function stopZeroTwo() {
 	clearInterval(zeroTwoInterval)
+	isZeroTwoVisible = false
 	if (frames.length != 0) frames[currentFrame].style.display = 'none'
 }
 
