@@ -342,11 +342,8 @@ canvas {
 <div id="content">
 	<div id="header">
 		<div class="center_box">
-			<div>
-				<!-- <img id="zero2" src="./retrowave/02.webp" width="800" /> -->
-				<video id="zero2" autoplay width="800" loop="" playsmuted="" muted="" [muted]="'muted'">
-				    <source src="./retrowave/02-16.mp4" type="video/mp4">
-				</video>
+			<div id="zero2_container">
+				<!-- <img id='frame_%d' src='./retrowave/frame_%d.webp' /> -->
 			</div>
 		</div>
 
@@ -685,7 +682,7 @@ const hLineWidthMax = lineWidthMax * 2
 const hLineCount = 25
 let vLineCount = 30
 
-const zeroTwo = get("zero2")
+const zeroTwoContainer = get("zero2_container")
 const tanLimit = Math.PI / 2
 let time = 0
 
@@ -880,7 +877,7 @@ function zeroTwoElsePicture(showZeroTwo) {
 	avaRed.style.display = picture
 	avaGreen.style.display = picture
 	avaBlue.style.display = picture
-	zeroTwo.style.display = showZeroTwo ? 'block' : 'none'
+	showZeroTwo ? startZeroTwo() : stopZeroTwo()
 }
 
 function hidePicture() {
@@ -1050,6 +1047,7 @@ startButton.onclick = function() {
 	setInterval(drawWorld, 20)
 }
 
+const ZERO2_FRAME_COUNT = 56
 const audio = new Audio()
 const mnts = new Image()
 const red = new Image()
@@ -1060,7 +1058,6 @@ red.onload = onResourceLoaded
 green.onload = onResourceLoaded
 blue.onload = onResourceLoaded
 audio.oncanplay = onResourceLoaded
-zeroTwo.oncanplay = onResourceLoaded
 
 function onFontLoaded() {
 	onResourceLoaded()
@@ -1069,8 +1066,48 @@ function onFontLoaded() {
 	blue.src = "./retrowave/blue.png"
 	mnts.src = "./retrowave/mnts.png"
 	audio.src = "./retrowave/cut.mp3"
+	initZeroTwo()
 }
 document.fonts.ready.then(onFontLoaded)
+
+let frameLoadedCount = 0
+let frames = []
+let zeroTwoInterval = null
+let currentFrame = ZERO2_FRAME_COUNT - 1
+
+function onZeroTwoFrameLoaded() {
+	frameLoadedCount++
+	if (frameLoadedCount == ZERO2_FRAME_COUNT) {
+		onResourceLoaded()
+	}
+}
+function initZeroTwo() {
+	for (let i = 0; i < ZERO2_FRAME_COUNT; i++) {
+		let img = new Image()
+		img.width = 800
+		img.id = 'frame_' + i
+		img.onload = onZeroTwoFrameLoaded
+		img.src = './retrowave/02/frame_' + i + '.webp'
+		img.style.display = 'none'
+		frames.push(img)
+		zeroTwoContainer.appendChild(img)
+	}
+}
+function startZeroTwo() {
+	currentFrame = ZERO2_FRAME_COUNT - 1
+	nextZeroTwo()
+	zeroTwoInterval = setInterval(nextZeroTwo, 34)
+}
+function nextZeroTwo() {
+	frames[currentFrame].style.display = 'none'
+	currentFrame++
+	currentFrame %= ZERO2_FRAME_COUNT
+	frames[currentFrame].style.display = 'block'
+}
+function stopZeroTwo() {
+	clearInterval(zeroTwoInterval)
+	if (frames.length != 0) frames[currentFrame].style.display = 'none'
+}
 
 audio.loop = true
 audio.volume = Math.pow(0.5, VOLUME_SCALE)
@@ -1113,7 +1150,6 @@ function onTabClick(e) {
 }
 
 for (let tab of tabs) {
-	poop(tab)
 	tab.onclick = onTabClick
 }
 
