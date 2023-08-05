@@ -320,12 +320,39 @@ canvas {
 	top: -5px;
 	z-index: 1;
 }
-.pet_link_icon {
-	float: right;
+.pet_lang {
+	background-color: black;
+	margin-top: 8px;
+	display: inline-block;
+	position: absolute;
+	padding: 2px 0px;
+}
+.pet_lang div {
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.pet_lang img {
+	margin-left: 4px;
+}
+.pet_link_buttons {
+	text-align: right;
+	margin-top: 8px;
+}
+.pet_link_button {
 	background-color: black;
 	border: 1px solid black;
+	border-bottom: 1px solid #ff00ff;
+	display: inline-block;
 }
-.pet_link_icon:hover {
+.pet_link_button div {
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.pet_link_button:hover {
 	cursor: pointer;
 	border: 1px solid #ff00ff;
 }
@@ -492,12 +519,23 @@ canvas {
 			<br><br>
 			<div class="page">
 				<span class="headline">Image to Flipper Animation converter</span>
-				<a href="https://github.com/Atomofiron/img2fbm">
-					<div class="pet_link_icon">
-						<img src="./retrowave/socials/github-circle.svg" />
+				<br>
+				<div class="pet_lang">
+					<div>
+						Lang: Rust<img src="./retrowave/icons/rust.svg" />
 					</div>
-				</a>
-				<br><br>
+				</div>
+				<div class="pet_link_buttons">
+					<div class="pet_link_button">
+						<a href="https://github.com/Atomofiron/img2fbm">
+							<div>
+								<img src="./retrowave/socials/github-circle.svg" />
+								&nbsp;Repository&nbsp;
+								<img src='./retrowave/icons/follow-outside.svg' />
+							</div>
+						</a>
+					</div>
+				</div>
 				<video width="460" height="222" preload="none" controls style="background-color: black;">
 				    <source type="video/mp4" src="https://user-images.githubusercontent.com/14147217/255355638-59cbb785-d17d-46e0-a8fe-b8a8210959ec.mp4">
 				</video>
@@ -545,18 +583,33 @@ canvas {
 			</div>
 			<div class="page">
 				<span class="headline">Tree file manager</span>
-				<a href="https://github.com/Atomofiron/android-search-box-app">
-					<div class="pet_link_icon">
-						<img src="./retrowave/socials/github-circle.svg" />
+				<br>
+				<div class="pet_lang">
+					<div>
+						Lang: Kotlin<img src="./retrowave/icons/kotlin.svg" />
 					</div>
-				</a>
-				<div style="float: right;">&nbsp;</div>
-				<a href="https://play.google.com/store/apps/details?id=app.atomofiron.searchboxapp">
-					<div class="pet_link_icon">
-						<img src="./retrowave/socials/google-play.svg" />
+				</div>
+				<div class="pet_link_buttons">
+					<div class="pet_link_button">
+						<a href="https://play.google.com/store/apps/details?id=app.atomofiron.searchboxapp">
+							<div>
+								<img src="./retrowave/socials/google-play.svg" />
+								&nbsp;Google Play&nbsp;
+								<img src='./retrowave/icons/follow-outside.svg' />
+							</div>
+						</a>
 					</div>
-				</a>
-				<br><br><br>
+					<div class="pet_link_button">
+						<a href="https://github.com/Atomofiron/android-search-box-app">
+							<div>
+								<img src="./retrowave/socials/github-circle.svg" />
+								&nbsp;Repository&nbsp;
+								<img src='./retrowave/icons/follow-outside.svg' />
+							</div>
+						</a>
+					</div>
+				</div>
+				<br>
 				<div style="white-space: nowrap; overflow-x: scroll;">
 					<img height=640 src="https://play-lh.googleusercontent.com/1X3XF7HCZPMgH4t9fWUOrbbglHhh0YrB35OV3BQdYed00sdlIGUBfGC49M7n-7BsU0hx=h1280-rw" />
 					<img height=640 src="https://play-lh.googleusercontent.com/yydVZk4XxV7Xr20i-5UnlWy-pHIhRmvXLdCIf_Iq8PqDt_5lEuIVgOzso6_bAjmhmw=h1280-rw" />
@@ -575,47 +628,99 @@ canvas {
 			</div>
 			<div class="page">
 				<span class="headline">WiFi scanner</span>
-				<a href="https://github.com/Atomofiron/WirelessScan">
-					<div class="pet_link_icon">
-						<img src="./retrowave/socials/github-circle.svg" />
+				<br>
+				<div class="pet_lang">
+					<div>
+						Lang: Kotlin<img src="./retrowave/icons/kotlin.svg" />
 					</div>
-				</a>
-				<div style="float: right;">&nbsp;</div>
-				<a href="https://play.google.com/store/apps/details?id=ru.raslav.wirelessscan">
-					<div class="pet_link_icon">
-						<img src="./retrowave/socials/google-play.svg" />
+				</div>
+				<div class="pet_link_buttons">
+					<div class="pet_link_button">
+						<a href="https://play.google.com/store/apps/details?id=ru.raslav.wirelessscan">
+							<div>
+								<img src="./retrowave/socials/google-play.svg" />
+								&nbsp;Google Play&nbsp;
+								<img src='./retrowave/icons/follow-outside.svg' />
+							</div>
+						</a>
 					</div>
-				</a>
-				<br><br><br>
+					<div class="pet_link_button">
+						<a href="https://github.com/Atomofiron/WirelessScan">
+							<div>
+								<img src="./retrowave/socials/github-circle.svg" />
+								&nbsp;Repository&nbsp;
+								<img src='./retrowave/icons/follow-outside.svg' />
+							</div>
+						</a>
+					</div>
+				</div>
+				<br>
 				<img width=360 src="https://github.com/Atomofiron/WirelessScan/raw/master/screenshots/main.png">
 			</div>
 			<div class="page">
 				<span class="headline">Your feelings diary</span>
-				<a href="https://play.google.com/store/apps/details?id=io.sergiolabs.feelingsdiary">
-					<div class="pet_link_icon">
-						<img src="./retrowave/socials/google-play.svg" />
+				<br>
+				<div class="pet_lang">
+					<div>
+						Lang: Kotlin<img src="./retrowave/icons/kotlin.svg" />
 					</div>
-				</a>
+				</div>
+				<div class="pet_link_buttons">
+					<div class="pet_link_button">
+						<a href="https://play.google.com/store/apps/details?id=io.sergiolabs.feelingsdiary">
+							<div>
+								<img src="./retrowave/socials/google-play.svg" />
+								&nbsp;Google Play&nbsp;
+								<img src='./retrowave/icons/follow-outside.svg' />
+							</div>
+						</a>
+					</div>
+				</div>
+				<br>
 			</div>
 			<div class="page">
 				<span class="headline">Android window insets controller</span>
-				<a href="https://github.com/Atomofiron/android-window-insets-compat">
-					<div class="pet_link_icon">
-						<img src="./retrowave/socials/github-circle.svg" />
+				<br>
+				<div class="pet_lang">
+					<div>
+						Lang: Kotlin<img src="./retrowave/icons/kotlin.svg" />
 					</div>
-				</a>
-				<br><br>
-				<img width=460 src="https://github.com/Atomofiron/android-window-insets-compat/raw/main/stuff/insets_demo.png">
+				</div>
+				<div class="pet_link_buttons">
+					<div class="pet_link_button">
+						<a href="https://github.com/Atomofiron/android-window-insets-compat">
+							<div>
+								<img src="./retrowave/socials/github-circle.svg" />
+								&nbsp;Repository&nbsp;
+								<img src='./retrowave/icons/follow-outside.svg' />
+							</div>
+						</a>
+					</div>
+				</div>
+				<br>
+				<img width=460 style="transform: scale(1.035);" src="https://github.com/Atomofiron/android-window-insets-compat/raw/main/stuff/insets_demo.png">
 			</div>
 			<div class="page">
 				<span class="headline">ADB resolver for Linux</span>
-				<a href="https://github.com/Atomofiron/green-pain">
-					<div class="pet_link_icon">
-						<img src="./retrowave/socials/github-circle.svg" />
+				<br>
+				<div class="pet_lang">
+					<div>
+						Lang: Rust<img src="./retrowave/icons/rust.svg" />
 					</div>
-				</a>
-				<br><br>
-				<img width=460 src="https://github.com/Atomofiron/green-pain/raw/main/stuff/screenshot.png">
+				</div>
+				<div class="pet_link_buttons">
+					<div class="pet_link_button">
+						<a href="https://github.com/Atomofiron/green-pain">
+							<div>
+								<img src="./retrowave/socials/github-circle.svg" />
+								&nbsp;Repository&nbsp;
+								<img src='./retrowave/icons/follow-outside.svg' />
+							</div>
+						</a>
+					</div>
+				</div>
+				<br>
+				<img width=460 style="transform: scale(1.07);" src="https://github.com/Atomofiron/green-pain/raw/main/stuff/screenshot.png">
 			</div>
 		</div>
 	</div>
