@@ -118,6 +118,16 @@ canvas {
 	position: relative;
 	text-align: center;
 }
+#zero2_container {
+	top: 0;
+	margin: auto;
+	position: absolute;
+}
+#zero2_container img {
+	top: 0;
+	margin: auto;
+	position: absolute;
+}
 .center_box {
 	display: flex;
 	justify-content: center;
@@ -371,10 +381,8 @@ canvas {
 </div>
 <div id="content">
 	<div id="header">
-		<div class="center_box">
-			<div id="zero2_container">
-				<!-- <img id='frame_%d' src='./retrowave/frame_%d.webp' /> -->
-			</div>
+		<div id="zero2_container" class="center_box">
+			<!-- <img id='frame_%d' src='./retrowave/frame_%d.webp' /> -->
 		</div>
 
 		<div id="firmament" class="center_box"></div>
@@ -1193,6 +1201,8 @@ let frames = []
 let zeroTwoInterval = null
 let currentFrame = ZERO2_FRAME_COUNT - 1
 let isZeroTwoVisible = false
+const TIK_INTERVAL = 34
+let lastTik = 0
 
 function onZeroTwoFrameLoaded() {
 	frameLoadedCount++
@@ -1207,7 +1217,7 @@ function initZeroTwo() {
 		img.id = 'frame_' + i
 		img.onload = onZeroTwoFrameLoaded
 		img.src = './retrowave/02/frame_' + i + '.webp'
-		img.style.display = 'none'
+		img.style.opacity = 0
 		frames.push(img)
 		zeroTwoContainer.appendChild(img)
 	}
@@ -1215,20 +1225,27 @@ function initZeroTwo() {
 function startZeroTwo() {
 	if (isZeroTwoVisible) return
 	isZeroTwoVisible = true
+	lastTik = 0
 	currentFrame = ZERO2_FRAME_COUNT - 1
-	nextZeroTwo()
-	zeroTwoInterval = setInterval(nextZeroTwo, 34)
+	zeroTwoInterval = setInterval(nextZeroTwo, 3)
 }
 function nextZeroTwo() {
-	frames[currentFrame].style.display = 'none'
-	currentFrame++
-	currentFrame %= ZERO2_FRAME_COUNT
-	frames[currentFrame].style.display = 'block'
+	let now = new Date().getTime()
+	let dif = now - lastTik
+	if (dif >= TIK_INTERVAL) {
+		lastTik = ((lastTik > 0) ? (lastTik + TIK_INTERVAL) : now)
+
+		let prev = currentFrame
+		currentFrame++
+		currentFrame %= ZERO2_FRAME_COUNT
+		frames[currentFrame].style.opacity = 1
+		frames[prev].style.opacity = 0
+	}
 }
 function stopZeroTwo() {
 	clearInterval(zeroTwoInterval)
 	isZeroTwoVisible = false
-	if (frames.length != 0) frames[currentFrame].style.display = 'none'
+	if (frames.length != 0) frames[currentFrame].style.opacity = 0
 }
 
 audio.loop = true
