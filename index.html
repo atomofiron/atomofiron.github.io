@@ -1186,7 +1186,11 @@ green.onload = onResourceLoaded
 blue.onload = onResourceLoaded
 audio.oncanplay = onResourceLoaded
 
+let fontWasLoaded = false
 function onFontLoaded() {
+	if (fontWasLoaded) return
+	fontWasLoaded = true
+
 	onResourceLoaded()
 	red.src = "./retrowave/red.png"
 	green.src = "./retrowave/green.png"
@@ -1196,6 +1200,8 @@ function onFontLoaded() {
 	initZeroTwo()
 }
 document.fonts.ready.then(onFontLoaded)
+// try to fix in Safari on iOS
+document.fonts.onloadingdone = onFontLoaded
 
 let frameLoadedCount = 0
 let frames = []
