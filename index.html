@@ -1147,6 +1147,10 @@ for (let i = 0; i < progressMax; i++) {
 function onResourceLoaded() {
 	progress++
 	setProgress(progress)
+	if (progress == progressMax - 1) {
+		// fix in Safari on iOS
+		audio.load()
+	}
 	if (progress == progressMax) {
 		progressTitle.innerText = loadingCompleted
 		startButton.style.visibility = 'visible'
