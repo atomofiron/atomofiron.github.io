@@ -786,6 +786,8 @@ function noPx(value) {
 	let str = value.endsWith(px) ? value.substring(0, value.length - 2) : value
 	return (str.length == 0) ? 0 : parseInt(str)
 }
+let userAgent = navigator.userAgent
+const isIPhone = userAgent.includes("iPhone")
 
 const imgs = document.getElementsByTagName("img")
 for (let img of imgs) {
@@ -1029,24 +1031,35 @@ const VOLUME_SCALE = 3
 const volumeBox = get("volume_box")
 const volumeTrack = get("volume_track")
 const volumeIcon = get("volume_icon")
-const startVolume = function(ev) {
-	allowClicks = true
-	volumeBox.onmousemove = moveVolume
-}
-const stopVolume = function() {
-	volumeBox.onmousemove = null
-}
-volumeBox.onmousedown = startVolume
-volumeBox.onmouseleave = stopVolume
-volumeBox.onmouseup = stopVolume
-volumeBox.onpointerdown = startVolume
-volumeBox.onpointereave = stopVolume
-volumeBox.onpointerup = stopVolume
-let allowClicks = true
-const moveVolume = function(event) {
-	allowClicks = false
-	let height = noPx(volumeTrack.style.height) - event.movementY
-	updadeVolumeOffset(height)
+
+if (isIPhone) {
+	volumeIcon.src = './retrowave/apple.svg'
+	volumeTrack.style.height = volumeBox.clientHeight + px
+} else {
+	const startVolume = function(ev) {
+		allowClicks = true
+		volumeBox.onmousemove = moveVolume
+	}
+	const stopVolume = function() {
+		volumeBox.onmousemove = null
+	}
+	volumeBox.onmousedown = startVolume
+	volumeBox.onmouseleave = stopVolume
+	volumeBox.onmouseup = stopVolume
+	volumeBox.onpointerdown = startVolume
+	volumeBox.onpointereave = stopVolume
+	volumeBox.onpointerup = stopVolume
+	let allowClicks = true
+	const moveVolume = function(event) {
+		allowClicks = false
+		let height = noPx(volumeTrack.style.height) - event.movementY
+		updadeVolumeOffset(height)
+	}
+	volumeBox.onclick = function(event) {
+		if (!allowClicks) return
+		const height = volumeBox.clientHeight - event.clientY + 40
+		updadeVolumeOffset(height)
+	}
 }
 function updadeVolumeOffset(height) {
 	const min = 40
@@ -1056,11 +1069,6 @@ function updadeVolumeOffset(height) {
 
 	let volume = (height - min) / (volumeBox.clientHeight - min)
 	audio.volume = Math.pow(volume, VOLUME_SCALE)
-}
-volumeBox.onclick = function(event) {
-	if (!allowClicks) return
-	const height = volumeBox.clientHeight - event.clientY + 40
-	updadeVolumeOffset(height)
 }
 
 function onVolumeChanged(event) {
@@ -1072,7 +1080,6 @@ function updateVolumeIcon(volume) {
 	else if (volume < 1) volumeIcon.src = './retrowave/volume-low.png'
 	else volumeIcon.src = './retrowave/volume-high.png'
 }
-
 
 
 const name = "Yaroslav Nesterov"
@@ -1259,10 +1266,12 @@ function stopZeroTwo() {
 	if (frames.length != 0) frames[currentFrame].style.opacity = 0
 }
 
-audio.loop = true
-audio.volume = Math.pow(0.5, VOLUME_SCALE)
-audio.onvolumechange = onVolumeChanged
-updateVolumeIcon(audio.volume)
+if (!isIPhone) {
+	audio.loop = true
+	audio.volume = Math.pow(0.5, VOLUME_SCALE)
+	audio.onvolumechange = onVolumeChanged
+	updateVolumeIcon(audio.volume)
+}
 const zeroTwoMoments = [ 48, 127 ]
 const pictureMoments = [ 0, 79, 143 ]
 function checkAudioProgress() {
