@@ -1196,6 +1196,7 @@ red.onload = onResourceLoaded
 green.onload = onResourceLoaded
 blue.onload = onResourceLoaded
 audio.oncanplay = onResourceLoaded
+audio.loop = true
 
 let fontWasLoaded = false
 function onFontLoaded() {
@@ -1267,7 +1268,6 @@ function stopZeroTwo() {
 }
 
 if (!isIPhone) {
-	audio.loop = true
 	audio.volume = Math.pow(0.5, VOLUME_SCALE)
 	audio.onvolumechange = onVolumeChanged
 	updateVolumeIcon(audio.volume)
