@@ -119,12 +119,7 @@ canvas {
 	position: relative;
 	text-align: center;
 }
-#zero2_container {
-	top: 0;
-	margin: auto;
-	position: absolute;
-}
-#zero2_container img {
+#zero2_canvas {
 	top: 0;
 	margin: auto;
 	position: absolute;
@@ -382,9 +377,7 @@ canvas {
 </div>
 <div id="content">
 	<div id="header">
-		<div id="zero2_container" class="center_box">
-			<!-- <img id='frame_%d' src='./retrowave/frame_%d.webp' /> -->
-		</div>
+		<canvas id="zero2_canvas" class="center_box" width=800 height=720 style="width: 800px; height: 450px;"></canvas>
 
 		<div id="firmament" class="center_box"></div>
 		<div id="sky" class="center_box">
@@ -805,10 +798,10 @@ for (let a of links) {
 }
 
 const groundCanvas = document.getElementById("canvas_ground")
-const ground = groundCanvas.getContext("2d");
+const ground = groundCanvas.getContext("2d")
 
 const skyCanvas = document.getElementById("canvas_sky")
-const sky = skyCanvas.getContext("2d");
+const sky = skyCanvas.getContext("2d")
 
 const pixelRatio = window.devicePixelRatio
 const lineWidthMin = 0.5 * pixelRatio
@@ -817,7 +810,8 @@ const hLineWidthMax = lineWidthMax * 2
 const hLineCount = 25
 let vLineCount = 30
 
-const zeroTwoContainer = get("zero2_container")
+const zeroTwoCanvas= get("zero2_canvas")
+const zeroTwoCtx = zeroTwoCanvas.getContext("2d");
 const tanLimit = Math.PI / 2
 let time = 0
 
@@ -1239,12 +1233,10 @@ function initZeroTwo() {
 	for (let i = 0; i < ZERO2_FRAME_COUNT; i++) {
 		let img = new Image()
 		img.width = 800
-		img.id = 'frame_' + i
 		img.onload = onZeroTwoFrameLoaded
 		img.src = './retrowave/02/frame_' + i + '.webp'
 		img.style.opacity = 0
 		frames.push(img)
-		zeroTwoContainer.appendChild(img)
 	}
 }
 function startZeroTwo() {
@@ -1253,6 +1245,7 @@ function startZeroTwo() {
 	lastTik = 0
 	currentFrame = ZERO2_FRAME_COUNT - 1
 	zeroTwoInterval = setInterval(nextZeroTwo, 3)
+	zeroTwoCanvas.style.visibility = 'visible'
 }
 function nextZeroTwo() {
 	let now = new Date().getTime()
@@ -1263,14 +1256,14 @@ function nextZeroTwo() {
 		let prev = currentFrame
 		currentFrame++
 		currentFrame %= ZERO2_FRAME_COUNT
-		frames[currentFrame].style.opacity = 1
-		frames[prev].style.opacity = 0
+		let frame = frames[currentFrame]
+		zeroTwoCtx.drawImage(frame, 0, 0, frame.width, frame.height)
 	}
 }
 function stopZeroTwo() {
 	clearInterval(zeroTwoInterval)
 	isZeroTwoVisible = false
-	if (frames.length != 0) frames[currentFrame].style.opacity = 0
+	if (frames.length != 0) zeroTwoCanvas.style.visibility = 'hidden'
 }
 
 if (!isIPhone) {
