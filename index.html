@@ -1072,6 +1072,9 @@ function updadeVolumeOffset(height) {
 }
 
 function onVolumeChanged(event) {
+	if (audio.paused) {
+		audio.play()
+	}
 	updateVolumeIcon(Math.pow(audio.volume, 1 / VOLUME_SCALE))
 }
 
@@ -1251,10 +1254,11 @@ function nextZeroTwo() {
 	let now = new Date().getTime()
 	let dif = now - lastTik
 	if (dif >= TIK_INTERVAL) {
-		lastTik = ((lastTik > 0) ? (lastTik + TIK_INTERVAL) : now)
+		let inc = Math.round(dif / TIK_INTERVAL)
+		lastTik = (lastTik > 0) ? (lastTik + inc * TIK_INTERVAL) : now
 
 		let prev = currentFrame
-		currentFrame++
+		currentFrame += inc
 		currentFrame %= ZERO2_FRAME_COUNT
 		let frame = frames[currentFrame]
 		zeroTwoCtx.drawImage(frame, 0, 0, frame.width, frame.height)
