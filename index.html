@@ -886,6 +886,7 @@ function drawWorld() {
 
 const stars = [ ]
 const starCount = 300
+const maxLight = "rgb(255 255 255)"
 
 for (let i = 0; i < starCount; i++) {
 	stars.push(null)
@@ -894,12 +895,12 @@ for (let i = 0; i < starCount; i++) {
 	stars[i] = stars[j]
 	stars[j] = [ i, Math.sqrt(Math.random()) ]
 }
+
 function drawStars() {
 	const skyWidth = skyCanvas.width
 	const skyHeight = skyCanvas.height
 	if (skyHeight <= 0) return
 	sky.lineWidth = lineWidthMin
-	sky.strokeStyle = "#ffffff"
 
 	let dx = 0
 	for (let i = 0; i < stars.length; i++) {
@@ -913,6 +914,13 @@ function drawStars() {
 		if (y2 > skyHeight) continue
 		const lineWidth = lineWidthMax * (y / skyHeight)
 		sky.lineWidth = Math.max(lineWidthMin, lineWidth)
+		let dy = y - y2
+		if (dy < 4) {
+			let alpha = Math.round(Math.pow(1.0 - Math.cos(Math.min(y - y2, 4.0) / 4.0 * Math.PI / 2.0), 2) * 100.0)
+			sky.strokeStyle = "rgb(255 255 255 / " + alpha + "%)"
+		} else {
+			sky.strokeStyle = maxLight
+		}
 		y += skyHeight * star[1]
 		y2 += skyHeight * star[1]
 		if (y2 > skyHeight) continue
