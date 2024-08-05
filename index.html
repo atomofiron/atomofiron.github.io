@@ -905,7 +905,7 @@ function drawStars() {
 	let dx = 0
 	for (let i = 0; i < stars.length; i++) {
 		dx += skyWidth / stars.length
-		if (Math.abs(dx - skyWidth / 2) < 50) {
+		if (Math.abs(dx - skyWidth / 2) < 100) {
 			continue // make the center clean
 		}
 		const star = stars[i]
