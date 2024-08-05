@@ -1080,7 +1080,7 @@ function updadeVolumeOffset(height) {
 }
 
 function onVolumeChanged(event) {
-	if (audio.paused) {
+	if (isStarted && audio.paused) {
 		audio.play()
 	}
 	updateVolumeIcon(Math.pow(audio.volume, 1 / VOLUME_SCALE))
@@ -1187,8 +1187,10 @@ function setProgress(count) {
 }
 setProgress(0)
 
+let isStarted = false
 const startButton = get("start_button")
 startButton.onclick = function() {
+	isStarted = true
 	progressBoxOverlay.style.display = 'none'
 	audio.play()
 	get("content").style.display = 'block'
