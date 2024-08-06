@@ -824,28 +824,31 @@ document.onresize = updateLinesCount
 window.onresize = updateLinesCount
 updateLinesCount()
 
-function drowVerticalLines(frameWidth, frameHeight) {
-	ground.lineCap = 'round'
-	ground.strokeStyle = "#ff00ff"
+function drowVerticalLines() {
+	const groundWidth = groundCanvas.width
+	const groundHeight = groundCanvas.height
 
-	const vOffset = 0
-	const hStep = frameWidth / vLineCount
-	const centerX = frameWidth / 2
-	for (let x = hStep / 2; x < frameWidth - hStep / 4; x += hStep) {
-		ground.lineWidth = lineWidthMax * (1 - Math.abs(centerX - x) / centerX)
-		ground.beginPath()
-		ground.moveTo(x, 0)
+	const hStep = groundWidth / vLineCount
+	const centerX = groundWidth / 2
+	const lineWidthMaxHalf = lineWidthMax / 2
+	ground.beginPath()
+	for (let x = hStep / 2; x < groundWidth - hStep / 4; x += hStep) {
 		let dif = centerX - x
+		let lineWidth = Math.max(lineWidthMin * 2, Math.abs(dif) / centerX * lineWidthMax)
 		dif *= Math.abs(dif) / hStep + 5
-		ground.lineTo(x - dif, frameHeight)
-		ground.stroke()
+		let x2 = x - dif
+		ground.moveTo(x, 0)
+		ground.lineTo(x + lineWidth, 0)
+		ground.lineTo(x2 + lineWidthMaxHalf, groundHeight)
+		ground.lineTo(x2 - lineWidthMaxHalf, groundHeight)
+		ground.fill()
 	}
 }
 function drowHorizontalLines() {
 	const groundWidth = groundCanvas.width
 	const groundHeight = groundCanvas.height
 
-	ground.lineWidth = lineWidthMax
+	ground.lineWidth = lineWidthMax / 2
 	ground.beginPath()
 	ground.moveTo(0, 0)
 	ground.lineTo(groundWidth, 0)
@@ -877,7 +880,10 @@ function drawWorld() {
 	skyCanvas.width = windowWidth
 	skyCanvas.height = skyHeight
 
-	drowVerticalLines(windowWidth, windowHeight)
+	ground.lineCap = 'round'
+	ground.strokeStyle = '#ff00ff'
+	ground.fillStyle = '#ff00ff'
+	drowVerticalLines()
 	drowHorizontalLines()
 	drawStars()
 	time += Math.PI / 3000
