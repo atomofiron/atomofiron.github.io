@@ -119,11 +119,6 @@ canvas {
 	position: relative;
 	text-align: center;
 }
-#zero2_canvas {
-	top: 0;
-	margin: auto;
-	position: absolute;
-}
 .center_box {
 	display: flex;
 	justify-content: center;
@@ -376,8 +371,10 @@ canvas {
 	</div>
 </div>
 <div id="content">
-	<div id="header">
-		<canvas id="zero2_canvas" class="center_box" width=800 height=720 style="width: 800px; height: 450px;"></canvas>
+	<div id="header">		
+		<div class="center_box">
+			<canvas id="zero2_canvas" width=1280 height=720 style="width: 800px; height: 450px;"></canvas>
+		</div>
 
 		<div id="firmament" class="center_box"></div>
 		<div id="sky" class="center_box">
@@ -1254,7 +1251,6 @@ function onZeroTwoFrameLoaded() {
 function initZeroTwo() {
 	for (let i = 0; i < ZERO2_FRAME_COUNT; i++) {
 		let img = new Image()
-		img.width = 800
 		img.onload = onZeroTwoFrameLoaded
 		img.src = './retrowave/02/frame_' + i + '.webp'
 		img.style.opacity = 0
